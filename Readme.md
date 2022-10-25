@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Dima Samoshkin](https://up.htmlacademy.ru/react/11/user/127168).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий (sench) Железцов](https://htmlacademy.ru/profile/sench).
 
 ---
 
