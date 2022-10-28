@@ -1,8 +1,14 @@
 import MainScreen from '../../pages/main-screen/main-screen';
 
-function App(): JSX.Element {
+type AppScreenProp = {
+  title: string;
+  genre: string;
+  year: number;
+}
+
+function App({title, genre, year}: AppScreenProp): JSX.Element {
   return (
-    <MainScreen />
+    <MainScreen title={title} genre={genre} year={year}/>
   );
 }
 
