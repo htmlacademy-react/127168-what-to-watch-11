@@ -1,4 +1,5 @@
 import FilmCardComponent from '../../components/film-card-component';
+import Logo from '../../components/logo/logo';
 
 type MainScreenProps = {
   title: string;
@@ -18,13 +19,7 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header film-card__head">
-          <div className="logo">
-            <a className="logo__link" href="#todo">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo />
           <ul className="user-block">
             <li className="user-block__item">
               <div className="user-block__avatar">
