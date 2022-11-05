@@ -1,6 +1,6 @@
-import ReviewComponent from './review-component';
+import ReviewComponent from '../review/review';
 
-function FilmOverviewComponent(): JSX.Element {
+function FilmReviews(): JSX.Element {
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
@@ -14,4 +14,4 @@ function FilmOverviewComponent(): JSX.Element {
   );
 }
 
-export default FilmOverviewComponent;
+export default FilmReviews;

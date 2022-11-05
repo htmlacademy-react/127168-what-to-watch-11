@@ -1,7 +1,7 @@
 import {Helmet} from 'react-helmet-async';
 
 import {LogoPositionClass} from '../../const';
-import FilmCardComponent from '../../components/film-card-component';
+import FilmCard from '../../components/film-card/film-card';
 import Logo from '../../components/logo/logo';
 
 type MainScreenProps = {
@@ -134,7 +134,7 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
             </li>
           </ul>
           <div className="catalog__films-list">
-            {Array.from({length: 20}, FilmCardComponent)};
+            {Array.from({length: 20}, FilmCard)};
           </div>
           <div className="catalog__more">
             <button className="catalog__button" type="button">

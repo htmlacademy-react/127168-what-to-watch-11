@@ -1,7 +1,7 @@
 import {Helmet} from 'react-helmet-async';
 
 import {LogoPositionClass} from '../../const';
-import FilmCardComponent from '../../components/film-card-component';
+import FilmCard from '../../components/film-card/film-card';
 import Logo from '../../components/logo/logo';
 
 function MyListScreen(): JSX.Element {
@@ -29,7 +29,7 @@ function MyListScreen(): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <div className="catalog__films-list">
-          {Array.from({length: 9}, FilmCardComponent)};
+          {Array.from({length: 9}, FilmCard)};
         </div>
       </section>
       <footer className="page-footer">

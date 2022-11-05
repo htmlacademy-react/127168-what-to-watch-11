@@ -1,8 +1,8 @@
 import {Helmet} from 'react-helmet-async';
 
 import {LogoPositionClass} from '../../const';
-import FilmCardComponent from '../../components/film-card-component';
-import FilmOverviewComponent from '../../components/film-overview-component';
+import FilmCard from '../../components/film-card/film-card';
+import FilmOverview from '../../components/film-information/film-overview';
 import Logo from '../../components/logo/logo';
 
 function MoviePageScreen(): JSX.Element {
@@ -96,7 +96,7 @@ function MoviePageScreen(): JSX.Element {
                   </li>
                 </ul>
               </nav>
-              <FilmOverviewComponent />
+              <FilmOverview />
             </div>
           </div>
         </div>
@@ -105,7 +105,7 @@ function MoviePageScreen(): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <div className="catalog__films-list">
-            {Array.from({length: 4}, FilmCardComponent)}
+            {Array.from({length: 4}, FilmCard)}
           </div>
         </section>
         <footer className="page-footer">
