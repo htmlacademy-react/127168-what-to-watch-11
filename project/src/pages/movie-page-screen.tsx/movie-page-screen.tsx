@@ -1,3 +1,5 @@
+import {Helmet} from 'react-helmet-async';
+
 import {LogoPositionClass} from '../../const';
 import FilmCardComponent from '../../components/film-card-component';
 import FilmOverviewComponent from '../../components/film-overview-component';
@@ -7,6 +9,9 @@ function MoviePageScreen(): JSX.Element {
   return (
     <>
       <section className="film-card film-card--full">
+        <Helmet>
+          <title>WTW. Movie page</title>
+        </Helmet>
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img

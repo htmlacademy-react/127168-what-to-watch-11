@@ -1,9 +1,14 @@
+import {Helmet} from 'react-helmet-async';
+
 import {LogoPositionClass} from '../../const';
 import Logo from '../../components/logo/logo';
 
 function NotFoundScreen(): JSX.Element {
   return (
     <section className="film-card">
+      <Helmet>
+        <title>WTW. Ooops! 404!</title>
+      </Helmet>
       <div className="film-card__bg not-found__bg">
         <img
           src="img/travolta.jpg"

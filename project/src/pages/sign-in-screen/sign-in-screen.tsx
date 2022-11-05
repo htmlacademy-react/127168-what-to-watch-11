@@ -1,9 +1,14 @@
+import {Helmet} from 'react-helmet-async';
+
 import {LogoPositionClass} from '../../const';
 import Logo from '../../components/logo/logo';
 
 function SignInScreen(): JSX.Element {
   return (
     <div className="user-page">
+      <Helmet>
+        <title>WTW. Sign in</title>
+      </Helmet>
       <header className="page-header user-page__head">
         <Logo positionClass={LogoPositionClass.Header}/>
         <h1 className="page-title user-page__title">Sign in</h1>

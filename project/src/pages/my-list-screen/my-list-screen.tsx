@@ -1,3 +1,5 @@
+import {Helmet} from 'react-helmet-async';
+
 import {LogoPositionClass} from '../../const';
 import FilmCardComponent from '../../components/film-card-component';
 import Logo from '../../components/logo/logo';
@@ -5,6 +7,9 @@ import Logo from '../../components/logo/logo';
 function MyListScreen(): JSX.Element {
   return (
     <div className="user-page">
+      <Helmet>
+        <title>WTW. My list</title>
+      </Helmet>
       <header className="page-header user-page__head">
         <Logo positionClass={LogoPositionClass.Header}/>
         <h1 className="page-title user-page__title">

@@ -1,3 +1,5 @@
+import {Helmet} from 'react-helmet-async';
+
 import {LogoPositionClass} from '../../const';
 import FilmCardComponent from '../../components/film-card-component';
 import Logo from '../../components/logo/logo';
@@ -12,6 +14,9 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
   return (
     <>
       <section className="film-card">
+        <Helmet>
+          <title>WTW. Main</title>
+        </Helmet>
         <div className="film-card__bg">
           <img
             src="img/bg-the-grand-budapest-hotel.jpg"
