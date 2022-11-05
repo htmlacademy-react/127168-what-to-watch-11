@@ -7,6 +7,12 @@ enum AppRoute {
   Review = '/films/:id/review'
 }
 
+enum AuthorizationStatus {
+    Auth = 'AUTH',
+    NoAuth = 'NO_AUTH',
+    Unknown = 'UNKNOWN'
+}
+
 enum LogoPositionClass {
   Header = 'logo__link',
   Footer = 'logo__link logo__link--light'
@@ -14,5 +20,6 @@ enum LogoPositionClass {
 
 export {
   AppRoute,
+  AuthorizationStatus,
   LogoPositionClass
 };

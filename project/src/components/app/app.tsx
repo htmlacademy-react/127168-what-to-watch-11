@@ -1,5 +1,12 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {
+  BrowserRouter,
+  Route,
+  Routes
+} from 'react-router-dom';
+import {
+  AppRoute,
+  AuthorizationStatus
+} from '../../const';
 
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
@@ -9,11 +16,15 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
 
+import PrivateRoute from '../private-route/private-route';
+
 type AppScreenProp = {
   title: string;
   genre: string;
   year: number;
 }
+
+const authorizationStatus = AuthorizationStatus.NoAuth;
 
 function App({title, genre, year}: AppScreenProp): JSX.Element {
   return (
@@ -34,10 +45,6 @@ function App({title, genre, year}: AppScreenProp): JSX.Element {
           element={<MoviePageScreen />}
         />
         <Route
-          path={AppRoute.Review}
-          element={<AddReviewScreen />}
-        />
-        <Route
           path={AppRoute.Player}
           element={<PlayerScreen />}
         />
@@ -47,7 +54,23 @@ function App({title, genre, year}: AppScreenProp): JSX.Element {
         />
         <Route
           path={AppRoute.MyList}
-          element={<MyListScreen />}
+          element={
+            <PrivateRoute
+              authorizationStatus={authorizationStatus}
+            >
+              <MyListScreen />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={AppRoute.Review}
+          element={
+            <PrivateRoute
+              authorizationStatus={authorizationStatus}
+            >
+              <AddReviewScreen />
+            </PrivateRoute>
+          }
         />
         <Route
           path="*"
