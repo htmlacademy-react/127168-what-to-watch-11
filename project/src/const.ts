@@ -1,4 +1,4 @@
-export enum AppRoute {
+enum AppRoute {
   Film = '/films/:id',
   Login = '/login',
   Main = '/',
@@ -6,3 +6,13 @@ export enum AppRoute {
   Player = '/player/:id',
   Review = '/films/:id/review'
 }
+
+enum LogoPositionClass {
+  Header = 'logo__link',
+  Footer = 'logo__link logo__link--light'
+}
+
+export {
+  AppRoute,
+  LogoPositionClass
+};

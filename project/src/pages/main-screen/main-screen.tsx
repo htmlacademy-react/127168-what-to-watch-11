@@ -1,3 +1,4 @@
+import {LogoPositionClass} from '../../const';
 import FilmCardComponent from '../../components/film-card-component';
 import Logo from '../../components/logo/logo';
 
@@ -19,7 +20,7 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header film-card__head">
-          <Logo />
+          <Logo positionClass={LogoPositionClass.Header}/>
           <ul className="user-block">
             <li className="user-block__item">
               <div className="user-block__avatar">
@@ -137,7 +138,7 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
           </div>
         </section>
         <footer className="page-footer">
-          <Logo />
+          <Logo positionClass={LogoPositionClass.Footer}/>
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>
           </div>

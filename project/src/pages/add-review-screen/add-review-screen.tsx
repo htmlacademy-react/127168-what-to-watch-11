@@ -1,3 +1,4 @@
+import {LogoPositionClass} from '../../const';
 import Logo from '../../components/logo/logo';
 
 function AddReviewScreen(): JSX.Element {
@@ -9,7 +10,7 @@ function AddReviewScreen(): JSX.Element {
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">
-          <Logo />
+          <Logo positionClass={LogoPositionClass.Header}/>
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
