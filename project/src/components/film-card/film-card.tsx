@@ -1,4 +1,4 @@
-function FilmCardComponent(): JSX.Element {
+function FilmCard(): JSX.Element {
   return (
     <article className="small-film-card catalog__films-card">
       <div className="small-film-card__image">
@@ -18,4 +18,4 @@ function FilmCardComponent(): JSX.Element {
   );
 }
 
-export default FilmCardComponent;
+export default FilmCard;

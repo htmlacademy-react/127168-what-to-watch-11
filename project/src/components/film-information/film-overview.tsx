@@ -1,4 +1,4 @@
-function FilmOverviewComponent(): JSX.Element {
+function FilmOverview(): JSX.Element {
   return (
     <>
       <div className="film-rating">
@@ -35,4 +35,4 @@ function FilmOverviewComponent(): JSX.Element {
   );
 }
 
-export default FilmOverviewComponent;
+export default FilmOverview;
