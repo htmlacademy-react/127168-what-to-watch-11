@@ -10,6 +10,9 @@ import {
   AuthorizationStatus
 } from '../../const';
 
+import {Comments} from '../../types/comments';
+import {Movies} from '../../types/movies';
+
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
 import MoviePageScreen from '../../pages/movie-page-screen.tsx/movie-page-screen';
@@ -24,11 +27,13 @@ type AppScreenProp = {
   title: string;
   genre: string;
   year: number;
+  comments: Comments;
+  movies: Movies;
 }
 
 const authorizationStatus = AuthorizationStatus.NoAuth;
 
-function App({title, genre, year}: AppScreenProp): JSX.Element {
+function App({title, genre, year, comments, movies}: AppScreenProp): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
