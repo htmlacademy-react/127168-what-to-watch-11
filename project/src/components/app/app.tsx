@@ -31,7 +31,7 @@ type AppScreenProp = {
   movies: Movies;
 }
 
-const authorizationStatus = AuthorizationStatus.NoAuth;
+const authorizationStatus = AuthorizationStatus.Auth;
 
 function App({title, genre, year, comments, movies}: AppScreenProp): JSX.Element {
   return (
@@ -67,7 +67,7 @@ function App({title, genre, year, comments, movies}: AppScreenProp): JSX.Element
               <PrivateRoute
                 authorizationStatus={authorizationStatus}
               >
-                <MyListScreen />
+                <MyListScreen movies={movies}/>
               </PrivateRoute>
             }
           />

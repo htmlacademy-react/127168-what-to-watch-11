@@ -1,10 +1,15 @@
 import {Helmet} from 'react-helmet-async';
 
+import {Movies} from '../../types/movies';
 import {LogoPositionClass} from '../../const';
-import FilmCard from '../../components/film-card/film-card';
+import MovieList from '../../components/movie-list/movie-list';
 import Logo from '../../components/logo/logo';
 
-function MyListScreen(): JSX.Element {
+type MyListScreenProps = {
+  movies: Movies;
+}
+
+function MyListScreen({movies}: MyListScreenProps): JSX.Element {
   return (
     <div className="user-page">
       <Helmet>
@@ -28,9 +33,7 @@ function MyListScreen(): JSX.Element {
       </header>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <div className="catalog__films-list">
-          {Array.from({length: 9}, FilmCard)};
-        </div>
+        <MovieList movies={movies}/>
       </section>
       <footer className="page-footer">
         <Logo positionClass={LogoPositionClass.Footer}/>
