@@ -45,6 +45,7 @@ function App({title, genre, year, comments, movies}: AppScreenProp): JSX.Element
                 title={title}
                 genre={genre}
                 year={year}
+                movies={movies}
               />
             }
           />
