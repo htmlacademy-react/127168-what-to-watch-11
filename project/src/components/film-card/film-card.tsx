@@ -1,14 +1,20 @@
 import {Movie} from '../../types/movies';
+import {INACTIVE_NUMBER_ID} from '../../const';
 
 type FilmCardProps = {
   movie: Movie;
+  onCurrentCard: (id:number) => void;
 }
 
-function FilmCard({movie}: FilmCardProps): JSX.Element {
-  const {name, previewImage} = movie;
+function FilmCard({movie, onCurrentCard}: FilmCardProps): JSX.Element {
+  const {id, name, previewImage} = movie;
 
   return (
-    <article className="small-film-card catalog__films-card">
+    <article
+      className="small-film-card catalog__films-card"
+      onMouseOver={() => onCurrentCard(id)}
+      onMouseLeave={() => onCurrentCard(INACTIVE_NUMBER_ID)}
+    >
       <div className="small-film-card__image">
         <img
           src={previewImage}

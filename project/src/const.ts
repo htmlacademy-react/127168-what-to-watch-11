@@ -1,3 +1,5 @@
+const INACTIVE_NUMBER_ID = 0;
+
 enum AppRoute {
   Film = '/films/:id',
   Login = '/login',
@@ -21,5 +23,6 @@ enum LogoPositionClass {
 export {
   AppRoute,
   AuthorizationStatus,
+  INACTIVE_NUMBER_ID,
   LogoPositionClass
 };
