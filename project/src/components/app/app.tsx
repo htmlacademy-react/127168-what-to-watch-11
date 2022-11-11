@@ -55,7 +55,7 @@ function App({title, genre, year, comments, movies}: AppScreenProp): JSX.Element
           />
           <Route
             path={AppRoute.Player}
-            element={<PlayerScreen />}
+            element={<PlayerScreen movies={movies}/>}
           />
           <Route
             path={AppRoute.Login}
