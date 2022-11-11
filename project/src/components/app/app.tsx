@@ -77,7 +77,7 @@ function App({title, genre, year, comments, movies}: AppScreenProp): JSX.Element
               <PrivateRoute
                 authorizationStatus={authorizationStatus}
               >
-                <AddReviewScreen />
+                <AddReviewScreen movies={movies}/>
               </PrivateRoute>
             }
           />

@@ -1,17 +1,28 @@
 import {Helmet} from 'react-helmet-async';
+import {useParams} from 'react-router-dom';
 
 import {LogoPositionClass} from '../../const';
+import {Movie, Movies} from '../../types/movies';
 import Logo from '../../components/logo/logo';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-function AddReviewScreen(): JSX.Element {
-  return (
-    <section className="film-card film-card--full">
+type AddReviewScreenProps = {
+  movies: Movies;
+}
+
+function AddReviewScreen({movies}: AddReviewScreenProps): JSX.Element {
+  const {id} = useParams();
+  const movie = movies.find((item: Movie) => item.id === Number(id));
+
+  return movie ? (
+    // Здесь я так понял вставляется цвет
+    <section className="film-card film-card--full" style={{background: movie.backgroundColor}}>
       <Helmet>
-        <title>WTW. Add review</title>
+        <title>WTW. Add review to {movie.name}</title>
       </Helmet>
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={movie.backgroundImage} alt={movie.name} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">
@@ -19,7 +30,7 @@ function AddReviewScreen(): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                <a href="film-page.html" className="breadcrumbs__link">{movie.name}</a>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link" href="#todo">Add review</a>
@@ -38,7 +49,7 @@ function AddReviewScreen(): JSX.Element {
           </ul>
         </header>
         <div className="film-card__poster film-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={movie.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
         </div>
       </div>
       <div className="add-review">
@@ -67,6 +78,7 @@ function AddReviewScreen(): JSX.Element {
               <label className="rating__label" htmlFor="star-1">Rating 1</label>
             </div>
           </div>
+          {/* Здесь не нашёл информацию о цвете поля */}
           <div className="add-review__text">
             <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" defaultValue={''} />
             <div className="add-review__submit">
@@ -76,8 +88,7 @@ function AddReviewScreen(): JSX.Element {
         </form>
       </div>
     </section>
-
-  );
+  ) : <NotFoundScreen />;
 }
 
 export default AddReviewScreen;
