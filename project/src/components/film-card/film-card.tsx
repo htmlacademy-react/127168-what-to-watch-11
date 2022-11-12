@@ -1,5 +1,7 @@
+import {Link} from 'react-router-dom';
+
 import {Movie} from '../../types/movies';
-import {INACTIVE_NUMBER_ID} from '../../const';
+import {AppRoute, INACTIVE_NUMBER_ID} from '../../const';
 
 type FilmCardProps = {
   movie: Movie;
@@ -24,9 +26,12 @@ function FilmCard({movie, onCurrentCard}: FilmCardProps): JSX.Element {
         />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">
+        <Link
+          className="small-film-card__link"
+          to={`${AppRoute.Film}${id}`}
+        >
           {name}
-        </a>
+        </Link>
       </h3>
     </article>
   );

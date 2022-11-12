@@ -50,11 +50,11 @@ function App({title, genre, year, comments, movies}: AppScreenProp): JSX.Element
             }
           />
           <Route
-            path={AppRoute.Film}
-            element={<MoviePageScreen />}
+            path={`${AppRoute.Film}:id`}
+            element={<MoviePageScreen movies={movies} comments={comments}/>}
           />
           <Route
-            path={AppRoute.Player}
+            path={`${AppRoute.Player}:id`}
             element={<PlayerScreen movies={movies}/>}
           />
           <Route
