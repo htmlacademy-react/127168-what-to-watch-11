@@ -1,9 +1,7 @@
 import {Helmet} from 'react-helmet-async';
-
-import {Movies} from '../../types/movies';
-
-import {LogoPositionClass} from '../../const';
 import Logo from '../../components/logo/logo';
+import {LogoPositionClass} from '../../const';
+import {Movies} from '../../types/movies';
 import MovieList from '../../components/movie-list/movie-list';
 
 type MainScreenProps = {

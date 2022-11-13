@@ -1,11 +1,10 @@
-import {Helmet} from 'react-helmet-async';
-import {Link, useParams} from 'react-router-dom';
-
+import {AppRoute, LogoPositionClass, REVIEW_PAGE} from '../../const';
 import {Comments} from '../../types/comments';
-import {Movie, Movies} from '../../types/movies';
-import {AppRoute, LogoPositionClass} from '../../const';
 // import FilmCard from '../../components/film-card/film-card';
 import FilmOverview from '../../components/film-information/film-overview';
+import {Helmet} from 'react-helmet-async';
+import {Movie, Movies} from '../../types/movies';
+import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
@@ -13,8 +12,6 @@ type MoviePageScreenProps = {
   movies: Movies;
   comments: Comments;
 }
-
-const REVIEW_PAGE = 'review';
 
 function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element {
   const {id} = useParams();

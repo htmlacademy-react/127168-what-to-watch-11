@@ -1,8 +1,7 @@
 import {Helmet} from 'react-helmet-async';
-import {useParams} from 'react-router-dom';
-
 import {Movie, Movies} from '../../types/movies';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
+import {useParams} from 'react-router-dom';
 
 type PlayerScreenProps = {
   movies: Movies;

@@ -1,5 +1,3 @@
-const INACTIVE_NUMBER_ID = '0';
-
 enum AppRoute {
   Film = '/films/',
   Login = '/login',
@@ -15,14 +13,28 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN'
 }
 
+const DEFAULT_RATING = 0;
+
+const INACTIVE_NUMBER_ID = '0';
+
+const MAX_RATING = 10;
+
+const MIN_RATING = 1;
+
 enum LogoPositionClass {
   Header = 'logo__link',
   Footer = 'logo__link logo__link--light'
 }
 
+const REVIEW_PAGE = 'review';
+
 export {
   AppRoute,
   AuthorizationStatus,
+  DEFAULT_RATING,
   INACTIVE_NUMBER_ID,
-  LogoPositionClass
+  MAX_RATING,
+  MIN_RATING,
+  LogoPositionClass,
+  REVIEW_PAGE
 };

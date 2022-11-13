@@ -1,18 +1,15 @@
-import {Helmet} from 'react-helmet-async';
-import {useParams} from 'react-router-dom';
 import {ChangeEvent, useState} from 'react';
-
-import {LogoPositionClass} from '../../const';
-import {Movie, Movies} from '../../types/movies';
+import {DEFAULT_RATING, LogoPositionClass} from '../../const';
+import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
+import {Movie, Movies} from '../../types/movies';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Rating from '../../components/rating/rating';
+import {useParams} from 'react-router-dom';
 
 type AddReviewScreenProps = {
   movies: Movies;
 }
-
-const DEFAULT_RATING = 0;
 
 function AddReviewScreen({movies}: AddReviewScreenProps): JSX.Element {
   const [userReview, setUserReview] = useState({

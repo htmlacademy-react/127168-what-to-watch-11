@@ -1,8 +1,7 @@
-import {useState} from 'react';
-
-import {Movie, Movies} from '../../types/movies';
-import {INACTIVE_NUMBER_ID} from '../../const';
 import FilmCard from '../film-card/film-card';
+import {INACTIVE_NUMBER_ID} from '../../const';
+import {Movie, Movies} from '../../types/movies';
+import {useState} from 'react';
 
 type MovieListProps = {
   movies: Movies;

@@ -1,7 +1,6 @@
-import {Link} from 'react-router-dom';
-
-import {Movie} from '../../types/movies';
 import {AppRoute, INACTIVE_NUMBER_ID} from '../../const';
+import {Link} from 'react-router-dom';
+import {Movie} from '../../types/movies';
 
 type FilmCardProps = {
   movie: Movie;
