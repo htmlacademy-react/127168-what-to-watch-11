@@ -21,7 +21,7 @@ function MovieList({movies}: MovieListProps): JSX.Element {
           <FilmCard
             key={movie.id}
             movie={movie}
-            onCurrentCard={changeActiveCardId}
+            onHoverCurrentCard={changeActiveCardId}
           />
         )
       )}

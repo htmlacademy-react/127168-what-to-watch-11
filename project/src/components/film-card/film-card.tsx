@@ -5,17 +5,17 @@ import {AppRoute, INACTIVE_NUMBER_ID} from '../../const';
 
 type FilmCardProps = {
   movie: Movie;
-  onCurrentCard: (id:number) => void;
+  onHoverCurrentCard: (id:number) => void;
 }
 
-function FilmCard({movie, onCurrentCard}: FilmCardProps): JSX.Element {
+function FilmCard({movie, onHoverCurrentCard}: FilmCardProps): JSX.Element {
   const {id, name, previewImage} = movie;
 
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseOver={() => onCurrentCard(id)}
-      onMouseLeave={() => onCurrentCard(INACTIVE_NUMBER_ID)}
+      onMouseOver={() => onHoverCurrentCard(id)}
+      onMouseLeave={() => onHoverCurrentCard(INACTIVE_NUMBER_ID)}
     >
       <div className="small-film-card__image">
         <img
