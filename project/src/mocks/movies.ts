@@ -19,7 +19,7 @@ const movies: Movies = [
     runTime: 136,
     genre: 'Drama',
     released: 2018,
-    id: 1,
+    id: '1',
     isFavorite: false,
     videoLink: 'https://assets.mixkit.co/videos/preview/mixkit-talented-drummer-playing-in-a-dark-place-44137-large.mp4',
     previewVideoLink: 'https://assets.mixkit.co/videos/preview/mixkit-talented-drummer-playing-in-a-dark-place-44137-large.mp4'
@@ -42,7 +42,7 @@ const movies: Movies = [
     runTime: 94,
     genre: 'Adventure',
     released: 2012,
-    id: 2,
+    id: '2',
     isFavorite: false,
     videoLink: 'https://assets.mixkit.co/videos/preview/mixkit-going-down-a-curved-highway-through-a-mountain-range-41576-large.mp4',
     previewVideoLink: 'https://assets.mixkit.co/videos/preview/mixkit-going-down-a-curved-highway-through-a-mountain-range-41576-large.mp4'
@@ -65,7 +65,7 @@ const movies: Movies = [
     runTime: 132,
     genre: 'Crime',
     released: 2015,
-    id: 3,
+    id: '3',
     isFavorite: false,
     videoLink: 'https://assets.mixkit.co/videos/preview/mixkit-keyboardist-playing-in-the-dark-44139-large.mp4',
     previewVideoLink: 'https://assets.mixkit.co/videos/preview/mixkit-keyboardist-playing-in-the-dark-44139-large.mp4'
@@ -88,7 +88,7 @@ const movies: Movies = [
     runTime: 134,
     genre: 'Fantasy',
     released: 2018,
-    id: 4,
+    id: '4',
     isFavorite: false,
     videoLink: 'https://assets.mixkit.co/videos/preview/mixkit-waterfall-in-forest-2213-large.mp4',
     previewVideoLink: 'https://assets.mixkit.co/videos/preview/mixkit-waterfall-in-forest-2213-large.mp4'
@@ -111,7 +111,7 @@ const movies: Movies = [
     runTime: 112,
     genre: 'Action',
     released: 2016,
-    id: 5,
+    id: '5',
     isFavorite: false,
     videoLink: 'https://assets.mixkit.co/videos/preview/mixkit-curvy-road-on-a-tree-covered-hill-41537-large.mp4',
     previewVideoLink: 'https://assets.mixkit.co/videos/preview/mixkit-curvy-road-on-a-tree-covered-hill-41537-large.mp4'
@@ -134,7 +134,7 @@ const movies: Movies = [
     runTime: 136,
     genre: 'Action',
     released: 1999,
-    id: 6,
+    id: '6',
     isFavorite: false,
     videoLink: 'https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-man-playing-on-a-computer-43527-large.mp4',
     previewVideoLink: 'https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-man-playing-on-a-computer-43527-large.mp4'
@@ -157,7 +157,7 @@ const movies: Movies = [
     runTime: 153,
     genre: 'Crime',
     released: 1994,
-    id: 7,
+    id: '7',
     isFavorite: false,
     videoLink: 'https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4',
     previewVideoLink: 'https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4'
@@ -180,7 +180,7 @@ const movies: Movies = [
     runTime: 138,
     genre: 'Thriller',
     released: 2010,
-    id: 8,
+    id: '8',
     isFavorite: false,
     videoLink: 'https://assets.mixkit.co/videos/preview/mixkit-waves-coming-to-the-beach-5016-large.mp4',
     previewVideoLink: 'https://assets.mixkit.co/videos/preview/mixkit-waves-coming-to-the-beach-5016-large.mp4'

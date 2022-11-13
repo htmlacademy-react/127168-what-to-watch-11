@@ -12,7 +12,7 @@ function MovieList({movies}: MovieListProps): JSX.Element {
   // В состояние будет передаваться ID активной карточки, неактивное состояние зарезервировано нулём
   // Переменную activeCardId пока не назначали, чтобы линтер не ругался
   const [, setActiveCardId] = useState(INACTIVE_NUMBER_ID);
-  const changeActiveCardId = (id: number): void => setActiveCardId(id);
+  const changeActiveCardId = (id: string): void => setActiveCardId(id);
 
   return (
     <div className="catalog__films-list">

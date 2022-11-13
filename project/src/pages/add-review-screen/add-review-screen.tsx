@@ -21,7 +21,7 @@ function AddReviewScreen({movies}: AddReviewScreenProps): JSX.Element {
   });
 
   const {id} = useParams();
-  const movie = movies.find((item: Movie) => item.id === Number(id));
+  const movie = movies.find((item: Movie) => item.id === id);
 
   return movie ? (
     // Здесь я так понял вставляется цвет

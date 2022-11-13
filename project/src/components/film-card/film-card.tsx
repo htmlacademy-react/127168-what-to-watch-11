@@ -5,7 +5,7 @@ import {AppRoute, INACTIVE_NUMBER_ID} from '../../const';
 
 type FilmCardProps = {
   movie: Movie;
-  onHoverCurrentCard: (id:number) => void;
+  onHoverCurrentCard: (id:string) => void;
 }
 
 function FilmCard({movie, onHoverCurrentCard}: FilmCardProps): JSX.Element {

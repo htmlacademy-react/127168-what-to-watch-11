@@ -1,4 +1,4 @@
-const INACTIVE_NUMBER_ID = 0;
+const INACTIVE_NUMBER_ID = '0';
 
 enum AppRoute {
   Film = '/films/',

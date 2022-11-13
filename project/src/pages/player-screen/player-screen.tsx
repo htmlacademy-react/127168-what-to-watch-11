@@ -10,7 +10,7 @@ type PlayerScreenProps = {
 
 function PlayerScreen({movies}: PlayerScreenProps): JSX.Element {
   const {id} = useParams();
-  const movie = movies.find((item: Movie) => item.id === Number(id));
+  const movie = movies.find((item: Movie) => item.id === id);
 
   return movie ? (
     <div className="player">

@@ -1,11 +1,11 @@
 type Comment = {
   comment: string;
   date: string;
-  filmId: number;
-  id: number;
+  filmId: string;
+  id: string;
   rating: number;
   user: {
-    id: number;
+    id: string;
     name: string;
   };
 };
