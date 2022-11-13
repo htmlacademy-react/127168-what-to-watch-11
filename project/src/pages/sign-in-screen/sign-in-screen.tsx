@@ -1,7 +1,6 @@
 import {Helmet} from 'react-helmet-async';
-
-import {LogoPositionClass} from '../../const';
 import Logo from '../../components/logo/logo';
+import {LogoPositionClass} from '../../const';
 
 function SignInScreen(): JSX.Element {
   return (

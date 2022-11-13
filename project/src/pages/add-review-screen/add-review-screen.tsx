@@ -1,17 +1,34 @@
+import {ChangeEvent, useState} from 'react';
+import {DEFAULT_RATING, LogoPositionClass} from '../../const';
 import {Helmet} from 'react-helmet-async';
-
-import {LogoPositionClass} from '../../const';
 import Logo from '../../components/logo/logo';
+import {Movie, Movies} from '../../types/movies';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import Rating from '../../components/rating/rating';
+import {useParams} from 'react-router-dom';
 
-function AddReviewScreen(): JSX.Element {
-  return (
-    <section className="film-card film-card--full">
+type AddReviewScreenProps = {
+  movies: Movies;
+}
+
+function AddReviewScreen({movies}: AddReviewScreenProps): JSX.Element {
+  const [userReview, setUserReview] = useState({
+    comment: '',
+    rating: DEFAULT_RATING,
+  });
+
+  const {id} = useParams();
+  const movie = movies.find((item: Movie) => item.id === id);
+
+  return movie ? (
+    // Здесь я так понял вставляется цвет
+    <section className="film-card film-card--full" style={{background: movie.backgroundColor}}>
       <Helmet>
-        <title>WTW. Add review</title>
+        <title>WTW. Add review to {movie.name}</title>
       </Helmet>
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={movie.backgroundImage} alt={movie.name} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">
@@ -19,7 +36,7 @@ function AddReviewScreen(): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                <a href="film-page.html" className="breadcrumbs__link">{movie.name}</a>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link" href="#todo">Add review</a>
@@ -38,37 +55,27 @@ function AddReviewScreen(): JSX.Element {
           </ul>
         </header>
         <div className="film-card__poster film-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={movie.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
         </div>
       </div>
       <div className="add-review">
         <form action="#" className="add-review__form">
-          <div className="rating">
-            <div className="rating__stars">
-              <input className="rating__input" id="star-10" type="radio" name="rating" defaultValue="10" />
-              <label className="rating__label" htmlFor="star-10">Rating 10</label>
-              <input className="rating__input" id="star-9" type="radio" name="rating" defaultValue="9" />
-              <label className="rating__label" htmlFor="star-9">Rating 9</label>
-              <input className="rating__input" id="star-8" type="radio" name="rating" defaultValue="8" defaultChecked />
-              <label className="rating__label" htmlFor="star-8">Rating 8</label>
-              <input className="rating__input" id="star-7" type="radio" name="rating" defaultValue="7" />
-              <label className="rating__label" htmlFor="star-7">Rating 7</label>
-              <input className="rating__input" id="star-6" type="radio" name="rating" defaultValue="6" />
-              <label className="rating__label" htmlFor="star-6">Rating 6</label>
-              <input className="rating__input" id="star-5" type="radio" name="rating" defaultValue="5" />
-              <label className="rating__label" htmlFor="star-5">Rating 5</label>
-              <input className="rating__input" id="star-4" type="radio" name="rating" defaultValue="4" />
-              <label className="rating__label" htmlFor="star-4">Rating 4</label>
-              <input className="rating__input" id="star-3" type="radio" name="rating" defaultValue="3" />
-              <label className="rating__label" htmlFor="star-3">Rating 3</label>
-              <input className="rating__input" id="star-2" type="radio" name="rating" defaultValue="2" />
-              <label className="rating__label" htmlFor="star-2">Rating 2</label>
-              <input className="rating__input" id="star-1" type="radio" name="rating" defaultValue="1" />
-              <label className="rating__label" htmlFor="star-1">Rating 1</label>
-            </div>
-          </div>
+          <Rating
+            rating={userReview.rating}
+            onRateStar={(starValue: number) => setUserReview((oldUserReview) => ({...oldUserReview, rating: starValue}))}
+          />
+          {/* Здесь не нашёл информацию о цвете поля */}
           <div className="add-review__text">
-            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" defaultValue={''} />
+            <textarea
+              className="add-review__textarea"
+              name="review-text"
+              id="review-text"
+              placeholder="Review text"
+              value={userReview.comment}
+              onChange={({target}: ChangeEvent<HTMLTextAreaElement>) => {
+                setUserReview({...userReview, comment: target.value});
+              }}
+            />
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit">Post</button>
             </div>
@@ -76,8 +83,7 @@ function AddReviewScreen(): JSX.Element {
         </form>
       </div>
     </section>
-
-  );
+  ) : <NotFoundScreen />;
 }
 
 export default AddReviewScreen;

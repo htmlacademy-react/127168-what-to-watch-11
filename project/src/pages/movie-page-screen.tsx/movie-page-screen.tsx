@@ -1,22 +1,33 @@
-import {Helmet} from 'react-helmet-async';
-
-import {LogoPositionClass} from '../../const';
-import FilmCard from '../../components/film-card/film-card';
+import {AppRoute, LogoPositionClass, REVIEW_PAGE} from '../../const';
+import {Comments} from '../../types/comments';
+// import FilmCard from '../../components/film-card/film-card';
 import FilmOverview from '../../components/film-information/film-overview';
+import {Helmet} from 'react-helmet-async';
+import {Movie, Movies} from '../../types/movies';
+import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-function MoviePageScreen(): JSX.Element {
-  return (
+type MoviePageScreenProps = {
+  movies: Movies;
+  comments: Comments;
+}
+
+function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element {
+  const {id} = useParams();
+  const movie = movies.find((item: Movie) => item.id === id);
+
+  return movie ? (
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={{background: movie.backgroundColor}}>
         <Helmet>
-          <title>WTW. Movie page</title>
+          <title>WTW. {movie.name}</title>
         </Helmet>
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img
-              src="img/bg-the-grand-budapest-hotel.jpg"
-              alt="The Grand Budapest Hotel"
+              src={movie.backgroundImage}
+              alt={movie.name}
             />
           </div>
           <h1 className="visually-hidden">WTW</h1>
@@ -40,18 +51,18 @@ function MoviePageScreen(): JSX.Element {
           </header>
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{movie.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{movie.genre}</span>
+                <span className="film-card__year">{movie.released}</span>
               </p>
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <Link to={`${AppRoute.Player}${movie.id}`} className="btn btn--play film-card__button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s" />
                   </svg>
                   <span>Play</span>
-                </button>
+                </Link>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add" />
@@ -59,9 +70,12 @@ function MoviePageScreen(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">
-              Add review
-                </a>
+                <Link
+                  className="btn film-card__button"
+                  to={`${AppRoute.Film}${movie.id}/${REVIEW_PAGE}`}
+                >
+                  Add review
+                </Link>
               </div>
             </div>
           </div>
@@ -70,8 +84,8 @@ function MoviePageScreen(): JSX.Element {
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
               <img
-                src="img/the-grand-budapest-hotel-poster.jpg"
-                alt="The Grand Budapest Hotel poster"
+                src={movie.posterImage}
+                alt={`${movie.name} poster`}
                 width="218"
                 height="327"
               />
@@ -96,7 +110,7 @@ function MoviePageScreen(): JSX.Element {
                   </li>
                 </ul>
               </nav>
-              <FilmOverview />
+              <FilmOverview movie={movie}/>
             </div>
           </div>
         </div>
@@ -104,9 +118,9 @@ function MoviePageScreen(): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <div className="catalog__films-list">
+          {/* <div className="catalog__films-list">
             {Array.from({length: 4}, FilmCard)}
-          </div>
+          </div> */}
         </section>
         <footer className="page-footer">
           <Logo positionClass={LogoPositionClass.Footer}/>
@@ -116,7 +130,7 @@ function MoviePageScreen(): JSX.Element {
         </footer>
       </div>
     </>
-  );
+  ) : <NotFoundScreen/>;
 }
 
 

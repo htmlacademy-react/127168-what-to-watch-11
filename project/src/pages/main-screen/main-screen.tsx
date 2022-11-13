@@ -1,16 +1,17 @@
 import {Helmet} from 'react-helmet-async';
-
-import {LogoPositionClass} from '../../const';
-import FilmCard from '../../components/film-card/film-card';
 import Logo from '../../components/logo/logo';
+import {LogoPositionClass} from '../../const';
+import {Movies} from '../../types/movies';
+import MovieList from '../../components/movie-list/movie-list';
 
 type MainScreenProps = {
   title: string;
   genre: string;
   year: number;
+  movies: Movies;
 }
 
-function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
+function MainScreen({title, genre, year, movies}: MainScreenProps): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -133,9 +134,7 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
               </a>
             </li>
           </ul>
-          <div className="catalog__films-list">
-            {Array.from({length: 20}, FilmCard)};
-          </div>
+          <MovieList movies={movies}/>
           <div className="catalog__more">
             <button className="catalog__button" type="button">
               Show more
