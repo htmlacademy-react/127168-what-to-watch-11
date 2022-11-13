@@ -15,7 +15,7 @@ const createStars = (rating: number, onRateStar: RatingStar): JSX.Element[] => {
 
   for (let i = MAX_RATING; i >= MIN_RATING; i--) {
     stars.push(
-      <React.Fragment key={i}>
+      <React.Fragment key={`star-${i}`}>
         <input
           className="rating__input"
           id={`star-${i}`}
