@@ -8,9 +8,7 @@ type MovieListProps = {
 }
 
 function MovieList({movies}: MovieListProps): JSX.Element {
-  // В состояние будет передаваться ID активной карточки, неактивное состояние зарезервировано нулём
-  // Переменную activeCardId пока не назначали, чтобы линтер не ругался
-  const [, setActiveCardId] = useState(INACTIVE_NUMBER_ID);
+  const [activeCardId, setActiveCardId] = useState(INACTIVE_NUMBER_ID);
   const changeActiveCardId = (id: string): void => setActiveCardId(id);
 
   return (
@@ -21,6 +19,7 @@ function MovieList({movies}: MovieListProps): JSX.Element {
             key={movie.id}
             movie={movie}
             onHoverCurrentCard={changeActiveCardId}
+            activeCardId={activeCardId}
           />
         )
       )}

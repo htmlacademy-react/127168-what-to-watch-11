@@ -1,14 +1,20 @@
 import {AppRoute, INACTIVE_NUMBER_ID} from '../../const';
 import {Link} from 'react-router-dom';
 import {Movie} from '../../types/movies';
+import {useState} from 'react';
+import VideoPreview from '../../components/video-preview/video-preview';
 
 type FilmCardProps = {
   movie: Movie;
   onHoverCurrentCard: (id:string) => void;
+  activeCardId: string;
 }
 
-function FilmCard({movie, onHoverCurrentCard}: FilmCardProps): JSX.Element {
-  const {id, name, previewImage} = movie;
+function FilmCard({movie, onHoverCurrentCard, activeCardId}: FilmCardProps): JSX.Element {
+  const [isPlayerActive, changePlayerActivity] = useState(false);
+  const switchCardImage = () => changePlayerActivity(!isPlayerActive);
+
+  const {id, name, previewImage, previewVideoLink} = movie;
 
   return (
     <article
@@ -17,12 +23,19 @@ function FilmCard({movie, onHoverCurrentCard}: FilmCardProps): JSX.Element {
       onMouseLeave={() => onHoverCurrentCard(INACTIVE_NUMBER_ID)}
     >
       <div className="small-film-card__image">
-        <img
-          src={previewImage}
-          alt={name}
-          width="280"
-          height="175"
-        />
+        {activeCardId === id &&
+          <VideoPreview
+            link={previewVideoLink}
+            isPlayerActive={isPlayerActive}
+            switchCardImage={switchCardImage}
+          />}
+        {!isPlayerActive &&
+          <img
+            src={previewImage}
+            alt={name}
+            width="280"
+            height="175"
+          />}
       </div>
       <h3 className="small-film-card__title">
         <Link
