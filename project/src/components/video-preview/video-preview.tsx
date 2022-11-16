@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import {PREVIEW_START_TIME} from '../../const';
 import {useEffect, useRef} from 'react';
 
 type VideoPreviewProps = {
@@ -20,7 +21,7 @@ function VideoPreview ({link, isPlayerActive, switchCardImage}: VideoPreviewProp
         switchCardImage();
         videoRef.current?.play();
       }
-    }, 1000);
+    }, PREVIEW_START_TIME);
 
     return () => {
       if (isPlayerActive) {

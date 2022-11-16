@@ -26,6 +26,8 @@ enum LogoPositionClass {
   Footer = 'logo__link logo__link--light'
 }
 
+const PREVIEW_START_TIME = 1000;
+
 const REVIEW_PAGE = 'review';
 
 export {
@@ -36,5 +38,6 @@ export {
   MAX_RATING,
   MIN_RATING,
   LogoPositionClass,
+  PREVIEW_START_TIME,
   REVIEW_PAGE
 };
