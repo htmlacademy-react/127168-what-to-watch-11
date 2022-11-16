@@ -1,3 +1,7 @@
 .not-found__bg {
   height: 100vh;
 }
+
+.small-film-card__video {
+  object-fit: cover;
+}
