@@ -1,11 +1,11 @@
-import cn from 'classnames';
 import {Comments} from '../../types/comments';
 import {DescriptionTab} from '../../const';
+import {DescriptionTabEnum} from '../../types/description';
 import FilmDetails from '../film-information/film-details';
 import FilmOverview from '../film-information/film-overview';
 import FilmReviews from '../film-information/film-reviews';
-import {Link} from 'react-router-dom';
 import {Movie} from '../../types/movies';
+import TabLink from './tab-links';
 import {useState} from 'react';
 
 
@@ -15,7 +15,9 @@ type FilmTabsProps = {
 }
 
 function FilmTabs ({movie, comments}: FilmTabsProps): JSX.Element {
-  const [currentTab, setCurrentTab] = useState(DescriptionTab.Details);
+  const [currentTab, setCurrentTab] = useState(DescriptionTab.Overview);
+
+  const onClickCurrentTab = (tabStatus: DescriptionTabEnum): void => setCurrentTab(tabStatus);
 
   const renderFilmInfo = () => {
     switch (currentTab) {
@@ -34,45 +36,17 @@ function FilmTabs ({movie, comments}: FilmTabsProps): JSX.Element {
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
-          <li
-            className={cn(
-              'film-nav__item',
-              {'film-nav__item--active': currentTab === DescriptionTab.Overview}
-            )}
-          >
-            <Link to=""
-              className="film-nav__link"
-              onClick={() => setCurrentTab(DescriptionTab.Overview)}
-            >
-              {DescriptionTab.Overview}
-            </Link>
-          </li>
-          <li
-            className={cn(
-              'film-nav__item',
-              {'film-nav__item--active': currentTab === DescriptionTab.Details}
-            )}
-          >
-            <Link to=""
-              className="film-nav__link"
-              onClick={() => setCurrentTab(DescriptionTab.Details)}
-            >
-              {DescriptionTab.Details}
-            </Link>
-          </li>
-          <li
-            className={cn(
-              'film-nav__item',
-              {'film-nav__item--active': currentTab === DescriptionTab.Reviews}
-            )}
-          >
-            <Link to=""
-              className="film-nav__link"
-              onClick={() => setCurrentTab(DescriptionTab.Reviews)}
-            >
-              {DescriptionTab.Reviews}
-            </Link>
-          </li>
+          {
+            Object.values(DescriptionTab)
+              .map((tab) => (
+                <TabLink
+                  key={tab}
+                  currentTab={currentTab}
+                  actualTab={tab}
+                  changeTab={onClickCurrentTab}
+                />
+              ))
+          }
         </ul>
       </nav>
       {renderFilmInfo()}
