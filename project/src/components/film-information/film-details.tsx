@@ -1,5 +1,9 @@
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import {Fragment} from 'react';
 import {Movie} from '../../types/movies';
+
+dayjs.extend(duration);
 
 type FilmDetailsProps = {
   movie: Movie;
@@ -35,7 +39,9 @@ function FilmDetails({movie}: FilmDetailsProps): JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{runTime}</span>
+          <span className="film-card__details-value">
+            {dayjs.duration(runTime, 'minutes').format('H[h] mm[m]')}
+          </span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
