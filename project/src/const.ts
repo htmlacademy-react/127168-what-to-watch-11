@@ -15,6 +15,12 @@ enum AuthorizationStatus {
 
 const DEFAULT_RATING = 0;
 
+enum DescriptionTab {
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews'
+}
+
 const INACTIVE_NUMBER_ID = '0';
 
 const MAX_RATING = 10;
@@ -34,6 +40,7 @@ export {
   AppRoute,
   AuthorizationStatus,
   DEFAULT_RATING,
+  DescriptionTab,
   INACTIVE_NUMBER_ID,
   MAX_RATING,
   MIN_RATING,

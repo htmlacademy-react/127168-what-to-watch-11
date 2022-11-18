@@ -1,7 +1,7 @@
 import {AppRoute, LogoPositionClass, REVIEW_PAGE} from '../../const';
 import {Comments} from '../../types/comments';
 // import FilmCard from '../../components/film-card/film-card';
-import FilmOverview from '../../components/film-information/film-overview';
+import FilmTabs from '../../components/film-tabs/film-tabs';
 import {Helmet} from 'react-helmet-async';
 import {Movie, Movies} from '../../types/movies';
 import {Link, useParams} from 'react-router-dom';
@@ -90,28 +90,7 @@ function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element 
                 height="327"
               />
             </div>
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#todo" className="film-nav__link">
-                  Overview
-                    </a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#todo" className="film-nav__link">
-                  Details
-                    </a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#todo" className="film-nav__link">
-                  Reviews
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-              <FilmOverview movie={movie}/>
-            </div>
+            <FilmTabs movie={movie} comments={comments} />
           </div>
         </div>
       </section>
