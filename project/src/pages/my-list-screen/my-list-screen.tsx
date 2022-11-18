@@ -1,6 +1,6 @@
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
-import {LogoPositionClass} from '../../const';
+import {MovieListModeCount, LogoPositionClass} from '../../const';
 import {Movies} from '../../types/movies';
 import MovieList from '../../components/movie-list/movie-list';
 
@@ -32,7 +32,10 @@ function MyListScreen({movies}: MyListScreenProps): JSX.Element {
       </header>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <MovieList movies={movies}/>
+        <MovieList
+          movies={movies}
+          mode={MovieListModeCount.Main}
+        />
       </section>
       <footer className="page-footer">
         <Logo positionClass={LogoPositionClass.Footer}/>

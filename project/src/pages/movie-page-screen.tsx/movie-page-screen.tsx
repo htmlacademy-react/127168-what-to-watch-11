@@ -1,11 +1,11 @@
-import {AppRoute, LogoPositionClass, REVIEW_PAGE} from '../../const';
+import {AppRoute, LogoPositionClass, MovieListModeCount, REVIEW_PAGE} from '../../const';
 import {Comments} from '../../types/comments';
-// import FilmCard from '../../components/film-card/film-card';
 import FilmTabs from '../../components/film-tabs/film-tabs';
 import {Helmet} from 'react-helmet-async';
 import {Movie, Movies} from '../../types/movies';
 import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import MovieList from '../../components/movie-list/movie-list';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 type MoviePageScreenProps = {
@@ -98,9 +98,11 @@ function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element 
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          {/* <div className="catalog__films-list">
-            {Array.from({length: 4}, FilmCard)}
-          </div> */}
+          <MovieList
+            movies={movies}
+            mode={MovieListModeCount.Recomended}
+            movie={movie}
+          />
         </section>
         <footer className="page-footer">
           <Logo positionClass={LogoPositionClass.Footer}/>
