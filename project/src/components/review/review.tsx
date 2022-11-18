@@ -22,7 +22,7 @@ function Review({review}: ReviewProps): JSX.Element {
           </time>
         </footer>
       </blockquote>
-      <div className="review__rating">{rating}</div>
+      <div className="review__rating">{String(rating).replace(/\./g, ',')}</div>
     </div>
   );
 }

@@ -15,7 +15,7 @@ function FilmOverview({movie}: FilmOverviewProps): JSX.Element {
   return (
     <>
       <div className="film-rating">
-        <div className="film-rating__score">{rating}</div>
+        <div className="film-rating__score">{String(rating).replace(/\./g, ',')}</div>
         <p className="film-rating__meta">
           {/* Это пока не понял, как заполнять */}
           <span className="film-rating__level">Very good</span>
