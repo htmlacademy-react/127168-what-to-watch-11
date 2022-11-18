@@ -16,6 +16,7 @@ type MoviePageScreenProps = {
 function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element {
   const {id} = useParams();
   const movie = movies.find((item: Movie) => item.id === id);
+  const filteredComments = comments.filter((comment) => movie?.id === comment.filmId);
 
   return movie ? (
     <>
@@ -90,7 +91,7 @@ function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element 
                 height="327"
               />
             </div>
-            <FilmTabs movie={movie} comments={comments} />
+            <FilmTabs movie={movie} comments={filteredComments} />
           </div>
         </div>
       </section>

@@ -13,6 +13,11 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN'
 }
 
+enum ColumnSortType {
+  Odd = 1,
+  Even = 2
+}
+
 const DEFAULT_RATING = 0;
 
 enum DescriptionTab {
@@ -39,6 +44,7 @@ const REVIEW_PAGE = 'review';
 export {
   AppRoute,
   AuthorizationStatus,
+  ColumnSortType,
   DEFAULT_RATING,
   DescriptionTab,
   INACTIVE_NUMBER_ID,

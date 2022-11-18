@@ -8,7 +8,6 @@ import {Movie} from '../../types/movies';
 import TabLink from './tab-links';
 import {useState} from 'react';
 
-
 type FilmTabsProps = {
   movie: Movie;
   comments: Comments;
@@ -16,7 +15,6 @@ type FilmTabsProps = {
 
 function FilmTabs ({movie, comments}: FilmTabsProps): JSX.Element {
   const [currentTab, setCurrentTab] = useState(DescriptionTab.Overview);
-
   const onClickCurrentTab = (tabStatus: DescriptionTabEnum): void => setCurrentTab(tabStatus);
 
   const renderFilmInfo = () => {
@@ -26,7 +24,7 @@ function FilmTabs ({movie, comments}: FilmTabsProps): JSX.Element {
       case DescriptionTab.Details:
         return <FilmDetails movie={movie}/>;
       case DescriptionTab.Reviews:
-        return <FilmReviews/>;
+        return <FilmReviews comments={comments}/>;
       default:
         <FilmOverview movie={movie}/>;
     }

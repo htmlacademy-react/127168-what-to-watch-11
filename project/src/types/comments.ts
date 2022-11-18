@@ -1,4 +1,4 @@
-type Comment = {
+export type Comment = {
   comment: string;
   date: string;
   filmId: string;
