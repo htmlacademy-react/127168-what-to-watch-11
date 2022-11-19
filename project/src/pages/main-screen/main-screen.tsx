@@ -1,6 +1,6 @@
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
-import {LogoPositionClass} from '../../const';
+import {MovieListModeCount, LogoPositionClass} from '../../const';
 import {Movies} from '../../types/movies';
 import MovieList from '../../components/movie-list/movie-list';
 
@@ -134,7 +134,10 @@ function MainScreen({title, genre, year, movies}: MainScreenProps): JSX.Element 
               </a>
             </li>
           </ul>
-          <MovieList movies={movies}/>
+          <MovieList
+            movies={movies}
+            mode={MovieListModeCount.Main}
+          />
           <div className="catalog__more">
             <button className="catalog__button" type="button">
               Show more

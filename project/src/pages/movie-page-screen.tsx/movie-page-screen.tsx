@@ -1,11 +1,11 @@
-import {AppRoute, LogoPositionClass, REVIEW_PAGE} from '../../const';
+import {AppRoute, LogoPositionClass, MovieListModeCount, REVIEW_PAGE} from '../../const';
 import {Comments} from '../../types/comments';
-// import FilmCard from '../../components/film-card/film-card';
-import FilmOverview from '../../components/film-information/film-overview';
+import FilmTabs from '../../components/film-tabs/film-tabs';
 import {Helmet} from 'react-helmet-async';
 import {Movie, Movies} from '../../types/movies';
 import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import MovieList from '../../components/movie-list/movie-list';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 type MoviePageScreenProps = {
@@ -16,6 +16,7 @@ type MoviePageScreenProps = {
 function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element {
   const {id} = useParams();
   const movie = movies.find((item: Movie) => item.id === id);
+  const filteredComments = comments.filter((comment) => movie?.id === comment.filmId);
 
   return movie ? (
     <>
@@ -90,37 +91,18 @@ function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element 
                 height="327"
               />
             </div>
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#todo" className="film-nav__link">
-                  Overview
-                    </a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#todo" className="film-nav__link">
-                  Details
-                    </a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#todo" className="film-nav__link">
-                  Reviews
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-              <FilmOverview movie={movie}/>
-            </div>
+            <FilmTabs movie={movie} comments={filteredComments} />
           </div>
         </div>
       </section>
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          {/* <div className="catalog__films-list">
-            {Array.from({length: 4}, FilmCard)}
-          </div> */}
+          <MovieList
+            movies={movies}
+            mode={MovieListModeCount.Recomended}
+            movie={movie}
+          />
         </section>
         <footer className="page-footer">
           <Logo positionClass={LogoPositionClass.Footer}/>

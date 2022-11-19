@@ -1,16 +1,30 @@
-function ReviewComponent(): JSX.Element {
+import dayjs from 'dayjs';
+import {Comment} from '../../types/comments';
+
+type ReviewProps = {
+  review: Comment;
+};
+
+function Review({review}: ReviewProps): JSX.Element {
+  const {comment, user: {name}, date, rating} = review;
+
   return (
     <div className="review">
       <blockquote className="review__quote">
-        <p className="review__text">Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director&apos;s funniest and most exquisitely designed films in years.</p>
+        <p className="review__text">{comment}</p>
         <footer className="review__details">
-          <cite className="review__author">Kate Muir</cite>
-          <time className="review__date" dateTime="2016-12-24">December 24, 2016</time>
+          <cite className="review__author">{name}</cite>
+          <time
+            className="review__date"
+            dateTime={dayjs(date).format('YYYY-MM-DD')}
+          >
+            {dayjs(date).format('MMMM DD, YYYY')}
+          </time>
         </footer>
       </blockquote>
-      <div className="review__rating">8,9</div>
+      <div className="review__rating">{String(rating).replace(/\./g, ',')}</div>
     </div>
   );
 }
 
-export default ReviewComponent;
+export default Review;
