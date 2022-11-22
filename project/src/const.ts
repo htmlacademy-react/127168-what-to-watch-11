@@ -33,7 +33,7 @@ const MAX_RATING = 10;
 const MIN_RATING = 1;
 
 enum MovieListModeCount {
-  Main = 8,
+  Main = 19,
   Recomended = 4
 }
 
