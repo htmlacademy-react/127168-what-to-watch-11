@@ -33,6 +33,7 @@ const MAX_RATING = 10;
 const MIN_RATING = 1;
 
 enum MovieListModeCount {
+  // Временно отрисовываем всё
   Main = 19,
   Recomended = 4
 }
