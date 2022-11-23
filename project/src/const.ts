@@ -1,3 +1,5 @@
+const ALL_GENRES_LINK = 'All genres';
+
 enum AppRoute {
   Film = '/films/',
   Login = '/login',
@@ -33,7 +35,8 @@ const MAX_RATING = 10;
 const MIN_RATING = 1;
 
 enum MovieListModeCount {
-  Main = 8,
+  // Временно отрисовываем всё
+  Main = 19,
   Recomended = 4
 }
 
@@ -47,6 +50,7 @@ const PREVIEW_START_TIME = 1000;
 const REVIEW_PAGE = 'review';
 
 export {
+  ALL_GENRES_LINK,
   AppRoute,
   AuthorizationStatus,
   ColumnSortType,

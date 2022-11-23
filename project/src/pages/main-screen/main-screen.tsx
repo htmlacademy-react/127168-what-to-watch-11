@@ -1,17 +1,19 @@
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import {MovieListModeCount, LogoPositionClass} from '../../const';
-import {Movies} from '../../types/movies';
 import MovieList from '../../components/movie-list/movie-list';
+import GenreList from '../../components/genre-list/genre-list';
+import {useAppSelector} from '../../hooks';
 
 type MainScreenProps = {
   title: string;
   genre: string;
   year: number;
-  movies: Movies;
 }
 
-function MainScreen({title, genre, year, movies}: MainScreenProps): JSX.Element {
+function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
+  const movies = useAppSelector((state) => state.filteredMovies);
+
   return (
     <>
       <section className="film-card">
@@ -82,58 +84,7 @@ function MainScreen({title, genre, year, movies}: MainScreenProps): JSX.Element 
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#todo" className="catalog__genres-link">
-                All genres
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#todo" className="catalog__genres-link">
-                Comedies
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#todo" className="catalog__genres-link">
-                Crime
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#todo" className="catalog__genres-link">
-                Documentary
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#todo" className="catalog__genres-link">
-                Dramas
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#todo" className="catalog__genres-link">
-                Horror
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#todo" className="catalog__genres-link">
-                Kids &amp; Family
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#todo" className="catalog__genres-link">
-                Romance
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#todo" className="catalog__genres-link">
-                Sci-Fi
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#todo" className="catalog__genres-link">
-                Thrillers
-              </a>
-            </li>
-          </ul>
+          <GenreList />
           <MovieList
             movies={movies}
             mode={MovieListModeCount.Main}
