@@ -26,6 +26,53 @@ enum DescriptionTab {
   Reviews = 'Reviews'
 }
 
+const GenreLinkProperty = {
+  All: {
+    Caption: 'All genres',
+    Data: 'All'
+  },
+  Comedy: {
+    Caption: 'Comedies',
+    Data: 'Comedy'
+  },
+  Crime: {
+    Caption: 'Crime',
+    Data: 'Crime'
+  },
+  Documentary: {
+    Caption: 'Documentary',
+    Data: 'Documentary'
+  },
+  Drama: {
+    Caption: 'Dramas',
+    Data: 'Drama'
+  },
+  Horror: {
+    Caption: 'Horror',
+    Data: 'Horror'
+  },
+  Family: {
+    Caption: 'Kids & Family',
+    Data: 'Kids & Family'
+  },
+  Romance: {
+    Caption: 'Romance',
+    Data: 'Romance'
+  },
+  SciFi: {
+    Caption: 'Sci-Fi',
+    Data: 'Sci-Fi'
+  },
+  Thriller: {
+    Caption: 'Thrillers',
+    Data: 'Thriller'
+  },
+  // Недостающие жанры
+  // Adventure,
+  // Fantasy,
+  // Action,
+};
+
 const INACTIVE_NUMBER_ID = '0';
 
 const MAX_RATING = 10;
@@ -53,6 +100,7 @@ export {
   ColumnSortType,
   DEFAULT_RATING,
   DescriptionTab,
+  GenreLinkProperty,
   INACTIVE_NUMBER_ID,
   MAX_RATING,
   MIN_RATING,
