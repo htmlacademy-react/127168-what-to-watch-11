@@ -1,4 +1,4 @@
-import {changeGenre, getFilteredMovies} from './action';
+import {changeGenre, filterMovies} from './action';
 import {createReducer} from '@reduxjs/toolkit';
 import {GenreLinkProperty} from '../const';
 import {movies} from '../mocks/movies';
@@ -15,8 +15,8 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(changeGenre, (state, action) => {
       state.currentGenre = action.payload.selectedGenre;
     })
-    .addCase(getFilteredMovies, (state) => {
-      //  WIP
+    .addCase(filterMovies, (state) => {
+      state.filteredMovies = sourceMovies.filter((currentMovie) => currentMovie.genre === state.currentGenre);
     });
 });
 
