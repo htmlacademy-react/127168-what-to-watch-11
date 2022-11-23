@@ -8,6 +8,7 @@ const sourceMovies = movies;
 const initialState = {
   currentGenre: GenreLinkProperty.All.Data,
   filteredMovies: [...sourceMovies],
+  sourceMovies
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -16,7 +17,15 @@ const reducer = createReducer(initialState, (builder) => {
       state.currentGenre = action.payload.selectedGenre;
     })
     .addCase(filterMovies, (state) => {
-      state.filteredMovies = sourceMovies.filter((currentMovie) => currentMovie.genre === state.currentGenre);
+      if (state.currentGenre === GenreLinkProperty.All.Data) {
+        state.filteredMovies = [...sourceMovies];
+      } else {
+        state.filteredMovies = state.sourceMovies.filter(
+          (currentMovie) => (
+            currentMovie.genre === state.currentGenre
+          )
+        );
+      }
     });
 });
 
