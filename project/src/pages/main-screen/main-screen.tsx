@@ -1,18 +1,19 @@
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import {MovieListModeCount, LogoPositionClass} from '../../const';
-import {Movies} from '../../types/movies';
 import MovieList from '../../components/movie-list/movie-list';
 import GenreList from '../../components/genre-list/genre-list';
+import {useAppSelector} from '../../hooks';
 
 type MainScreenProps = {
   title: string;
   genre: string;
   year: number;
-  movies: Movies;
 }
 
-function MainScreen({title, genre, year, movies}: MainScreenProps): JSX.Element {
+function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
+  const movies = useAppSelector((state) => state.filteredMovies);
+
   return (
     <>
       <section className="film-card">
