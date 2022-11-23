@@ -1,23 +1,23 @@
 import GenreLink from './genre-link';
-import {GenreLinkProperty} from '../../const';
+import {useAppSelector} from '../../hooks';
+import { ALL_GENRES_LINK } from '../../const';
+
 
 function GenreList (): JSX.Element {
+  const movies = useAppSelector((state) => state.sourceMovies);
+
+  const genres = new Set([ALL_GENRES_LINK]);
+  movies.forEach((movie) => genres.add(movie.genre));
+
   return (
     <ul className="catalog__genres-list">
       {
-        Object.keys(GenreLinkProperty)
-          .map((genreLinkKey) => {
-            const genreLinkValue = GenreLinkProperty[genreLinkKey as keyof typeof GenreLinkProperty];
-            const dataValue = genreLinkValue.Data;
-            const captionValue = genreLinkValue.Caption;
-
-            return (
-              <GenreLink
-                key={dataValue}
-                dataValue={dataValue}
-                captionValue={captionValue}
-              />);
-          })
+        [...genres]
+          .map((genreLink) => (
+            <GenreLink
+              key={genreLink}
+              dataValue={genreLink}
+            />))
       }
     </ul>
   );

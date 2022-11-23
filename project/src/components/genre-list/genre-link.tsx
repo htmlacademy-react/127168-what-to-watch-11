@@ -5,10 +5,9 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 
 type GenreLinkProps = {
   dataValue: string;
-  captionValue: string;
 }
 
-function GenreLink ({dataValue, captionValue}: GenreLinkProps): JSX.Element {
+function GenreLink ({dataValue}: GenreLinkProps): JSX.Element {
   const currentGenre = useAppSelector((state) => state.currentGenre);
   const dispatch = useAppDispatch();
 
@@ -30,7 +29,7 @@ function GenreLink ({dataValue, captionValue}: GenreLinkProps): JSX.Element {
         data-genre={dataValue}
         onClick={onGenreClick}
       >
-        {captionValue}
+        {dataValue}
       </Link>
     </li>
   );
