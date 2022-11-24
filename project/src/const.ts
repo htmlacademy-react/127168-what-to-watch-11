@@ -34,9 +34,11 @@ const MAX_RATING = 10;
 
 const MIN_RATING = 1;
 
+const MOVIE_STEP = 8;
+
 enum MovieListModeCount {
   // Временно отрисовываем всё
-  Main = 19,
+  Main = MOVIE_STEP,
   Recomended = 4
 }
 
@@ -59,6 +61,7 @@ export {
   INACTIVE_NUMBER_ID,
   MAX_RATING,
   MIN_RATING,
+  MOVIE_STEP,
   MovieListModeCount,
   LogoPositionClass,
   PREVIEW_START_TIME,
