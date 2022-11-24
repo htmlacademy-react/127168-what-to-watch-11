@@ -1,5 +1,10 @@
+import {
+  addMovieCount,
+  changeGenre,
+  filterMovies,
+  resetMovieCount
+} from './action';
 import {ALL_GENRES_LINK, MOVIE_STEP} from '../const';
-import {addMovieCount, changeGenre, filterMovies} from './action';
 import {createReducer} from '@reduxjs/toolkit';
 import {movies} from '../mocks/movies';
 
@@ -32,6 +37,9 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(filterMovies, onFilterMovies)
     .addCase(addMovieCount, (state) => {
       state.movieCounter += MOVIE_STEP;
+    })
+    .addCase(resetMovieCount, (state) => {
+      state.movieCounter = MOVIE_STEP;
     });
 });
 
