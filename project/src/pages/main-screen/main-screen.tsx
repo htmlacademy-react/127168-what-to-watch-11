@@ -13,9 +13,9 @@ type MainScreenProps = {
 }
 
 function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
-  const movies = useAppSelector((state) => state.filteredMovies);
+  const filteredMovies = useAppSelector((state) => state.filteredMovies);
   const movieCounter = useAppSelector((state) => state.movieCounter);
-  const isButtonActive = movies.length > movieCounter;
+  const isButtonActive = filteredMovies.length > movieCounter;
 
   return (
     <>
@@ -89,7 +89,6 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenreList />
           <MovieList
-            movies={movies}
             mode={MovieListModeCount.Main}
           />
           {isButtonActive && <ShowMoreButton />}
