@@ -99,7 +99,6 @@ function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element 
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <MovieList
-            movies={movies}
             mode={MovieListModeCount.Recomended}
             movie={movie}
           />

@@ -3,6 +3,7 @@ import Logo from '../../components/logo/logo';
 import {MovieListModeCount, LogoPositionClass} from '../../const';
 import MovieList from '../../components/movie-list/movie-list';
 import GenreList from '../../components/genre-list/genre-list';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import {useAppSelector} from '../../hooks';
 
 type MainScreenProps = {
@@ -12,7 +13,9 @@ type MainScreenProps = {
 }
 
 function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
-  const movies = useAppSelector((state) => state.filteredMovies);
+  const filteredMovies = useAppSelector((state) => state.filteredMovies);
+  const movieCounter = useAppSelector((state) => state.movieCounter);
+  const isButtonActive = filteredMovies.length > movieCounter;
 
   return (
     <>
@@ -86,14 +89,9 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenreList />
           <MovieList
-            movies={movies}
             mode={MovieListModeCount.Main}
           />
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">
-              Show more
-            </button>
-          </div>
+          {isButtonActive && <ShowMoreButton />}
         </section>
         <footer className="page-footer">
           <Logo positionClass={LogoPositionClass.Footer}/>

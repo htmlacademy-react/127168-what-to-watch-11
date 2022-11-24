@@ -1,25 +1,29 @@
 import FilmCard from '../film-card/film-card';
 import {INACTIVE_NUMBER_ID, MovieListModeCount} from '../../const';
-import {Movie, Movies} from '../../types/movies';
+import {Movie} from '../../types/movies';
+import {useAppSelector} from '../../hooks';
 import {useState} from 'react';
 
 type MovieListProps = {
-  movies: Movies;
   mode: MovieListModeCount;
   movie?: Movie;
 }
 
-function MovieList({movies, mode, movie}: MovieListProps): JSX.Element {
+function MovieList({mode, movie}: MovieListProps): JSX.Element {
+  const filteredMovies = useAppSelector((state) => state.filteredMovies);
+  const sourceMovies = useAppSelector((state) => state.sourceMovies);
+  const movieCounter = useAppSelector((state) => state.movieCounter);
+
   const [activeCardId, setActiveCardId] = useState(INACTIVE_NUMBER_ID);
   const changeActiveCardId = (id: string): void => setActiveCardId(id);
 
   const prepareMovies = (preparingMode: MovieListModeCount) => {
     switch (preparingMode) {
       case MovieListModeCount.Main:
-        return movies.slice(0, MovieListModeCount.Main);
+        return filteredMovies.slice(0, movieCounter);
       case MovieListModeCount.Recomended:
         if (movie) {
-          const filtredMovies = movies.filter((currentMovie) =>
+          const filtredMovies = sourceMovies.filter((currentMovie) =>
             currentMovie.genre === movie?.genre && currentMovie.id !== movie?.id
           );
           return filtredMovies.slice(0, MovieListModeCount.Recomended);

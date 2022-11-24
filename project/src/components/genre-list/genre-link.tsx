@@ -1,4 +1,4 @@
-import {changeGenre, filterMovies} from '../../store/action';
+import {changeGenre, filterMovies, resetMovieCount} from '../../store/action';
 import cn from 'classnames';
 import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
@@ -14,6 +14,7 @@ function GenreLink ({dataValue}: GenreLinkProps): JSX.Element {
   const onGenreClick = () => {
     dispatch(changeGenre({selectedGenre: dataValue}));
     dispatch(filterMovies());
+    dispatch(resetMovieCount());
   };
 
   return (

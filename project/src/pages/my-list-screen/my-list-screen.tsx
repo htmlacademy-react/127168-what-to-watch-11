@@ -1,14 +1,9 @@
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import {MovieListModeCount, LogoPositionClass} from '../../const';
-import {Movies} from '../../types/movies';
 import MovieList from '../../components/movie-list/movie-list';
 
-type MyListScreenProps = {
-  movies: Movies;
-}
-
-function MyListScreen({movies}: MyListScreenProps): JSX.Element {
+function MyListScreen(): JSX.Element {
   return (
     <div className="user-page">
       <Helmet>
@@ -33,7 +28,6 @@ function MyListScreen({movies}: MyListScreenProps): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <MovieList
-          movies={movies}
           mode={MovieListModeCount.Main}
         />
       </section>
