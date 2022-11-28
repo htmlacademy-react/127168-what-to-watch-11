@@ -1,5 +1,9 @@
 const ALL_GENRES_LINK = 'All genres';
 
+export enum APIRoute {
+  Movies = '/films',
+}
+
 enum AppRoute {
   Film = '/films/',
   Login = '/login',
