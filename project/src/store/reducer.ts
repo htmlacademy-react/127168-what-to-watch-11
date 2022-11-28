@@ -2,6 +2,7 @@ import {
   addMovieCount,
   changeGenre,
   filterMovies,
+  loadMovies,
   resetMovieCount
 } from './action';
 import {ALL_GENRES_LINK, MOVIE_STEP} from '../const';
@@ -40,6 +41,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(resetMovieCount, (state) => {
       state.movieCounter = MOVIE_STEP;
+    })
+    .addCase(loadMovies, (state, action) => {
+      state.sourceMovies = action.payload;
     });
 });
 
