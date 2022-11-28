@@ -15,6 +15,8 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN'
 }
 
+const BACKEND_URL = 'https://11.react.pages.academy/wtw';
+
 enum ColumnSortType {
   Odd = 1,
   Even = 2
@@ -49,12 +51,15 @@ enum LogoPositionClass {
 
 const PREVIEW_START_TIME = 1000;
 
+const REQUEST_TIMEOUT = 5000;
+
 const REVIEW_PAGE = 'review';
 
 export {
   ALL_GENRES_LINK,
   AppRoute,
   AuthorizationStatus,
+  BACKEND_URL,
   ColumnSortType,
   DEFAULT_RATING,
   DescriptionTab,
@@ -65,5 +70,6 @@ export {
   MovieListModeCount,
   LogoPositionClass,
   PREVIEW_START_TIME,
+  REQUEST_TIMEOUT,
   REVIEW_PAGE
 };
