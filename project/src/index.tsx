@@ -1,6 +1,4 @@
 import App from './components/app/app';
-import {comments} from './mocks/comments';
-import {movies} from './mocks/movies';
 import {Provider} from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -23,8 +21,6 @@ root.render(
         title={FilmProperty.Title}
         genre={FilmProperty.Genre}
         year={FilmProperty.Year}
-        movies={movies}
-        comments={comments}
       />
     </Provider>
   </React.StrictMode>,
