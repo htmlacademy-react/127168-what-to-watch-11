@@ -5,6 +5,7 @@ import MovieList from '../../components/movie-list/movie-list';
 import GenreList from '../../components/genre-list/genre-list';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import {useAppSelector} from '../../hooks';
+import Loading from '../../components/loading/loaging';
 
 type MainScreenProps = {
   title: string;
@@ -16,9 +17,11 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
   const filteredMovies = useAppSelector((state) => state.filteredMovies);
   const movieCounter = useAppSelector((state) => state.movieCounter);
   const isButtonActive = filteredMovies.length > movieCounter;
+  const isMoviesDataLoading = useAppSelector((state) => state.isMoviesDataLoading);
 
   return (
     <>
+      {isMoviesDataLoading && <Loading />}
       <section className="film-card">
         <Helmet>
           <title>WTW. Main</title>

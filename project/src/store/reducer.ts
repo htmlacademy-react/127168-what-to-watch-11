@@ -3,7 +3,8 @@ import {
   changeGenre,
   filterMovies,
   loadMovies,
-  resetMovieCount
+  resetMovieCount,
+  setMoviesDataLoadingStatus
 } from './action';
 import {ALL_GENRES_LINK, MOVIE_STEP} from '../const';
 import {createReducer} from '@reduxjs/toolkit';
@@ -14,6 +15,7 @@ type InitalState = {
   movieCounter: number;
   filteredMovies: Movies;
   sourceMovies: Movies;
+  isMoviesDataLoading: boolean;
 }
 
 const initialState: InitalState = {
@@ -21,6 +23,7 @@ const initialState: InitalState = {
   movieCounter: MOVIE_STEP,
   filteredMovies: [],
   sourceMovies: [],
+  isMoviesDataLoading: false,
 };
 
 const onFilterMovies = (state: typeof initialState) => {
@@ -49,6 +52,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadMovies, (state, action) => {
       state.sourceMovies = action.payload;
+    })
+    .addCase(setMoviesDataLoadingStatus, (state, action) => {
+      state.isMoviesDataLoading = action.payload;
     });
 });
 
