@@ -7,20 +7,25 @@ import {
 } from './action';
 import {ALL_GENRES_LINK, MOVIE_STEP} from '../const';
 import {createReducer} from '@reduxjs/toolkit';
-import {movies} from '../mocks/movies';
+import {Movies} from '../types/movies';
 
-const sourceMovies = movies;
+type InitalState = {
+  currentGenre: string;
+  movieCounter: number;
+  filteredMovies: Movies;
+  sourceMovies: Movies;
+}
 
-const initialState = {
+const initialState: InitalState = {
   currentGenre: ALL_GENRES_LINK,
   movieCounter: MOVIE_STEP,
-  filteredMovies: [...sourceMovies],
-  sourceMovies
+  filteredMovies: [],
+  sourceMovies: [],
 };
 
 const onFilterMovies = (state: typeof initialState) => {
   if (state.currentGenre === ALL_GENRES_LINK) {
-    state.filteredMovies = [...sourceMovies];
+    state.filteredMovies = [...state.sourceMovies];
   } else {
     state.filteredMovies = state.sourceMovies.filter(
       (currentMovie) => (
