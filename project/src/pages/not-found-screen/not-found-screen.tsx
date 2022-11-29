@@ -1,6 +1,7 @@
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import {LogoPositionClass} from '../../const';
+import './not-found-screen.css';
 
 function NotFoundScreen(): JSX.Element {
   return (

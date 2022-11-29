@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import {PREVIEW_START_TIME} from '../../const';
 import {useEffect, useRef} from 'react';
+import './video-preview.css';
 
 type VideoPreviewProps = {
   link: string;

@@ -1,20 +1,3 @@
-.not-found__bg {
-  height: 100vh;
-}
-
-.small-film-card__video {
-  object-fit: cover;
-}
-
-.film-card__reviews-empty {
-  color: #252525;
-  font-weight: 700;
-  font-size: 19px;
-  margin-top: 40px;
-}
-
-/* loader */
-
 .loading-page {
   position: absolute;
   width: 100%;

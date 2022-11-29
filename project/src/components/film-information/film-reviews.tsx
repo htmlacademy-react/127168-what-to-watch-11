@@ -1,6 +1,7 @@
 import {ColumnSortType} from '../../const';
 import {Comments} from '../../types/comments';
 import Review from '../review/review';
+import ReviewsEmpty from '../reviews-empty/reviews-empty';
 
 type FilmReviewsProps = {
   comments: Comments;
@@ -27,10 +28,7 @@ function FilmReviews({comments}: FilmReviewsProps): JSX.Element {
         {renderReviews(ColumnSortType.Even)}
       </div>
     </div>
-  ) :
-    <p className="film-card__reviews-empty">
-      There are no reviews yet
-    </p>;
+  ) : <ReviewsEmpty />;
 }
 
 export default FilmReviews;
