@@ -2,24 +2,33 @@ import {
   addMovieCount,
   changeGenre,
   filterMovies,
-  resetMovieCount
+  loadMovies,
+  resetMovieCount,
+  setMoviesDataLoadingStatus
 } from './action';
 import {ALL_GENRES_LINK, MOVIE_STEP} from '../const';
 import {createReducer} from '@reduxjs/toolkit';
-import {movies} from '../mocks/movies';
+import {Movies} from '../types/movies';
 
-const sourceMovies = movies;
+type InitalState = {
+  currentGenre: string;
+  movieCounter: number;
+  filteredMovies: Movies;
+  sourceMovies: Movies;
+  isMoviesDataLoading: boolean;
+}
 
-const initialState = {
+const initialState: InitalState = {
   currentGenre: ALL_GENRES_LINK,
   movieCounter: MOVIE_STEP,
-  filteredMovies: [...sourceMovies],
-  sourceMovies
+  filteredMovies: [],
+  sourceMovies: [],
+  isMoviesDataLoading: false,
 };
 
 const onFilterMovies = (state: typeof initialState) => {
   if (state.currentGenre === ALL_GENRES_LINK) {
-    state.filteredMovies = [...sourceMovies];
+    state.filteredMovies = [...state.sourceMovies];
   } else {
     state.filteredMovies = state.sourceMovies.filter(
       (currentMovie) => (
@@ -40,6 +49,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(resetMovieCount, (state) => {
       state.movieCounter = MOVIE_STEP;
+    })
+    .addCase(loadMovies, (state, action) => {
+      state.sourceMovies = action.payload;
+    })
+    .addCase(setMoviesDataLoadingStatus, (state, action) => {
+      state.isMoviesDataLoading = action.payload;
     });
 });
 

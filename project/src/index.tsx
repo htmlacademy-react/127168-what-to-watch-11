@@ -1,6 +1,5 @@
 import App from './components/app/app';
-import {comments} from './mocks/comments';
-import {movies} from './mocks/movies';
+import {fetchMoviesAction} from './services/api-actions';
 import {Provider} from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -16,6 +15,8 @@ const FilmProperty = {
   Year: 2014
 } as const;
 
+store.dispatch(fetchMoviesAction());
+
 root.render(
   <React.StrictMode>
     <Provider store = {store}>
@@ -23,8 +24,6 @@ root.render(
         title={FilmProperty.Title}
         genre={FilmProperty.Genre}
         year={FilmProperty.Year}
-        movies={movies}
-        comments={comments}
       />
     </Provider>
   </React.StrictMode>,
