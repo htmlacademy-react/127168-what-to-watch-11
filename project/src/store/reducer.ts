@@ -4,9 +4,10 @@ import {
   filterMovies,
   loadMovies,
   resetMovieCount,
+  requireAuthorization,
   setMoviesDataLoadingStatus
 } from './action';
-import {ALL_GENRES_LINK, MOVIE_STEP} from '../const';
+import {ALL_GENRES_LINK, AuthorizationStatus, MOVIE_STEP} from '../const';
 import {createReducer} from '@reduxjs/toolkit';
 import {Movies} from '../types/movies';
 
@@ -16,6 +17,7 @@ type InitalState = {
   filteredMovies: Movies;
   sourceMovies: Movies;
   isMoviesDataLoading: boolean;
+  authorizationStatus: AuthorizationStatus;
 }
 
 const initialState: InitalState = {
@@ -24,6 +26,7 @@ const initialState: InitalState = {
   filteredMovies: [],
   sourceMovies: [],
   isMoviesDataLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown
 };
 
 const onFilterMovies = (state: typeof initialState) => {
@@ -55,6 +58,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setMoviesDataLoadingStatus, (state, action) => {
       state.isMoviesDataLoading = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 

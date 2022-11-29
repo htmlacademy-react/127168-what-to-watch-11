@@ -18,7 +18,7 @@ type AppScreenProp = {
   year: number;
 }
 
-const authorizationStatus = AuthorizationStatus.Auth;
+const authorizationStatus = AuthorizationStatus.Auth; //TODO удалить константу, заменить на значение из состояния
 
 function App({title, genre, year}: AppScreenProp): JSX.Element {
   return (
