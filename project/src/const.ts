@@ -13,6 +13,8 @@ enum AppRoute {
   Review = '/films/:id/review'
 }
 
+const AUTH_TOKEN_KEY_NAME = 'whattowatch-token';
+
 enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -62,6 +64,7 @@ const REVIEW_PAGE = 'review';
 export {
   ALL_GENRES_LINK,
   AppRoute,
+  AUTH_TOKEN_KEY_NAME,
   AuthorizationStatus,
   BACKEND_URL,
   ColumnSortType,
