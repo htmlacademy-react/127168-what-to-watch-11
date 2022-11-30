@@ -29,10 +29,7 @@ function SignInScreen(): JSX.Element {
     }
   };
 
-  const isNoAuthStatus = (status: AuthorizationStatus) => (
-    status === AuthorizationStatus.NoAuth ||
-    status === AuthorizationStatus.Unknown
-  );
+  const isNoAuthStatus = (status: AuthorizationStatus) => status === AuthorizationStatus.NoAuth;
 
   const signInScreenComponent = (
     <div className="user-page">
