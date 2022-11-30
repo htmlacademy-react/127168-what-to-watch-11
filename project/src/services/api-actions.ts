@@ -1,16 +1,24 @@
 import {APIRoute, AuthorizationStatus} from '../const';
 import {AppDispatch, State} from '../types/state';
-import {AuthData, UserData} from '../types/user';
+import {AuthData, UserDataResponse} from '../types/user';
 import {AxiosInstance} from 'axios';
+import {convertUserData} from './user-data-converter';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {dropToken, saveToken} from './token';
 import {
   filterMovies,
   loadMovies,
   requireAuthorization,
-  setMoviesDataLoadingStatus
+  setMoviesDataLoadingStatus,
+  setUserData
 } from '../store/action';
 import {Movies} from '../types/movies';
+
+const createSuccessfulActions = (dispatch: AppDispatch, data: UserDataResponse) => {
+  const userData = convertUserData(data);
+  dispatch(setUserData(userData));
+  dispatch(requireAuthorization(AuthorizationStatus.Auth));
+};
 
 export const fetchMoviesAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -35,8 +43,8 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      await api.get(APIRoute.Login);
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      const {data} = await api.get<UserDataResponse>(APIRoute.Login);
+      createSuccessfulActions(dispatch, data);
     } catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
@@ -50,9 +58,9 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>(
   'user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
+    const {data, data: {token}} = await api.post<UserDataResponse>(APIRoute.Login, {email, password});
     saveToken(token);
-    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    createSuccessfulActions(dispatch, data);
   },
 );
 

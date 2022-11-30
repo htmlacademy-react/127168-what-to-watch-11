@@ -5,8 +5,11 @@ export type AuthData = {
 
 export type UserData = {
   avatarUrl: string;
-  email: string;
   id: number;
   name: string;
+};
+
+export type UserDataResponse = UserData & {
+  email: string;
   token: string;
 };
