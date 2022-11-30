@@ -6,7 +6,7 @@ import GenreList from '../../components/genre-list/genre-list';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import {useAppSelector} from '../../hooks';
 import Loading from '../../components/loading/loaging';
-import UserBlock from '../../components/user-block/user-block';
+import { selectUserBlock } from '../../user-block-selector';
 
 type MainScreenProps = {
   title: string;
@@ -17,8 +17,10 @@ type MainScreenProps = {
 function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
   const filteredMovies = useAppSelector((state) => state.filteredMovies);
   const movieCounter = useAppSelector((state) => state.movieCounter);
-  const isButtonActive = filteredMovies.length > movieCounter;
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isMoviesDataLoading = useAppSelector((state) => state.isMoviesDataLoading);
+
+  const isButtonActive = filteredMovies.length > movieCounter;
 
   return (
     <>
@@ -36,7 +38,7 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header film-card__head">
           <Logo positionClass={LogoPositionClass.Header}/>
-          <UserBlock />
+          {selectUserBlock(authorizationStatus)}
         </header>
         <div className="film-card__wrap">
           <div className="film-card__info">
