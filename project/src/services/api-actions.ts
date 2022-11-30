@@ -8,6 +8,7 @@ import {dropToken, saveToken} from './token';
 import {
   filterMovies,
   loadMovies,
+  removeUserData,
   requireAuthorization,
   setMoviesDataLoadingStatus,
   setUserData
@@ -74,5 +75,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    dispatch(removeUserData());
   },
 );

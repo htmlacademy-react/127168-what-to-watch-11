@@ -18,3 +18,5 @@ export const setMoviesDataLoadingStatus = createAction<boolean>('data/setMoviesD
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
 export const setUserData = createAction<UserData>('user/setUserData');
+
+export const removeUserData = createAction('user/removeUserData');

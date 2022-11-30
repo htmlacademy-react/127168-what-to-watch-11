@@ -6,7 +6,8 @@ import {
   resetMovieCount,
   requireAuthorization,
   setMoviesDataLoadingStatus,
-  setUserData
+  setUserData,
+  removeUserData
 } from './action';
 import {ALL_GENRES_LINK, AuthorizationStatus, MOVIE_STEP} from '../const';
 import {createReducer} from '@reduxjs/toolkit';
@@ -68,6 +69,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setUserData, (state, action) => {
       state.userData = action.payload;
+    })
+    .addCase(removeUserData, (state) => {
+      state.userData = {};
     });
 });
 
