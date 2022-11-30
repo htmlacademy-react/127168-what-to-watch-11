@@ -1,9 +1,13 @@
 import App from './components/app/app';
-import {fetchMoviesAction} from './services/api-actions';
+import {checkAuthAction, fetchMoviesAction} from './services/api-actions';
 import {Provider} from 'react-redux';
 import React from 'react';
+import 'react-toastify/dist/ReactToastify.css';
 import ReactDOM from 'react-dom/client';
 import {store} from './store';
+import {ToastContainer} from 'react-toastify';
+
+store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -20,6 +24,7 @@ store.dispatch(fetchMoviesAction());
 root.render(
   <React.StrictMode>
     <Provider store = {store}>
+      <ToastContainer />
       <App
         title={FilmProperty.Title}
         genre={FilmProperty.Genre}
