@@ -2,11 +2,13 @@ import {AuthData} from '../../types/user';
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import {loginAction} from '../../services/api-actions';
-import {LogoPositionClass} from '../../const';
-import {useAppDispatch} from '../../hooks';
+import {AppRoute, AuthorizationStatus, LogoPositionClass} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {FormEvent, useRef} from 'react';
+import { Navigate } from 'react-router-dom';
 
 function SignInScreen(): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -27,7 +29,12 @@ function SignInScreen(): JSX.Element {
     }
   };
 
-  return (
+  const isNoAuthStatus = (status: AuthorizationStatus) => (
+    status === AuthorizationStatus.NoAuth ||
+    status === AuthorizationStatus.Unknown
+  );
+
+  const signInScreenComponent = (
     <div className="user-page">
       <Helmet>
         <title>WTW. Sign in</title>
@@ -91,6 +98,8 @@ function SignInScreen(): JSX.Element {
       </footer>
     </div>
   );
+
+  return isNoAuthStatus(authorizationStatus) ? signInScreenComponent : <Navigate to={AppRoute.Main}/>;
 }
 
 export default SignInScreen;
