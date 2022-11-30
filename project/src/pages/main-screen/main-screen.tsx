@@ -6,6 +6,7 @@ import GenreList from '../../components/genre-list/genre-list';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import {useAppSelector} from '../../hooks';
 import Loading from '../../components/loading/loaging';
+import UserBlock from '../../components/user-block/user-block';
 
 type MainScreenProps = {
   title: string;
@@ -35,21 +36,7 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header film-card__head">
           <Logo positionClass={LogoPositionClass.Header}/>
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img
-                  src="img/avatar.jpg"
-                  alt="User avatar"
-                  width="63"
-                  height="63"
-                />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link" href="#todo">Sign out</a>
-            </li>
-          </ul>
+          <UserBlock />
         </header>
         <div className="film-card__wrap">
           <div className="film-card__info">
