@@ -1,5 +1,5 @@
 // import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 // import {Comments} from '../../types/comments';
 import {HelmetProvider} from 'react-helmet-async';
@@ -17,8 +17,6 @@ type AppScreenProp = {
   genre: string;
   year: number;
 }
-
-const authorizationStatus = AuthorizationStatus.Auth; //TODO удалить константу, заменить на значение из состояния
 
 function App({title, genre, year}: AppScreenProp): JSX.Element {
   return (
@@ -50,9 +48,7 @@ function App({title, genre, year}: AppScreenProp): JSX.Element {
           <Route
             path={AppRoute.MyList}
             element={
-              <PrivateRoute
-                authorizationStatus={authorizationStatus}
-              >
+              <PrivateRoute>
                 <MyListScreen />
               </PrivateRoute>
             }
