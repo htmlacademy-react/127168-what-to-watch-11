@@ -20,3 +20,5 @@ export const requireAuthorization = createAction<AuthorizationStatus>('user/requ
 export const setUserData = createAction<UserData>('user/setUserData');
 
 export const removeUserData = createAction('user/removeUserData');
+
+export const setError = createAction<string | null>('game/setError');

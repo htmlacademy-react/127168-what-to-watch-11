@@ -5,10 +5,12 @@ import {loginAction} from '../../services/api-actions';
 import {AppRoute, AuthorizationStatus, LogoPositionClass} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {FormEvent, useRef} from 'react';
-import { Navigate } from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
+import SignInMessage from '../../components/sign-in-message/sign-in-message';
 
 function SignInScreen(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const errorMessage = useAppSelector((state) => state.error);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -46,6 +48,7 @@ function SignInScreen(): JSX.Element {
           className="sign-in__form"
           onSubmit={handleSubmit}
         >
+          {errorMessage ? <SignInMessage /> : null}
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input

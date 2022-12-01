@@ -4,10 +4,12 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse
 } from 'axios';
-import {BACKEND_URL, REQUEST_TIMEOUT} from '../const';
+import {AppRoute, BACKEND_URL, REQUEST_TIMEOUT} from '../const';
 import {getToken} from './token';
 import {StatusCodes} from 'http-status-codes';
-import { toast } from 'react-toastify';
+import {toast} from 'react-toastify';
+import { store } from '../store';
+import { setError } from '../store/action';
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
@@ -15,6 +17,7 @@ const StatusCodeMapping: Record<number, boolean> = {
 };
 
 const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
+const isLoginPage = () => window.location.pathname === AppRoute.Login;
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -38,7 +41,12 @@ export const createAPI = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError<{error: string}>) => {
       if (error.response && shouldDisplayError(error.response)) {
-        toast.warn(error.response.data.error);
+        // Для логина своё окно ошибок
+        if (isLoginPage()) {
+          store.dispatch(setError(error.response.data.error));
+        } else {
+          toast.warn(error.response.data.error);
+        }
       }
 
       throw error;
