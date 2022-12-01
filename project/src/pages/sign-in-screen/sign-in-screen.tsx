@@ -1,9 +1,39 @@
+import {AuthData} from '../../types/user';
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
-import {LogoPositionClass} from '../../const';
+import {loginAction} from '../../services/api-actions';
+import {AppRoute, AuthorizationStatus, LogoPositionClass} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {FormEvent, useRef} from 'react';
+import {Navigate} from 'react-router-dom';
+import SignInMessage from '../../components/sign-in-message/sign-in-message';
 
 function SignInScreen(): JSX.Element {
-  return (
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const errorMessage = useAppSelector((state) => state.error);
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const dispatch = useAppDispatch();
+
+  const onSubmit = (authData: AuthData) => {
+    dispatch(loginAction(authData));
+  };
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      onSubmit({
+        login: loginRef.current.value,
+        password: passwordRef.current.value,
+      });
+    }
+  };
+
+  const isNoAuthStatus = (status: AuthorizationStatus) => status === AuthorizationStatus.NoAuth;
+
+  const signInScreenComponent = (
     <div className="user-page">
       <Helmet>
         <title>WTW. Sign in</title>
@@ -13,30 +43,39 @@ function SignInScreen(): JSX.Element {
         <h1 className="page-title user-page__title">Sign in</h1>
       </header>
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form">
+        <form
+          action=""
+          className="sign-in__form"
+          onSubmit={handleSubmit}
+        >
+          {errorMessage ? <SignInMessage /> : null}
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
+                ref={loginRef}
                 className="sign-in__input"
                 type="email"
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
+                required
               />
               <label
                 className="sign-in__label visually-hidden"
                 htmlFor="user-email"
               >
-            Email address
+                Email address
               </label>
             </div>
             <div className="sign-in__field">
               <input
+                ref={passwordRef}
                 className="sign-in__input"
                 type="password"
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
+                required
               />
               <label
                 className="sign-in__label visually-hidden"
@@ -48,7 +87,7 @@ function SignInScreen(): JSX.Element {
           </div>
           <div className="sign-in__submit">
             <button className="sign-in__btn" type="submit">
-          Sign in
+              Sign in
             </button>
           </div>
         </form>
@@ -61,6 +100,8 @@ function SignInScreen(): JSX.Element {
       </footer>
     </div>
   );
+
+  return isNoAuthStatus(authorizationStatus) ? signInScreenComponent : <Navigate to={AppRoute.Main}/>;
 }
 
 export default SignInScreen;

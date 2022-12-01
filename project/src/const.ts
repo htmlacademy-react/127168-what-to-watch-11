@@ -2,6 +2,8 @@ const ALL_GENRES_LINK = 'All genres';
 
 export enum APIRoute {
   Movies = '/films',
+  Login = '/login',
+  Logout = '/logout'
 }
 
 enum AppRoute {
@@ -12,6 +14,8 @@ enum AppRoute {
   Player = '/player/',
   Review = '/films/:id/review'
 }
+
+const AUTH_TOKEN_KEY_NAME = 'whattowatch-token';
 
 enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -62,6 +66,7 @@ const REVIEW_PAGE = 'review';
 export {
   ALL_GENRES_LINK,
   AppRoute,
+  AUTH_TOKEN_KEY_NAME,
   AuthorizationStatus,
   BACKEND_URL,
   ColumnSortType,

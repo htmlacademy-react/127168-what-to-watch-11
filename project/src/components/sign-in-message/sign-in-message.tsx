@@ -1,9 +1,13 @@
-function SignInMessageComponent(): JSX.Element {
+import {useAppSelector} from '../../hooks';
+
+function SignInMessage(): JSX.Element {
+  const errorMessage = useAppSelector((state) => state.error);
+
   return (
     <div className="sign-in__message">
-      <p>Message text will be here</p>
+      <p>{errorMessage}</p>
     </div>
   );
 }
 
-export default SignInMessageComponent;
+export default SignInMessage;

@@ -1,3 +1,5 @@
+import './loading.css';
+
 function Loading (): JSX.Element {
   return (
     <div className="loading-page">
