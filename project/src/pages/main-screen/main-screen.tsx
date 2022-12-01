@@ -1,12 +1,12 @@
 import {Helmet} from 'react-helmet-async';
+import Loading from '../../components/loading/loaging';
 import Logo from '../../components/logo/logo';
 import {MovieListModeCount, LogoPositionClass} from '../../const';
 import MovieList from '../../components/movie-list/movie-list';
 import GenreList from '../../components/genre-list/genre-list';
+import {selectUserBlock} from '../../user-block-selector';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import {useAppSelector} from '../../hooks';
-import Loading from '../../components/loading/loaging';
-import { selectUserBlock } from '../../user-block-selector';
 
 type MainScreenProps = {
   title: string;

@@ -1,9 +1,9 @@
 import {
   AppRoute,
+  AuthorizationStatus,
   LogoPositionClass,
   MINIMUM_RECOMMENDED_FILMS,
   MovieListModeCount,
-  REVIEW_PAGE
 } from '../../const';
 import {
   fetchCurrentCommentsAction,
@@ -15,13 +15,16 @@ import {Helmet} from 'react-helmet-async';
 import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import MovieList from '../../components/movie-list/movie-list';
+import {selectUserBlock} from '../../user-block-selector';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
+import AddReviewButton from '../../components/add-review-button/add-review-button';
 
 function MoviePageScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const movie = useAppSelector((state) => state.currentMovie);
   const recommendedMovies = useAppSelector((state) => state.recommendedMovies);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const {id} = useParams();
 
   useEffect(() => {
@@ -48,21 +51,7 @@ function MoviePageScreen(): JSX.Element {
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header film-card__head">
             <Logo positionClass={LogoPositionClass.Header}/>
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img
-                    src="img/avatar.jpg"
-                    alt="User avatar"
-                    width="63"
-                    height="63"
-                  />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link" href="#todo">Sign out</a>
-              </li>
-            </ul>
+            {selectUserBlock(authorizationStatus)}
           </header>
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -85,12 +74,7 @@ function MoviePageScreen(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link
-                  className="btn film-card__button"
-                  to={`${AppRoute.Film}${movie.id}/${REVIEW_PAGE}`}
-                >
-                  Add review
-                </Link>
+                {authorizationStatus === AuthorizationStatus.Auth && <AddReviewButton />}
               </div>
             </div>
           </div>
