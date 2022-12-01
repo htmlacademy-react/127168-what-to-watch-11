@@ -46,12 +46,14 @@ const MAX_RATING = 10;
 
 const MIN_RATING = 1;
 
+const MINIMUM_RECOMMENDED_FILMS = 2;
+
 const MOVIE_STEP = 8;
 
 enum MovieListModeCount {
   // Временно отрисовываем всё
   Main = MOVIE_STEP,
-  Recomended = 4
+  Recommended = 4
 }
 
 enum LogoPositionClass {
@@ -77,6 +79,7 @@ export {
   INACTIVE_NUMBER_ID,
   MAX_RATING,
   MIN_RATING,
+  MINIMUM_RECOMMENDED_FILMS,
   MOVIE_STEP,
   MovieListModeCount,
   LogoPositionClass,

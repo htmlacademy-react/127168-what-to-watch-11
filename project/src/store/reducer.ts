@@ -50,7 +50,7 @@ type InitalState = {
   error: string | null;
   currentMovie: Movie;
   currentComments: Comments;
-  recomendedMovies: Movies;
+  recommendedMovies: Movies;
 }
 
 const initialState: InitalState = {
@@ -64,7 +64,7 @@ const initialState: InitalState = {
   error: null,
   currentMovie: emptyMovie,
   currentComments: [],
-  recomendedMovies: []
+  recommendedMovies: []
 };
 
 const onFilterMovies = (state: typeof initialState) => {
@@ -116,7 +116,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.currentComments = action.payload;
     })
     .addCase(loadRecomendedMovies, (state, action) => {
-      state.recomendedMovies = action.payload;
+      state.recommendedMovies = action.payload;
     });
 });
 

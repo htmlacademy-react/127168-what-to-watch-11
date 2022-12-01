@@ -1,7 +1,8 @@
 import {
   AppRoute,
   LogoPositionClass,
-  // MovieListModeCount,
+  MINIMUM_RECOMMENDED_FILMS,
+  MovieListModeCount,
   REVIEW_PAGE
 } from '../../const';
 import {
@@ -11,18 +12,16 @@ import {
 } from '../../services/api-actions';
 import FilmTabs from '../../components/film-tabs/film-tabs';
 import {Helmet} from 'react-helmet-async';
-// import {Movie, Movies} from '../../types/movies';
 import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
-// import MovieList from '../../components/movie-list/movie-list';
+import MovieList from '../../components/movie-list/movie-list';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
-// import NotFoundScreen from '../not-found-screen/not-found-screen';
-
 
 function MoviePageScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const movie = useAppSelector((state) => state.currentMovie);
+  const recommendedMovies = useAppSelector((state) => state.recommendedMovies);
   const {id} = useParams();
 
   useEffect(() => {
@@ -111,13 +110,18 @@ function MoviePageScreen(): JSX.Element {
         </div>
       </section>
       <div className="page-content">
-        {/* <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
+        <section className="catalog catalog--like-this">
+          <h2 className="catalog__title">
+            {
+              recommendedMovies.length > MINIMUM_RECOMMENDED_FILMS ?
+                'More like this' :
+                'There are no recommended films'
+            }
+          </h2>
           <MovieList
-            mode={MovieListModeCount.Recomended}
-            movie={movie}
+            mode={MovieListModeCount.Recommended}
           />
-        </section> */}
+        </section>
         <footer className="page-footer">
           <Logo positionClass={LogoPositionClass.Footer}/>
           <div className="copyright">
