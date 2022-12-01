@@ -10,6 +10,7 @@ import {
   loadMovies,
   removeUserData,
   requireAuthorization,
+  setError,
   setMoviesDataLoadingStatus,
   setUserData
 } from '../store/action';
@@ -61,6 +62,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   async ({login: email, password}, {dispatch, extra: api}) => {
     const {data, data: {token}} = await api.post<UserDataResponse>(APIRoute.Login, {email, password});
     saveToken(token);
+    dispatch(setError(null));
     createSuccessfulActions(dispatch, data);
   },
 );
