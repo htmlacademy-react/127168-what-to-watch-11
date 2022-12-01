@@ -1,12 +1,12 @@
-import {AuthData} from '../../types/user';
-import {Helmet} from 'react-helmet-async';
-import Logo from '../../components/logo/logo';
-import {loginAction} from '../../services/api-actions';
 import {AppRoute, AuthorizationStatus, LogoPositionClass} from '../../const';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {AuthData} from '../../types/user';
 import {FormEvent, useRef} from 'react';
+import {Helmet} from 'react-helmet-async';
+import {loginAction} from '../../services/api-actions';
+import Logo from '../../components/logo/logo';
 import {Navigate} from 'react-router-dom';
 import SignInMessage from '../../components/sign-in-message/sign-in-message';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 
 function SignInScreen(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
