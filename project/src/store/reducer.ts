@@ -19,6 +19,26 @@ import {createReducer} from '@reduxjs/toolkit';
 import {Movie, Movies} from '../types/movies';
 import {UserData} from '../types/user';
 
+const emptyMovie: Movie = {
+  id: '',
+  name: '',
+  posterImage: '',
+  previewImage: '',
+  backgroundImage: '',
+  backgroundColor: '',
+  videoLink: '',
+  previewVideoLink: '',
+  description: '',
+  rating: 0,
+  scoresCount: 0,
+  director: '',
+  starring: [],
+  runTime: 0,
+  genre: '',
+  released: 0,
+  isFavorite: false
+};
+
 type InitalState = {
   currentGenre: string;
   movieCounter: number;
@@ -28,7 +48,7 @@ type InitalState = {
   authorizationStatus: AuthorizationStatus;
   userData: UserData | Record<string, never>;
   error: string | null;
-  currentMovie: Movie | Record<string, never>;
+  currentMovie: Movie;
   currentComments: Comments;
   recomendedMovies: Movies;
 }
@@ -42,7 +62,7 @@ const initialState: InitalState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: {},
   error: null,
-  currentMovie: {},
+  currentMovie: emptyMovie,
   currentComments: [],
   recomendedMovies: []
 };

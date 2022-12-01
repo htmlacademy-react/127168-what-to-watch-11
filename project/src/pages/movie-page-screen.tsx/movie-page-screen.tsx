@@ -10,7 +10,7 @@ import {
   fetchRecomendedMoviesAction
 } from '../../services/api-actions';
 // import FilmTabs from '../../components/film-tabs/film-tabs';
-// import {Helmet} from 'react-helmet-async';
+import {Helmet} from 'react-helmet-async';
 // import {Movie, Movies} from '../../types/movies';
 import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
@@ -36,9 +36,9 @@ function MoviePageScreen(): JSX.Element {
   return (
     <>
       <section className="film-card film-card--full" style={{background: movie.backgroundColor}}>
-        {/* <Helmet>
+        <Helmet>
           <title>WTW. {movie.name}</title>
-        </Helmet> */}
+        </Helmet>
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img
