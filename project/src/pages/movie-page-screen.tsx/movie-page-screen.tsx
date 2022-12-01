@@ -9,7 +9,7 @@ import {
   fetchCurrentMovieAction,
   fetchRecomendedMoviesAction
 } from '../../services/api-actions';
-// import FilmTabs from '../../components/film-tabs/film-tabs';
+import FilmTabs from '../../components/film-tabs/film-tabs';
 import {Helmet} from 'react-helmet-async';
 // import {Movie, Movies} from '../../types/movies';
 import {Link, useParams} from 'react-router-dom';
@@ -106,7 +106,7 @@ function MoviePageScreen(): JSX.Element {
                 height="327"
               />
             </div>
-            {/* <FilmTabs /> */}
+            <FilmTabs />
           </div>
         </div>
       </section>
