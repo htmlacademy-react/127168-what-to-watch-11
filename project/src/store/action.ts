@@ -1,7 +1,8 @@
 import {AuthorizationStatus} from '../const';
 import {createAction} from '@reduxjs/toolkit';
-import {Movies} from '../types/movies';
+import {Movie, Movies} from '../types/movies';
 import {UserData} from '../types/user';
+import {Comments} from '../types/comments';
 
 export const changeGenre = createAction<{selectedGenre: string}>('mainList/changeGenre');
 
@@ -22,3 +23,9 @@ export const setUserData = createAction<UserData>('user/setUserData');
 export const removeUserData = createAction('user/removeUserData');
 
 export const setError = createAction<string | null>('game/setError');
+
+export const loadCurrentMovie = createAction<Movie>('data/loadCurrentMovie');
+
+export const loadCurrentComments = createAction<Comments>('data/loadCurrentComments');
+
+export const loadRecomendedMovies = createAction<Movies>('data/loadRecomendedMovies');

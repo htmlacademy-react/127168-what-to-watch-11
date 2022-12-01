@@ -7,14 +7,18 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {dropToken, saveToken} from './token';
 import {
   filterMovies,
+  loadCurrentComments,
+  loadCurrentMovie,
   loadMovies,
+  loadRecomendedMovies,
   removeUserData,
   requireAuthorization,
   setError,
   setMoviesDataLoadingStatus,
   setUserData
 } from '../store/action';
-import {Movies} from '../types/movies';
+import {Movie, Movies} from '../types/movies';
+import { Comments } from '../types/comments';
 
 const createSuccessfulActions = (dispatch: AppDispatch, data: UserDataResponse) => {
   const userData = convertUserData(data);
@@ -78,5 +82,53 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dropToken();
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     dispatch(removeUserData());
+  },
+);
+
+export const fetchCurrentMovieAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchCurrentMovie',
+  async (id, {dispatch, extra: api}) => {
+    const route = `${APIRoute.Movies}/${id}`;
+
+    dispatch(setMoviesDataLoadingStatus(true));
+    const {data} = await api.get<Movie>(route);
+    dispatch(loadCurrentMovie(data));
+    dispatch(setMoviesDataLoadingStatus(false));
+  },
+);
+
+export const fetchCurrentCommentsAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchCurrentComments',
+  async (id, {dispatch, extra: api}) => {
+    const route = `${APIRoute.Comments}/${id}`;
+
+    dispatch(setMoviesDataLoadingStatus(true));
+    const {data} = await api.get<Comments>(route);
+    dispatch(loadCurrentComments(data));
+    dispatch(setMoviesDataLoadingStatus(false));
+  },
+);
+
+export const fetchRecomendedMoviesAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchRecomendedMovies',
+  async (id, {dispatch, extra: api}) => {
+    const route = `${APIRoute.Movies}/${id}/${APIRoute.Similar}`;
+
+    dispatch(setMoviesDataLoadingStatus(true));
+    const {data} = await api.get<Movies>(route);
+    dispatch(loadRecomendedMovies(data));
+    dispatch(setMoviesDataLoadingStatus(false));
   },
 );

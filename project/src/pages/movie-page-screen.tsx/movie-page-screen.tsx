@@ -1,29 +1,44 @@
-import {AppRoute, LogoPositionClass, MovieListModeCount, REVIEW_PAGE} from '../../const';
-import {Comments} from '../../types/comments';
-import FilmTabs from '../../components/film-tabs/film-tabs';
-import {Helmet} from 'react-helmet-async';
-import {Movie, Movies} from '../../types/movies';
+import {
+  AppRoute,
+  LogoPositionClass,
+  // MovieListModeCount,
+  REVIEW_PAGE
+} from '../../const';
+import {
+  fetchCurrentCommentsAction,
+  fetchCurrentMovieAction,
+  fetchRecomendedMoviesAction
+} from '../../services/api-actions';
+// import FilmTabs from '../../components/film-tabs/film-tabs';
+// import {Helmet} from 'react-helmet-async';
+// import {Movie, Movies} from '../../types/movies';
 import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
-import MovieList from '../../components/movie-list/movie-list';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
+// import MovieList from '../../components/movie-list/movie-list';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useEffect} from 'react';
+// import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-type MoviePageScreenProps = {
-  movies: Movies;
-  comments: Comments;
-}
 
-function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element {
+function MoviePageScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const movie = useAppSelector((state) => state.currentMovie);
   const {id} = useParams();
-  const movie = movies.find((item: Movie) => item.id === id);
-  const filteredComments = comments.filter((comment) => movie?.id === comment.filmId);
 
-  return movie ? (
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchCurrentMovieAction(id));
+      dispatch(fetchCurrentCommentsAction(id));
+      dispatch(fetchRecomendedMoviesAction(id));
+    }
+  }, [dispatch, id]);
+
+  return (
     <>
       <section className="film-card film-card--full" style={{background: movie.backgroundColor}}>
-        <Helmet>
+        {/* <Helmet>
           <title>WTW. {movie.name}</title>
-        </Helmet>
+        </Helmet> */}
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img
@@ -91,18 +106,18 @@ function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element 
                 height="327"
               />
             </div>
-            <FilmTabs movie={movie} comments={filteredComments} />
+            {/* <FilmTabs /> */}
           </div>
         </div>
       </section>
       <div className="page-content">
-        <section className="catalog catalog--like-this">
+        {/* <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <MovieList
             mode={MovieListModeCount.Recomended}
             movie={movie}
           />
-        </section>
+        </section> */}
         <footer className="page-footer">
           <Logo positionClass={LogoPositionClass.Footer}/>
           <div className="copyright">
@@ -111,7 +126,7 @@ function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element 
         </footer>
       </div>
     </>
-  ) : <NotFoundScreen/>;
+  );
 }
 
 

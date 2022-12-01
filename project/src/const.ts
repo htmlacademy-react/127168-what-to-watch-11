@@ -3,7 +3,9 @@ const ALL_GENRES_LINK = 'All genres';
 export enum APIRoute {
   Movies = '/films',
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
+  Comments = '/comments',
+  Similar = 'similar'
 }
 
 enum AppRoute {

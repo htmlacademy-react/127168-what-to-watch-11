@@ -8,11 +8,15 @@ import {
   setError,
   setMoviesDataLoadingStatus,
   setUserData,
-  removeUserData
+  removeUserData,
+  loadCurrentMovie,
+  loadCurrentComments,
+  loadRecomendedMovies
 } from './action';
 import {ALL_GENRES_LINK, AuthorizationStatus, MOVIE_STEP} from '../const';
+import {Comments} from '../types/comments';
 import {createReducer} from '@reduxjs/toolkit';
-import {Movies} from '../types/movies';
+import {Movie, Movies} from '../types/movies';
 import {UserData} from '../types/user';
 
 type InitalState = {
@@ -24,6 +28,9 @@ type InitalState = {
   authorizationStatus: AuthorizationStatus;
   userData: UserData | Record<string, never>;
   error: string | null;
+  currentMovie: Movie | Record<string, never>;
+  currentComments: Comments;
+  recomendedMovies: Movies;
 }
 
 const initialState: InitalState = {
@@ -35,6 +42,9 @@ const initialState: InitalState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: {},
   error: null,
+  currentMovie: {},
+  currentComments: [],
+  recomendedMovies: []
 };
 
 const onFilterMovies = (state: typeof initialState) => {
@@ -78,6 +88,15 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(loadCurrentMovie, (state, action) => {
+      state.currentMovie = action.payload;
+    })
+    .addCase(loadCurrentComments, (state, action) => {
+      state.currentComments = action.payload;
+    })
+    .addCase(loadRecomendedMovies, (state, action) => {
+      state.recomendedMovies = action.payload;
     });
 });
 
