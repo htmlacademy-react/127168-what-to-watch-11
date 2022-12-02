@@ -1,27 +1,28 @@
-import {ChangeEvent, useState} from 'react';
-import {DEFAULT_RATING, LogoPositionClass} from '../../const';
+import {ChangeEvent, useEffect, useState} from 'react';
+import {AppRoute, DEFAULT_RATING, LogoPositionClass} from '../../const';
+import {fetchCurrentMovieAction} from '../../services/api-actions';
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
-import {Movie, Movies} from '../../types/movies';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Rating from '../../components/rating/rating';
-import {useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
+import {useAppDispatch, useAppSelector } from '../../hooks';
 
-type AddReviewScreenProps = {
-  movies: Movies;
-}
-
-function AddReviewScreen({movies}: AddReviewScreenProps): JSX.Element {
+function AddReviewScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const movie = useAppSelector((state) => state.currentMovie);
   const [userReview, setUserReview] = useState({
     comment: '',
     rating: DEFAULT_RATING,
   });
 
   const {id} = useParams();
-  const movie = movies.find((item: Movie) => item.id === id);
+  useEffect(() => {
+    if (id && id !== movie.id) {
+      dispatch(fetchCurrentMovieAction(id));
+    }
+  }, [dispatch, id, movie.id]);
 
-  return movie ? (
-    // Здесь я так понял вставляется цвет
+  return (
     <section className="film-card film-card--full" style={{background: movie.backgroundColor}}>
       <Helmet>
         <title>WTW. Add review to {movie.name}</title>
@@ -36,7 +37,12 @@ function AddReviewScreen({movies}: AddReviewScreenProps): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">{movie.name}</a>
+                <Link
+                  className="breadcrumbs__link"
+                  to={`${AppRoute.Film}${movie.id}`}
+                >
+                  {movie.name}
+                </Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link" href="#todo">Add review</a>
@@ -83,7 +89,7 @@ function AddReviewScreen({movies}: AddReviewScreenProps): JSX.Element {
         </form>
       </div>
     </section>
-  ) : <NotFoundScreen />;
+  );
 }
 
 export default AddReviewScreen;

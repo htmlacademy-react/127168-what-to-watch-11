@@ -1,4 +1,4 @@
-// import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
+import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import {AppRoute} from '../../const';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 // import {Comments} from '../../types/comments';
@@ -58,16 +58,14 @@ function App({title, genre, year}: AppScreenProp): JSX.Element {
               </PrivateRoute>
             }
           />
-          {/* <Route
+          <Route
             path={AppRoute.Review}
             element={
-              <PrivateRoute
-                authorizationStatus={authorizationStatus}
-              >
-                <AddReviewScreen movies={movies}/>
+              <PrivateRoute>
+                <AddReviewScreen />
               </PrivateRoute>
             }
-          /> */}
+          />
           <Route
             path="*"
             element={<NotFoundScreen />}
