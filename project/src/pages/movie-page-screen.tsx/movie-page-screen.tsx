@@ -1,3 +1,4 @@
+import AddReviewButton from '../../components/add-review-button/add-review-button';
 import {
   AppRoute,
   AuthorizationStatus,
@@ -16,9 +17,9 @@ import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import MovieList from '../../components/movie-list/movie-list';
 import {selectUserBlock} from '../../user-block-selector';
+import {setDefaultCurrentMovieData} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
-import AddReviewButton from '../../components/add-review-button/add-review-button';
 
 function MoviePageScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -29,6 +30,7 @@ function MoviePageScreen(): JSX.Element {
 
   useEffect(() => {
     if (id) {
+      dispatch(setDefaultCurrentMovieData());
       dispatch(fetchCurrentMovieAction(id));
       dispatch(fetchCurrentCommentsAction(id));
       dispatch(fetchRecomendedMoviesAction(id));

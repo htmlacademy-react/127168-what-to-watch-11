@@ -29,3 +29,5 @@ export const loadCurrentMovie = createAction<Movie>('data/loadCurrentMovie');
 export const loadCurrentComments = createAction<Comments>('data/loadCurrentComments');
 
 export const loadRecomendedMovies = createAction<Movies>('data/loadRecomendedMovies');
+
+export const setDefaultCurrentMovieData = createAction('data/setDefaultCurrentMovieData');

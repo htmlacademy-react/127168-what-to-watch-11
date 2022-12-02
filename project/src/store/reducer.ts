@@ -11,7 +11,8 @@ import {
   removeUserData,
   loadCurrentMovie,
   loadCurrentComments,
-  loadRecomendedMovies
+  loadRecomendedMovies,
+  setDefaultCurrentMovieData
 } from './action';
 import {ALL_GENRES_LINK, AuthorizationStatus, MOVIE_STEP} from '../const';
 import {Comments} from '../types/comments';
@@ -117,6 +118,11 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadRecomendedMovies, (state, action) => {
       state.recommendedMovies = action.payload;
+    })
+    .addCase(setDefaultCurrentMovieData, (state) => {
+      state.currentMovie = emptyMovie;
+      state.currentComments = [];
+      state.recommendedMovies = [];
     });
 });
 
