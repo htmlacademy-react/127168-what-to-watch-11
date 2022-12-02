@@ -42,7 +42,11 @@ enum DescriptionTab {
 
 const INACTIVE_NUMBER_ID = '0';
 
+const MAX_COMMENT_LENGTH = 400;
+
 const MAX_RATING = 10;
+
+const MIN_COMMENT_LENGTH = 50;
 
 const MIN_RATING = 1;
 
@@ -77,7 +81,9 @@ export {
   DEFAULT_RATING,
   DescriptionTab,
   INACTIVE_NUMBER_ID,
+  MAX_COMMENT_LENGTH,
   MAX_RATING,
+  MIN_COMMENT_LENGTH,
   MIN_RATING,
   MINIMUM_RECOMMENDED_FILMS,
   MOVIE_STEP,

@@ -1,6 +1,6 @@
-import {ChangeEvent, useEffect, useState} from 'react';
-import {AppRoute, DEFAULT_RATING, LogoPositionClass} from '../../const';
-import {fetchCurrentMovieAction} from '../../services/api-actions';
+import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
+import {AppRoute, DEFAULT_RATING, LogoPositionClass, MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH} from '../../const';
+import {fetchCurrentMovieAction, sendReviewAction} from '../../services/api-actions';
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import Rating from '../../components/rating/rating';
@@ -15,6 +15,7 @@ function AddReviewScreen(): JSX.Element {
   const [userReview, setUserReview] = useState({
     comment: '',
     rating: DEFAULT_RATING,
+    filmId: movie.id,
   });
 
   const {id} = useParams();
@@ -63,12 +64,18 @@ function AddReviewScreen(): JSX.Element {
         </div>
       </div>
       <div className="add-review">
-        <form action="#" className="add-review__form">
+        <form
+          action="#"
+          className="add-review__form"
+          onSubmit={(evt: FormEvent<HTMLFormElement>) => {
+            evt.preventDefault();
+            dispatch(sendReviewAction(userReview));
+          }}
+        >
           <Rating
             rating={userReview.rating}
             onRateStar={(starValue: number) => setUserReview((oldUserReview) => ({...oldUserReview, rating: starValue}))}
           />
-          {/* Здесь не нашёл информацию о цвете поля */}
           <div className="add-review__text">
             <textarea
               className="add-review__textarea"
@@ -81,7 +88,17 @@ function AddReviewScreen(): JSX.Element {
               }}
             />
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">Post</button>
+              <button
+                className="add-review__btn"
+                type="submit"
+                disabled={
+                  userReview.rating === DEFAULT_RATING ||
+                  userReview.comment.length <= MIN_COMMENT_LENGTH ||
+                  userReview.comment.length >= MAX_COMMENT_LENGTH
+                }
+              >
+                Post
+              </button>
             </div>
           </div>
         </form>
