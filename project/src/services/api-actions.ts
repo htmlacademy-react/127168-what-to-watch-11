@@ -2,6 +2,7 @@ import {APIRoute, AuthorizationStatus} from '../const';
 import {AppDispatch, State} from '../types/state';
 import {AuthData, UserDataResponse} from '../types/user';
 import {AxiosInstance} from 'axios';
+import {Comments, NewReview} from '../types/comments';
 import {convertUserData} from './user-data-converter';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {dropToken, saveToken} from './token';
@@ -18,7 +19,6 @@ import {
   setUserData
 } from '../store/action';
 import {Movie, Movies} from '../types/movies';
-import { Comments } from '../types/comments';
 
 const createSuccessfulActions = (dispatch: AppDispatch, data: UserDataResponse) => {
   const userData = convertUserData(data);
@@ -130,5 +130,16 @@ export const fetchRecomendedMoviesAction = createAsyncThunk<void, string, {
     const {data} = await api.get<Movies>(route);
     dispatch(loadRecomendedMovies(data));
     dispatch(setMoviesDataLoadingStatus(false));
+  },
+);
+
+export const sendReviewAction = createAsyncThunk<void, NewReview, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/sendReview',
+  async ({comment, rating, filmId}, {extra: api}) => {
+    await api.post(`${APIRoute.Comments}/${filmId}`, {comment, rating});
   },
 );

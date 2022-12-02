@@ -11,3 +11,9 @@ export type Comment = {
 };
 
 export type Comments = Comment[];
+
+export type NewReview = {
+  comment: string;
+  rating: number;
+  filmId: string;
+};
