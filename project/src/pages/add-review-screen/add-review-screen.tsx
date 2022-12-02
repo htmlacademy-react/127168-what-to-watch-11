@@ -5,11 +5,13 @@ import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import Rating from '../../components/rating/rating';
 import {Link, useParams} from 'react-router-dom';
+import {selectUserBlock} from '../../user-block-selector';
 import {useAppDispatch, useAppSelector } from '../../hooks';
 
 function AddReviewScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const movie = useAppSelector((state) => state.currentMovie);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const [userReview, setUserReview] = useState({
     comment: '',
     rating: DEFAULT_RATING,
@@ -45,20 +47,16 @@ function AddReviewScreen(): JSX.Element {
                 </Link>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link" href="#todo">Add review</a>
+                <Link
+                  className="breadcrumbs__link"
+                  to=""
+                >
+                  Add review
+                </Link>
               </li>
             </ul>
           </nav>
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link" href="#todo">Sign out</a>
-            </li>
-          </ul>
+          {selectUserBlock(authorizationStatus)}
         </header>
         <div className="film-card__poster film-card__poster--small">
           <img src={movie.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
