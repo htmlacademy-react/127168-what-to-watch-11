@@ -1,5 +1,4 @@
 import {Helmet} from 'react-helmet-async';
-import Loading from '../../components/loading/loaging';
 import Logo from '../../components/logo/logo';
 import {MovieListModeCount, LogoPositionClass} from '../../const';
 import MovieList from '../../components/movie-list/movie-list';
@@ -18,13 +17,11 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
   const filteredMovies = useAppSelector((state) => state.filteredMovies);
   const movieCounter = useAppSelector((state) => state.movieCounter);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isMoviesDataLoading = useAppSelector((state) => state.isMoviesDataLoading);
 
   const isButtonActive = filteredMovies.length > movieCounter;
 
   return (
     <>
-      {isMoviesDataLoading && <Loading />}
       <section className="film-card">
         <Helmet>
           <title>WTW. Main</title>
