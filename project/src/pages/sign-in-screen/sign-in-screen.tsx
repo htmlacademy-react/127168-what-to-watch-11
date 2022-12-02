@@ -2,7 +2,7 @@ import {AppRoute, AuthorizationStatus, LogoPositionClass} from '../../const';
 import {AuthData} from '../../types/user';
 import {FormEvent, useRef} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {loginAction} from '../../services/api-actions';
+import {loginAction} from '../../store/api-actions';
 import Logo from '../../components/logo/logo';
 import {Navigate} from 'react-router-dom';
 import SignInMessage from '../../components/sign-in-message/sign-in-message';

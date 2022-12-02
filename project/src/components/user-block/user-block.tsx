@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {logoutAction} from '../../services/api-actions';
+import {logoutAction} from '../../store/api-actions';
 
 function UserBlock (): JSX.Element {
   const avatarUrl = useAppSelector((state) => state.userData.avatarUrl);

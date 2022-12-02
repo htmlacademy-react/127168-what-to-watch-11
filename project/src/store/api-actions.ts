@@ -3,9 +3,9 @@ import {AppDispatch, State} from '../types/state';
 import {AuthData, UserDataResponse} from '../types/user';
 import {AxiosInstance} from 'axios';
 import {Comments, NewReview} from '../types/comments';
-import {convertUserData} from './user-data-converter';
+import {convertUserData} from '../services/user-data-converter';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {dropToken, saveToken} from './token';
+import {dropToken, saveToken} from '../services/token';
 import {
   filterMovies,
   loadCurrentComments,
@@ -17,7 +17,7 @@ import {
   setError,
   setMoviesDataLoadingStatus,
   setUserData
-} from '../store/action';
+} from './action';
 import {Movie, Movies} from '../types/movies';
 
 const createSuccessfulActions = (dispatch: AppDispatch, data: UserDataResponse) => {

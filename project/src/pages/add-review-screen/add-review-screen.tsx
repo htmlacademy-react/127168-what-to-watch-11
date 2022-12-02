@@ -1,6 +1,6 @@
 import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import {AppRoute, DEFAULT_RATING, LogoPositionClass, MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH} from '../../const';
-import {fetchCurrentMovieAction, sendReviewAction} from '../../services/api-actions';
+import {fetchCurrentMovieAction, sendReviewAction} from '../../store/api-actions';
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import Rating from '../../components/rating/rating';

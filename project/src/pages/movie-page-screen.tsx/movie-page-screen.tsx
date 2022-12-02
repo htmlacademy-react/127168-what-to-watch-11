@@ -10,7 +10,7 @@ import {
   fetchCurrentCommentsAction,
   fetchCurrentMovieAction,
   fetchRecomendedMoviesAction
-} from '../../services/api-actions';
+} from '../../store/api-actions';
 import FilmTabs from '../../components/film-tabs/film-tabs';
 import {Helmet} from 'react-helmet-async';
 import {Link, useParams} from 'react-router-dom';

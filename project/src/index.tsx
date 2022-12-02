@@ -1,5 +1,5 @@
 import App from './components/app/app';
-import {checkAuthAction, fetchMoviesAction} from './services/api-actions';
+import {checkAuthAction, fetchMoviesAction} from './store/api-actions';
 import {Provider} from 'react-redux';
 import React from 'react';
 import 'react-toastify/dist/ReactToastify.css';
