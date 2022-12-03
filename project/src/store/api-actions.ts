@@ -1,4 +1,4 @@
-import {APIRoute, AuthorizationStatus} from '../const';
+import {APIRoute, AppRoute, AuthorizationStatus} from '../const';
 import {AppDispatch, State} from '../types/state';
 import {AuthData, UserDataResponse} from '../types/user';
 import {AxiosInstance} from 'axios';
@@ -12,6 +12,7 @@ import {
   loadCurrentMovie,
   loadMovies,
   loadRecomendedMovies,
+  redirectToRoute,
   removeUserData,
   requireAuthorization,
   setError,
@@ -139,7 +140,8 @@ export const sendReviewAction = createAsyncThunk<void, NewReview, {
   extra: AxiosInstance;
 }>(
   'user/sendReview',
-  async ({comment, rating, filmId}, {extra: api}) => {
+  async ({comment, rating, filmId}, {dispatch, extra: api}) => {
     await api.post(`${APIRoute.Comments}/${filmId}`, {comment, rating});
+    dispatch(redirectToRoute(`${AppRoute.Film}${filmId}`));
   },
 );

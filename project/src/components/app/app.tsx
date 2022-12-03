@@ -1,6 +1,7 @@
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import {AppRoute} from '../../const';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import browserHistory from '../../browser-history';
+import {Route, Routes} from 'react-router-dom';
 // import {Comments} from '../../types/comments';
 import {HelmetProvider} from 'react-helmet-async';
 import Loading from '../loading/loaging';
@@ -13,6 +14,7 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
 import { useAppSelector } from '../../hooks';
+import HistoryRouter from '../history-route/history-route';
 
 type AppScreenProp = {
   title: string;
@@ -26,7 +28,7 @@ function App({title, genre, year}: AppScreenProp): JSX.Element {
   return (
     <HelmetProvider>
       {isMoviesDataLoading && <Loading />}
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={AppRoute.Main}
@@ -71,7 +73,7 @@ function App({title, genre, year}: AppScreenProp): JSX.Element {
             element={<NotFoundScreen />}
           />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }

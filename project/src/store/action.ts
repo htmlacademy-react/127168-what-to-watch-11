@@ -1,8 +1,8 @@
 import {AuthorizationStatus} from '../const';
+import {Comments} from '../types/comments';
 import {createAction} from '@reduxjs/toolkit';
 import {Movie, Movies} from '../types/movies';
 import {UserData} from '../types/user';
-import {Comments} from '../types/comments';
 
 export const changeGenre = createAction<{selectedGenre: string}>('mainList/changeGenre');
 
@@ -31,3 +31,5 @@ export const loadCurrentComments = createAction<Comments>('data/loadCurrentComme
 export const loadRecomendedMovies = createAction<Movies>('data/loadRecomendedMovies');
 
 export const setDefaultCurrentMovieData = createAction('data/setDefaultCurrentMovieData');
+
+export const redirectToRoute = createAction<string>('game/redirectToRoute');

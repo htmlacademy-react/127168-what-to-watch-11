@@ -8,22 +8,26 @@ import {Link, useParams} from 'react-router-dom';
 import {selectUserBlock} from '../../user-block-selector';
 import {useAppDispatch, useAppSelector } from '../../hooks';
 
+const defaultUserReviewState = {
+  comment: '',
+  rating: DEFAULT_RATING,
+  filmId: '',
+};
+
 function AddReviewScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const movie = useAppSelector((state) => state.currentMovie);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const [userReview, setUserReview] = useState({
-    comment: '',
-    rating: DEFAULT_RATING,
-    filmId: movie.id,
-  });
+  const [userReview, setUserReview] = useState({...defaultUserReviewState});
 
   const {id} = useParams();
+
   useEffect(() => {
-    if (id && id !== movie.id) {
+    if (id) {
       dispatch(fetchCurrentMovieAction(id));
+      setUserReview({...defaultUserReviewState, filmId: id});
     }
-  }, [dispatch, id, movie.id]);
+  }, [dispatch, id]);
 
   return (
     <section className="film-card film-card--full" style={{background: movie.backgroundColor}}>
