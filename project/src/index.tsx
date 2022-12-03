@@ -22,14 +22,14 @@ const FilmProperty = {
 store.dispatch(fetchMoviesAction());
 
 root.render(
-  <Provider store = {store}>
-    <ToastContainer />
-    <App
-      title={FilmProperty.Title}
-      genre={FilmProperty.Genre}
-      year={FilmProperty.Year}
-    />
-  </Provider>
-  // <React.StrictMode>
-  // </React.StrictMode>,
+  <React.StrictMode>
+    <Provider store = {store}>
+      <ToastContainer />
+      <App
+        title={FilmProperty.Title}
+        genre={FilmProperty.Genre}
+        year={FilmProperty.Year}
+      />
+    </Provider>
+  </React.StrictMode>,
 );
