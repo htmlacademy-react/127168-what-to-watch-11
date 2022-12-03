@@ -1,10 +1,11 @@
 import {AppRoute, AuthorizationStatus, LogoPositionClass} from '../../const';
 import {AuthData} from '../../types/user';
-import {FormEvent, useRef} from 'react';
+import {FormEvent, useEffect, useRef} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {loginAction} from '../../store/api-actions';
 import Logo from '../../components/logo/logo';
 import {Navigate} from 'react-router-dom';
+import {setError} from '../../store/action';
 import SignInMessage from '../../components/sign-in-message/sign-in-message';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 
@@ -30,6 +31,10 @@ function SignInScreen(): JSX.Element {
       });
     }
   };
+
+  useEffect(() => {
+    dispatch(setError(null));
+  }, [dispatch]);
 
   const isNoAuthStatus = (status: AuthorizationStatus) => status === AuthorizationStatus.NoAuth;
 

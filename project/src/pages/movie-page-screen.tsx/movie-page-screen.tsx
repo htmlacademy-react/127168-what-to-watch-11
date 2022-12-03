@@ -30,11 +30,14 @@ function MoviePageScreen(): JSX.Element {
 
   useEffect(() => {
     if (id) {
-      dispatch(setDefaultCurrentMovieData());
       dispatch(fetchCurrentMovieAction(id));
       dispatch(fetchCurrentCommentsAction(id));
       dispatch(fetchRecomendedMoviesAction(id));
     }
+
+    return () => {
+      dispatch(setDefaultCurrentMovieData());
+    };
   }, [dispatch, id]);
 
   return (
