@@ -94,12 +94,16 @@ export const fetchCurrentMovieAction = createAsyncThunk<void, string, {
 }>(
   'data/fetchCurrentMovie',
   async (id, {dispatch, extra: api}) => {
-    const route = `${APIRoute.Movies}/${id}`;
+    try {
+      const route = `${APIRoute.Movies}/${id}`;
 
-    dispatch(setDataLoadingStatus(true));
-    const {data} = await api.get<Movie>(route);
-    dispatch(loadCurrentMovie(data));
-    dispatch(setDataLoadingStatus(false));
+      dispatch(setDataLoadingStatus(true));
+      const {data} = await api.get<Movie>(route);
+      dispatch(loadCurrentMovie(data));
+      dispatch(setDataLoadingStatus(false));
+    } catch {
+      dispatch(setError404(true));
+    }
   },
 );
 
@@ -126,15 +130,12 @@ export const fetchRecomendedMoviesAction = createAsyncThunk<void, string, {
 }>(
   'data/fetchRecomendedMovies',
   async (id, {dispatch, extra: api}) => {
-    try {
-      const route = `${APIRoute.Movies}/${id}/${APIRoute.Similar}`;
-      dispatch(setDataLoadingStatus(true));
-      const {data} = await api.get<Movies>(route);
-      dispatch(loadRecomendedMovies(data));
-      dispatch(setDataLoadingStatus(false));
-    } catch {
-      dispatch(setError404(true));
-    }
+    const route = `${APIRoute.Movies}/${id}/${APIRoute.Similar}`;
+
+    dispatch(setDataLoadingStatus(true));
+    const {data} = await api.get<Movies>(route);
+    dispatch(loadRecomendedMovies(data));
+    dispatch(setDataLoadingStatus(false));
   },
 );
 

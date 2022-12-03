@@ -2,9 +2,10 @@ import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import {AppRoute, DEFAULT_RATING, LogoPositionClass, MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH} from '../../const';
 import {fetchCurrentMovieAction, sendReviewAction} from '../../store/api-actions';
 import {Helmet} from 'react-helmet-async';
-import Logo from '../../components/logo/logo';
-import Rating from '../../components/rating/rating';
 import {Link, useParams} from 'react-router-dom';
+import Logo from '../../components/logo/logo';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import Rating from '../../components/rating/rating';
 import {selectUserBlock} from '../../user-block-selector';
 import {useAppDispatch, useAppSelector } from '../../hooks';
 
@@ -18,6 +19,7 @@ function AddReviewScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const movie = useAppSelector((state) => state.currentMovie);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isError404 = useAppSelector((state) => state.isError404);
   const [userReview, setUserReview] = useState({...defaultUserReviewState});
 
   const {id} = useParams();
@@ -28,6 +30,10 @@ function AddReviewScreen(): JSX.Element {
       setUserReview({...defaultUserReviewState, filmId: id});
     }
   }, [dispatch, id]);
+
+  if (isError404) {
+    return <NotFoundScreen />;
+  }
 
   return (
     <section className="film-card film-card--full" style={{background: movie.backgroundColor}}>
