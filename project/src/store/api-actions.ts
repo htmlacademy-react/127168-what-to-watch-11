@@ -17,7 +17,8 @@ import {
   requireAuthorization,
   setError,
   setDataLoadingStatus,
-  setUserData
+  setUserData,
+  setError404
 } from './action';
 import {Movie, Movies} from '../types/movies';
 
@@ -125,12 +126,15 @@ export const fetchRecomendedMoviesAction = createAsyncThunk<void, string, {
 }>(
   'data/fetchRecomendedMovies',
   async (id, {dispatch, extra: api}) => {
-    const route = `${APIRoute.Movies}/${id}/${APIRoute.Similar}`;
-
-    dispatch(setDataLoadingStatus(true));
-    const {data} = await api.get<Movies>(route);
-    dispatch(loadRecomendedMovies(data));
-    dispatch(setDataLoadingStatus(false));
+    try {
+      const route = `${APIRoute.Movies}/${id}/${APIRoute.Similar}`;
+      dispatch(setDataLoadingStatus(true));
+      const {data} = await api.get<Movies>(route);
+      dispatch(loadRecomendedMovies(data));
+      dispatch(setDataLoadingStatus(false));
+    } catch {
+      dispatch(setError404(true));
+    }
   },
 );
 

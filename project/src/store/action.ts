@@ -22,7 +22,7 @@ export const setUserData = createAction<UserData>('user/setUserData');
 
 export const removeUserData = createAction('user/removeUserData');
 
-export const setError = createAction<string | null>('game/setError');
+export const setError = createAction<string | null>('error/setError');
 
 export const loadCurrentMovie = createAction<Movie>('data/loadCurrentMovie');
 
@@ -32,4 +32,6 @@ export const loadRecomendedMovies = createAction<Movies>('data/loadRecomendedMov
 
 export const setDefaultCurrentMovieData = createAction('data/setDefaultCurrentMovieData');
 
-export const redirectToRoute = createAction<string>('game/redirectToRoute');
+export const redirectToRoute = createAction<string>('redirect/redirectToRoute');
+
+export const setError404 = createAction<boolean>('error/setError404');

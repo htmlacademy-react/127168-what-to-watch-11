@@ -17,15 +17,17 @@ import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import MovieList from '../../components/movie-list/movie-list';
 import {selectUserBlock} from '../../user-block-selector';
-import {setDefaultCurrentMovieData} from '../../store/action';
+import {setDefaultCurrentMovieData, setError404} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function MoviePageScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const movie = useAppSelector((state) => state.currentMovie);
   const recommendedMovies = useAppSelector((state) => state.recommendedMovies);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isError404 = useAppSelector((state) => state.isError404);
   const {id} = useParams();
 
   useEffect(() => {
@@ -37,8 +39,13 @@ function MoviePageScreen(): JSX.Element {
 
     return () => {
       dispatch(setDefaultCurrentMovieData());
+      dispatch(setError404(false));
     };
   }, [dispatch, id]);
+
+  if (isError404) {
+    return <NotFoundScreen />;
+  }
 
   return (
     <>

@@ -12,7 +12,8 @@ import {
   loadCurrentMovie,
   loadCurrentComments,
   loadRecomendedMovies,
-  setDefaultCurrentMovieData
+  setDefaultCurrentMovieData,
+  setError404
 } from './action';
 import {ALL_GENRES_LINK, AuthorizationStatus, MOVIE_STEP} from '../const';
 import {Comments} from '../types/comments';
@@ -49,6 +50,7 @@ type InitalState = {
   authorizationStatus: AuthorizationStatus;
   userData: UserData | Record<string, never>;
   error: string | null;
+  isError404: boolean;
   currentMovie: Movie;
   currentComments: Comments;
   recommendedMovies: Movies;
@@ -63,6 +65,7 @@ const initialState: InitalState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: {},
   error: null,
+  isError404: false,
   currentMovie: emptyMovie,
   currentComments: [],
   recommendedMovies: []
@@ -123,6 +126,9 @@ const reducer = createReducer(initialState, (builder) => {
       state.currentMovie = emptyMovie;
       state.currentComments = [];
       state.recommendedMovies = [];
+    })
+    .addCase(setError404, (state, action) => {
+      state.isError404 = action.payload;
     });
 });
 
