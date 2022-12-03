@@ -21,11 +21,11 @@ type AppScreenProp = {
 }
 
 function App({title, genre, year}: AppScreenProp): JSX.Element {
-  const isMoviesDataLoading = useAppSelector((store) => store.isMoviesDataLoading);
+  const isDataLoading = useAppSelector((store) => store.isDataLoading);
 
   return (
     <HelmetProvider>
-      {isMoviesDataLoading && <Loading />}
+      {isDataLoading && <Loading />}
       <HistoryRouter history={browserHistory}>
         <Routes>
           <Route

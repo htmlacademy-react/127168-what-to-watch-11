@@ -6,7 +6,7 @@ import {
   resetMovieCount,
   requireAuthorization,
   setError,
-  setMoviesDataLoadingStatus,
+  setDataLoadingStatus,
   setUserData,
   removeUserData,
   loadCurrentMovie,
@@ -45,7 +45,7 @@ type InitalState = {
   movieCounter: number;
   filteredMovies: Movies;
   sourceMovies: Movies;
-  isMoviesDataLoading: boolean;
+  isDataLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   userData: UserData | Record<string, never>;
   error: string | null;
@@ -59,7 +59,7 @@ const initialState: InitalState = {
   movieCounter: MOVIE_STEP,
   filteredMovies: [],
   sourceMovies: [],
-  isMoviesDataLoading: false,
+  isDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: {},
   error: null,
@@ -95,8 +95,8 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadMovies, (state, action) => {
       state.sourceMovies = action.payload;
     })
-    .addCase(setMoviesDataLoadingStatus, (state, action) => {
-      state.isMoviesDataLoading = action.payload;
+    .addCase(setDataLoadingStatus, (state, action) => {
+      state.isDataLoading = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;

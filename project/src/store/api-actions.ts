@@ -16,7 +16,7 @@ import {
   removeUserData,
   requireAuthorization,
   setError,
-  setMoviesDataLoadingStatus,
+  setDataLoadingStatus,
   setUserData
 } from './action';
 import {Movie, Movies} from '../types/movies';
@@ -34,11 +34,11 @@ export const fetchMoviesAction = createAsyncThunk<void, undefined, {
 }>(
   'data/fetchMovies',
   async (_arg, {dispatch, extra: api}) => {
-    dispatch(setMoviesDataLoadingStatus(true));
+    dispatch(setDataLoadingStatus(true));
     const {data} = await api.get<Movies>(APIRoute.Movies);
     dispatch(loadMovies(data));
     dispatch(filterMovies());
-    dispatch(setMoviesDataLoadingStatus(false));
+    dispatch(setDataLoadingStatus(false));
   },
 );
 
@@ -95,10 +95,10 @@ export const fetchCurrentMovieAction = createAsyncThunk<void, string, {
   async (id, {dispatch, extra: api}) => {
     const route = `${APIRoute.Movies}/${id}`;
 
-    dispatch(setMoviesDataLoadingStatus(true));
+    dispatch(setDataLoadingStatus(true));
     const {data} = await api.get<Movie>(route);
     dispatch(loadCurrentMovie(data));
-    dispatch(setMoviesDataLoadingStatus(false));
+    dispatch(setDataLoadingStatus(false));
   },
 );
 
@@ -111,10 +111,10 @@ export const fetchCurrentCommentsAction = createAsyncThunk<void, string, {
   async (id, {dispatch, extra: api}) => {
     const route = `${APIRoute.Comments}/${id}`;
 
-    dispatch(setMoviesDataLoadingStatus(true));
+    dispatch(setDataLoadingStatus(true));
     const {data} = await api.get<Comments>(route);
     dispatch(loadCurrentComments(data));
-    dispatch(setMoviesDataLoadingStatus(false));
+    dispatch(setDataLoadingStatus(false));
   },
 );
 
@@ -127,10 +127,10 @@ export const fetchRecomendedMoviesAction = createAsyncThunk<void, string, {
   async (id, {dispatch, extra: api}) => {
     const route = `${APIRoute.Movies}/${id}/${APIRoute.Similar}`;
 
-    dispatch(setMoviesDataLoadingStatus(true));
+    dispatch(setDataLoadingStatus(true));
     const {data} = await api.get<Movies>(route);
     dispatch(loadRecomendedMovies(data));
-    dispatch(setMoviesDataLoadingStatus(false));
+    dispatch(setDataLoadingStatus(false));
   },
 );
 
