@@ -3,10 +3,9 @@ import Logo from '../../components/logo/logo';
 import {MovieListModeCount, LogoPositionClass} from '../../const';
 import MovieList from '../../components/movie-list/movie-list';
 import GenreList from '../../components/genre-list/genre-list';
+import {selectUserBlock} from '../../user-block-selector';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import {useAppSelector} from '../../hooks';
-import Loading from '../../components/loading/loaging';
-import { selectUserBlock } from '../../user-block-selector';
 
 type MainScreenProps = {
   title: string;
@@ -18,13 +17,11 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
   const filteredMovies = useAppSelector((state) => state.filteredMovies);
   const movieCounter = useAppSelector((state) => state.movieCounter);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isMoviesDataLoading = useAppSelector((state) => state.isMoviesDataLoading);
 
   const isButtonActive = filteredMovies.length > movieCounter;
 
   return (
     <>
-      {isMoviesDataLoading && <Loading />}
       <section className="film-card">
         <Helmet>
           <title>WTW. Main</title>

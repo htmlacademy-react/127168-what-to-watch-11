@@ -1,27 +1,41 @@
-import {ChangeEvent, useState} from 'react';
-import {DEFAULT_RATING, LogoPositionClass} from '../../const';
+import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
+import {AppRoute, DEFAULT_RATING, LogoPositionClass, MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH} from '../../const';
+import {fetchCurrentMovieAction, sendReviewAction} from '../../store/api-actions';
 import {Helmet} from 'react-helmet-async';
+import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
-import {Movie, Movies} from '../../types/movies';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Rating from '../../components/rating/rating';
-import {useParams} from 'react-router-dom';
+import {selectUserBlock} from '../../user-block-selector';
+import {useAppDispatch, useAppSelector } from '../../hooks';
 
-type AddReviewScreenProps = {
-  movies: Movies;
-}
+const defaultUserReviewState = {
+  comment: '',
+  rating: DEFAULT_RATING,
+  filmId: '',
+};
 
-function AddReviewScreen({movies}: AddReviewScreenProps): JSX.Element {
-  const [userReview, setUserReview] = useState({
-    comment: '',
-    rating: DEFAULT_RATING,
-  });
+function AddReviewScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const movie = useAppSelector((state) => state.currentMovie);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isError404 = useAppSelector((state) => state.isError404);
+  const [userReview, setUserReview] = useState({...defaultUserReviewState});
 
   const {id} = useParams();
-  const movie = movies.find((item: Movie) => item.id === id);
 
-  return movie ? (
-    // Здесь я так понял вставляется цвет
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchCurrentMovieAction(id));
+      setUserReview({...defaultUserReviewState, filmId: id});
+    }
+  }, [dispatch, id]);
+
+  if (isError404) {
+    return <NotFoundScreen />;
+  }
+
+  return (
     <section className="film-card film-card--full" style={{background: movie.backgroundColor}}>
       <Helmet>
         <title>WTW. Add review to {movie.name}</title>
@@ -36,35 +50,42 @@ function AddReviewScreen({movies}: AddReviewScreenProps): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">{movie.name}</a>
+                <Link
+                  className="breadcrumbs__link"
+                  to={`${AppRoute.Film}${movie.id}`}
+                >
+                  {movie.name}
+                </Link>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link" href="#todo">Add review</a>
+                <Link
+                  className="breadcrumbs__link"
+                  to=""
+                >
+                  Add review
+                </Link>
               </li>
             </ul>
           </nav>
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link" href="#todo">Sign out</a>
-            </li>
-          </ul>
+          {selectUserBlock(authorizationStatus)}
         </header>
         <div className="film-card__poster film-card__poster--small">
           <img src={movie.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
         </div>
       </div>
       <div className="add-review">
-        <form action="#" className="add-review__form">
+        <form
+          action="#"
+          className="add-review__form"
+          onSubmit={(evt: FormEvent<HTMLFormElement>) => {
+            evt.preventDefault();
+            dispatch(sendReviewAction(userReview));
+          }}
+        >
           <Rating
             rating={userReview.rating}
             onRateStar={(starValue: number) => setUserReview((oldUserReview) => ({...oldUserReview, rating: starValue}))}
           />
-          {/* Здесь не нашёл информацию о цвете поля */}
           <div className="add-review__text">
             <textarea
               className="add-review__textarea"
@@ -77,13 +98,23 @@ function AddReviewScreen({movies}: AddReviewScreenProps): JSX.Element {
               }}
             />
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">Post</button>
+              <button
+                className="add-review__btn"
+                type="submit"
+                disabled={
+                  userReview.rating === DEFAULT_RATING ||
+                  userReview.comment.length <= MIN_COMMENT_LENGTH ||
+                  userReview.comment.length >= MAX_COMMENT_LENGTH
+                }
+              >
+                Post
+              </button>
             </div>
           </div>
         </form>
       </div>
     </section>
-  ) : <NotFoundScreen />;
+  );
 }
 
 export default AddReviewScreen;

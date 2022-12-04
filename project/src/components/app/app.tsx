@@ -1,16 +1,18 @@
-// import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
+import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import {AppRoute} from '../../const';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
-// import {Comments} from '../../types/comments';
+import browserHistory from '../../browser-history';
+import {Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
+import Loading from '../loading/loaging';
 import MainScreen from '../../pages/main-screen/main-screen';
-// import MoviePageScreen from '../../pages/movie-page-screen.tsx/movie-page-screen';
-// import {Movies} from '../../types/movies';
+import MoviePageScreen from '../../pages/movie-page-screen.tsx/movie-page-screen';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 // import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
+import { useAppSelector } from '../../hooks';
+import HistoryRouter from '../history-route/history-route';
 
 type AppScreenProp = {
   title: string;
@@ -19,9 +21,12 @@ type AppScreenProp = {
 }
 
 function App({title, genre, year}: AppScreenProp): JSX.Element {
+  const isDataLoading = useAppSelector((store) => store.isDataLoading);
+
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      {isDataLoading && <Loading />}
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={AppRoute.Main}
@@ -33,10 +38,10 @@ function App({title, genre, year}: AppScreenProp): JSX.Element {
               />
             }
           />
-          {/* <Route
+          <Route
             path={`${AppRoute.Film}:id`}
-            element={<MoviePageScreen movies={movies} comments={comments}/>}
-          /> */}
+            element={<MoviePageScreen />}
+          />
           {/* <Route
             path={`${AppRoute.Player}:id`}
             element={<PlayerScreen movies={movies}/>}
@@ -53,22 +58,20 @@ function App({title, genre, year}: AppScreenProp): JSX.Element {
               </PrivateRoute>
             }
           />
-          {/* <Route
+          <Route
             path={AppRoute.Review}
             element={
-              <PrivateRoute
-                authorizationStatus={authorizationStatus}
-              >
-                <AddReviewScreen movies={movies}/>
+              <PrivateRoute>
+                <AddReviewScreen />
               </PrivateRoute>
             }
-          /> */}
+          />
           <Route
             path="*"
             element={<NotFoundScreen />}
           />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }

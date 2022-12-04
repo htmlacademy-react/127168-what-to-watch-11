@@ -1,24 +1,53 @@
-import {AppRoute, LogoPositionClass, MovieListModeCount, REVIEW_PAGE} from '../../const';
-import {Comments} from '../../types/comments';
+import AddReviewButton from '../../components/add-review-button/add-review-button';
+import {
+  AppRoute,
+  AuthorizationStatus,
+  LogoPositionClass,
+  MINIMUM_RECOMMENDED_FILMS,
+  MovieListModeCount,
+} from '../../const';
+import {
+  fetchCurrentCommentsAction,
+  fetchCurrentMovieAction,
+  fetchRecomendedMoviesAction
+} from '../../store/api-actions';
 import FilmTabs from '../../components/film-tabs/film-tabs';
 import {Helmet} from 'react-helmet-async';
-import {Movie, Movies} from '../../types/movies';
 import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import MovieList from '../../components/movie-list/movie-list';
+import {selectUserBlock} from '../../user-block-selector';
+import {setDefaultCurrentMovieData, setError404} from '../../store/action';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useEffect} from 'react';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-type MoviePageScreenProps = {
-  movies: Movies;
-  comments: Comments;
-}
-
-function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element {
+function MoviePageScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const movie = useAppSelector((state) => state.currentMovie);
+  const recommendedMovies = useAppSelector((state) => state.recommendedMovies);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isError404 = useAppSelector((state) => state.isError404);
   const {id} = useParams();
-  const movie = movies.find((item: Movie) => item.id === id);
-  const filteredComments = comments.filter((comment) => movie?.id === comment.filmId);
 
-  return movie ? (
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchCurrentMovieAction(id));
+      dispatch(fetchCurrentCommentsAction(id));
+      dispatch(fetchRecomendedMoviesAction(id));
+    }
+
+    return () => {
+      dispatch(setDefaultCurrentMovieData());
+      dispatch(setError404(false));
+    };
+  }, [dispatch, id]);
+
+  if (isError404) {
+    return <NotFoundScreen />;
+  }
+
+  return (
     <>
       <section className="film-card film-card--full" style={{background: movie.backgroundColor}}>
         <Helmet>
@@ -34,21 +63,7 @@ function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element 
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header film-card__head">
             <Logo positionClass={LogoPositionClass.Header}/>
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img
-                    src="img/avatar.jpg"
-                    alt="User avatar"
-                    width="63"
-                    height="63"
-                  />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link" href="#todo">Sign out</a>
-              </li>
-            </ul>
+            {selectUserBlock(authorizationStatus)}
           </header>
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -71,12 +86,7 @@ function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element 
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link
-                  className="btn film-card__button"
-                  to={`${AppRoute.Film}${movie.id}/${REVIEW_PAGE}`}
-                >
-                  Add review
-                </Link>
+                {authorizationStatus === AuthorizationStatus.Auth && <AddReviewButton />}
               </div>
             </div>
           </div>
@@ -91,16 +101,21 @@ function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element 
                 height="327"
               />
             </div>
-            <FilmTabs movie={movie} comments={filteredComments} />
+            <FilmTabs />
           </div>
         </div>
       </section>
       <div className="page-content">
         <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
+          <h2 className="catalog__title">
+            {
+              recommendedMovies.length > MINIMUM_RECOMMENDED_FILMS ?
+                'More like this' :
+                'There are no recommended films'
+            }
+          </h2>
           <MovieList
-            mode={MovieListModeCount.Recomended}
-            movie={movie}
+            mode={MovieListModeCount.Recommended}
           />
         </section>
         <footer className="page-footer">
@@ -111,7 +126,7 @@ function MoviePageScreen({movies, comments}: MoviePageScreenProps): JSX.Element 
         </footer>
       </div>
     </>
-  ) : <NotFoundScreen/>;
+  );
 }
 
 

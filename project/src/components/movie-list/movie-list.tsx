@@ -6,12 +6,12 @@ import {useState} from 'react';
 
 type MovieListProps = {
   mode: MovieListModeCount;
-  movie?: Movie;
 }
 
-function MovieList({mode, movie}: MovieListProps): JSX.Element {
+function MovieList({mode}: MovieListProps): JSX.Element {
+  const movie = useAppSelector((state) => state.currentMovie);
   const filteredMovies = useAppSelector((state) => state.filteredMovies);
-  const sourceMovies = useAppSelector((state) => state.sourceMovies);
+  const recommendedMovies = useAppSelector((state) => state.recommendedMovies);
   const movieCounter = useAppSelector((state) => state.movieCounter);
 
   const [activeCardId, setActiveCardId] = useState(INACTIVE_NUMBER_ID);
@@ -21,13 +21,9 @@ function MovieList({mode, movie}: MovieListProps): JSX.Element {
     switch (preparingMode) {
       case MovieListModeCount.Main:
         return filteredMovies.slice(0, movieCounter);
-      case MovieListModeCount.Recomended:
-        if (movie) {
-          const filtredMovies = sourceMovies.filter((currentMovie) =>
-            currentMovie.genre === movie?.genre && currentMovie.id !== movie?.id
-          );
-          return filtredMovies.slice(0, MovieListModeCount.Recomended);
-        }
+      case MovieListModeCount.Recommended:
+        return recommendedMovies.filter((currentMovie) => (currentMovie.id !== movie.id))
+          .slice(0, MovieListModeCount.Recommended);
     }
   };
 
