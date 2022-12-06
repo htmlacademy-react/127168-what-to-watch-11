@@ -15,8 +15,8 @@ function GenreLink ({dataValue}: GenreLinkProps): JSX.Element {
   const currentGenre = useAppSelector(getCurrentGenre);
 
   const onGenreClick = () => {
-    dispatch(changeGenre({currentGenre: dataValue}));
-    dispatch(filterMovies({sourceMovies: movies}));
+    dispatch(changeGenre(dataValue));
+    dispatch(filterMovies(movies));
     dispatch(resetMovieCount());
   };
 

@@ -7,7 +7,6 @@ import {UserProcess} from '../../types/state';
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: {},
-  authError: undefined,
 };
 
 export const userProcess = createSlice({
@@ -26,11 +25,9 @@ export const userProcess = createSlice({
       .addCase(loginAction.fulfilled, (state, action) => {
         state.userData = convertUserData(action.payload);
         state.authorizationStatus = AuthorizationStatus.Auth;
-        state.authError = undefined;
       })
-      .addCase(loginAction.rejected, (state, action) => {
+      .addCase(loginAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
-        state.authError = action.error.message;
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.userData = {};

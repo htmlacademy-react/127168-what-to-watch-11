@@ -69,6 +69,7 @@ export enum NameSpace {
   MoviesData = 'MOVIES_DATA',
   CurrentMovieData = 'CURRENT_MOVIE_DATA',
   Catalog = 'CATALOG',
+  ServiceStateProcess = 'SERVICE_STATE_PROCESS',
 }
 
 const PREVIEW_START_TIME = 1000;

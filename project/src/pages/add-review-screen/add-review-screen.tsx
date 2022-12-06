@@ -7,7 +7,8 @@ import {
 } from '../../const';
 import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {getCurrentMovie, getCurrentMovieError404} from '../../store/current-movie-data/selectors';
+import {getCurrentMovie} from '../../store/current-movie-data/selectors';
+import {getError404Status} from '../../store/service-state-process/selectors';
 import {fetchCurrentMovieDataAction, sendReviewAction} from '../../store/api-actions';
 import {Helmet} from 'react-helmet-async';
 import {Link, useParams} from 'react-router-dom';
@@ -27,7 +28,7 @@ function AddReviewScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const movie = useAppSelector(getCurrentMovie);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const isError404 = useAppSelector(getCurrentMovieError404);
+  const isError404 = useAppSelector(getError404Status);
   const [userReview, setUserReview] = useState({...defaultUserReviewState});
 
   const {id} = useParams();

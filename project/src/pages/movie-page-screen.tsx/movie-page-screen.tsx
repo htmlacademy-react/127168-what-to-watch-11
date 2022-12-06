@@ -9,23 +9,25 @@ import {
 import {fetchCurrentMovieDataAction} from '../../store/api-actions';
 import FilmTabs from '../../components/film-tabs/film-tabs';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {getCurrentMovie, getCurrentMovieError404, getRecommendedMovies} from '../../store/current-movie-data/selectors';
+import {getCurrentMovie, getRecommendedMovies} from '../../store/current-movie-data/selectors';
 import {Helmet} from 'react-helmet-async';
 import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import MovieList from '../../components/movie-list/movie-list';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {selectUserBlock} from '../../user-block-selector';
-import {setDefaultCurrentMovieData, setError404} from '../../store/current-movie-data/current-movie-data';
+import {setDefaultCurrentMovieData} from '../../store/current-movie-data/current-movie-data';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
+import { getError404Status } from '../../store/service-state-process/selectors';
+import { setError404 } from '../../store/service-state-process/service-state-process';
 
 function MoviePageScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const movie = useAppSelector(getCurrentMovie);
   const recommendedMovies = useAppSelector(getRecommendedMovies);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const isError404 = useAppSelector(getCurrentMovieError404);
+  const isError404 = useAppSelector(getError404Status);
   const {id} = useParams();
 
   useEffect(() => {

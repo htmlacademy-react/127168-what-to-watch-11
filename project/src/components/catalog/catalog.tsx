@@ -17,7 +17,7 @@ function Catalog (): JSX.Element {
   const isButtonActive = filteredMovies.length > counter;
 
   useEffect(() => {
-    dispatch(filterMovies({sourceMovies: movies}));
+    dispatch(filterMovies(movies));
   }, [dispatch, movies]);
 
   return (

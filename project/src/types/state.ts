@@ -11,24 +11,26 @@ export type AppDispatch = typeof store.dispatch;
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
   userData: UserData | Record<string, never>;
-  authError: string | undefined;
 };
 
 export type MoviesData = {
   sourceMovies: Movies;
-  isDataLoading: boolean;
 };
 
 export type CurrentMoovieData = {
   currentMovie: Movie;
   currentComments: Comments;
   recommendedMovies: Movies;
-  isDataLoading: boolean;
-  isError404: boolean;
 };
 
 export type CatalogProcess = {
   currentGenre: string;
   filteredMovies: Movies;
   counter: number;
+}
+
+export type ServiceStateProcess = {
+  authError: string | undefined;
+  isDataLoading: boolean;
+  isError404: boolean;
 }

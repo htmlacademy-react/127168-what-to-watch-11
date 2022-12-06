@@ -16,14 +16,14 @@ export const catalogProcess = createSlice({
     addMovieCount: (state) => {
       state.counter += MOVIE_STEP;
     },
-    changeGenre: (state, action: PayloadAction<{currentGenre: string}>) => {
-      state.currentGenre = action.payload.currentGenre;
+    changeGenre: (state, action: PayloadAction<string>) => {
+      state.currentGenre = action.payload;
     },
-    filterMovies: (state, action: PayloadAction<{sourceMovies: Movies}>) => {
+    filterMovies: (state, action: PayloadAction<Movies>) => {
       if (state.currentGenre === ALL_GENRES_LINK) {
-        state.filteredMovies = [...action.payload.sourceMovies];
+        state.filteredMovies = [...action.payload];
       } else {
-        state.filteredMovies = [...action.payload.sourceMovies].filter(
+        state.filteredMovies = [...action.payload].filter(
           (currentMovie) => (
             currentMovie.genre === state.currentGenre
           )
