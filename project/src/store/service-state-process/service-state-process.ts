@@ -37,9 +37,6 @@ export const serviceStateProcess = createSlice({
       .addCase(loginAction.fulfilled, (state) => {
         state.authError = undefined;
       })
-      .addCase(loginAction.rejected, (state, action) => {
-        state.authError = action.error.message;
-      })
       .addCase(fetchMoviesAction.pending, (state) => {
         state.isDataLoading = true;
       })
