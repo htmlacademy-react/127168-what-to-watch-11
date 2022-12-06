@@ -1,9 +1,5 @@
 import {
-  addMovieCount,
-  changeGenre,
-  filterMovies,
   loadMovies,
-  resetMovieCount,
   setDataLoadingStatus,
   loadCurrentMovie,
   loadCurrentComments,
@@ -11,7 +7,6 @@ import {
   setDefaultCurrentMovieData,
   setError404
 } from './action';
-import {ALL_GENRES_LINK, MOVIE_STEP} from '../const';
 import {Comments} from '../types/comments';
 import {createReducer} from '@reduxjs/toolkit';
 import {Movie, Movies} from '../types/movies';
@@ -37,9 +32,6 @@ const emptyMovie: Movie = {
 };
 
 type InitalState = {
-  currentGenre: string;
-  movieCounter: number;
-  filteredMovies: Movies;
   sourceMovies: Movies;
   isDataLoading: boolean;
   isError404: boolean;
@@ -49,9 +41,6 @@ type InitalState = {
 }
 
 const initialState: InitalState = {
-  currentGenre: ALL_GENRES_LINK,
-  movieCounter: MOVIE_STEP,
-  filteredMovies: [],
   sourceMovies: [],
   isDataLoading: false,
   isError404: false,
@@ -60,30 +49,8 @@ const initialState: InitalState = {
   recommendedMovies: []
 };
 
-const onFilterMovies = (state: typeof initialState) => {
-  if (state.currentGenre === ALL_GENRES_LINK) {
-    state.filteredMovies = [...state.sourceMovies];
-  } else {
-    state.filteredMovies = state.sourceMovies.filter(
-      (currentMovie) => (
-        currentMovie.genre === state.currentGenre
-      )
-    );
-  }
-};
-
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(changeGenre, (state, action) => {
-      state.currentGenre = action.payload.selectedGenre;
-    })
-    .addCase(filterMovies, onFilterMovies)
-    .addCase(addMovieCount, (state) => {
-      state.movieCounter += MOVIE_STEP;
-    })
-    .addCase(resetMovieCount, (state) => {
-      state.movieCounter = MOVIE_STEP;
-    })
     .addCase(loadMovies, (state, action) => {
       state.sourceMovies = action.payload;
     })

@@ -8,6 +8,18 @@ type MovieListProps = {
   mode: MovieListModeCount;
 }
 
+// const onFilterMovies = (state: typeof initialState) => {
+//   if (state.currentGenre === ALL_GENRES_LINK) {
+//     state.filteredMovies = [...state.sourceMovies];
+//   } else {
+//     state.filteredMovies = state.sourceMovies.filter(
+//       (currentMovie) => (
+//         currentMovie.genre === state.currentGenre
+//       )
+//     );
+//   }
+// };
+
 function MovieList({mode}: MovieListProps): JSX.Element {
   const movie = useAppSelector((state) => state.currentMovie);
   const filteredMovies = useAppSelector((state) => state.filteredMovies);
