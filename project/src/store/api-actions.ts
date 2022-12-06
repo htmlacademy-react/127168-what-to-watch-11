@@ -68,10 +68,13 @@ export const fetchCurrentMovieDataAction = createAsyncThunk<{
 }>(
   'data/fetchCurrentMovie',
   async (id, {extra: api}) => {
-    const route = `${APIRoute.Movies}/${id}`;
-    const {data: movie} = await api.get<Movie>(route);
-    const {data: comments} = await api.get<Comments>(route);
-    const {data: recommendedMovies} = await api.get<Movies>(route);
+    const routeMovie = `${APIRoute.Movies}/${id}`;
+    const routeComments = `${APIRoute.Comments}/${id}`;
+    const routeRecommended = `${APIRoute.Movies}/${id}/${APIRoute.Similar}`;
+
+    const {data: movie} = await api.get<Movie>(routeMovie);
+    const {data: comments} = await api.get<Comments>(routeComments);
+    const {data: recommendedMovies} = await api.get<Movies>(routeRecommended);
     return {movie, comments, recommendedMovies};
   },
 );

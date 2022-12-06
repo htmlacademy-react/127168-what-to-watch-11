@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CurrentMoovieData} from '../../types/state';
 import {fetchCurrentMovieDataAction} from '../api-actions';
 import {Movie} from '../../types/movies';
@@ -35,7 +35,14 @@ const initialState: CurrentMoovieData = {
 export const currentMoviesData = createSlice({
   name: NameSpace.CurrentMovieData,
   initialState,
-  reducers: {},
+  reducers: {
+    setError404: (state, action: PayloadAction<boolean>) => {
+      state.isError404 = action.payload;
+    },
+    setDefaultCurrentMovieData: (state) => {
+      state.currentMovie = emptyMovie;
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchCurrentMovieDataAction.pending, (state) => {
@@ -53,3 +60,5 @@ export const currentMoviesData = createSlice({
       });
   }
 });
+
+export const {setError404, setDefaultCurrentMovieData} = currentMoviesData.actions;

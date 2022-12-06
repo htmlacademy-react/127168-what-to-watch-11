@@ -16,7 +16,7 @@ import Logo from '../../components/logo/logo';
 import MovieList from '../../components/movie-list/movie-list';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {selectUserBlock} from '../../user-block-selector';
-import {setDefaultCurrentMovieData, setError404} from '../../store/action';
+import {setDefaultCurrentMovieData, setError404} from '../../store/current-movie-data/current-movie-data';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
 
