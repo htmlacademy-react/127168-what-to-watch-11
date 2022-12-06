@@ -67,7 +67,8 @@ enum MovieListModeCount {
 export enum NameSpace {
   User = 'USER',
   MoviesData = 'MOVIES_DATA',
-  CurrentMovieData = 'CURRENT_MOVIE_DATA'
+  CurrentMovieData = 'CURRENT_MOVIE_DATA',
+  Catalog = 'CATALOG',
 }
 
 const PREVIEW_START_TIME = 1000;

@@ -26,3 +26,9 @@ export type CurrentMoovieData = {
   isDataLoading: boolean;
   isError404: boolean;
 };
+
+export type CatalogProcess = {
+  currentGenre: string;
+  filteredMovies: Movies;
+  counter: number;
+}

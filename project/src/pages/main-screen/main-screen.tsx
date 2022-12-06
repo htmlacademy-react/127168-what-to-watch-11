@@ -1,11 +1,9 @@
-import GenreList from '../../components/genre-list/genre-list';
+import Catalog from '../../components/catalog/catalog';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
-import MovieList from '../../components/movie-list/movie-list';
-import {MovieListModeCount, LogoPositionClass} from '../../const';
+import {LogoPositionClass} from '../../const';
 import {selectUserBlock} from '../../user-block-selector';
-import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import {useAppSelector} from '../../hooks';
 
 type MainScreenProps = {
@@ -15,14 +13,7 @@ type MainScreenProps = {
 }
 
 function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
-  // TODO - счётчик реализуем отдельно не через состояние
-  // const movieCounter = useAppSelector((state) => state.movieCounter);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-
-  //  TODO - временное решение
-  const isButtonActive = true;
-  // TODO - логика отрисовки кнопки
-  // filteredMovies.length > movieCounter;
 
   return (
     <>
@@ -78,14 +69,7 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
       </section>
 
       <div className="page-content">
-        <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenreList />
-          <MovieList
-            mode={MovieListModeCount.Main}
-          />
-          {isButtonActive && <ShowMoreButton />}
-        </section>
+        <Catalog />
         <footer className="page-footer">
           <Logo positionClass={LogoPositionClass.Footer}/>
           <div className="copyright">
