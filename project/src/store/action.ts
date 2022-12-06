@@ -2,9 +2,6 @@ import {Comments} from '../types/comments';
 import {createAction} from '@reduxjs/toolkit';
 import {Movie, Movies} from '../types/movies';
 
-export const loadMovies = createAction<Movies>('data/loadMovies');
-
-export const setDataLoadingStatus = createAction<boolean>('data/setDataLoadingStatus');
 
 export const loadCurrentMovie = createAction<Movie>('data/loadCurrentMovie');
 
