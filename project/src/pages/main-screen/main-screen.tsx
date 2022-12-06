@@ -1,8 +1,9 @@
+import GenreList from '../../components/genre-list/genre-list';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
-import {MovieListModeCount, LogoPositionClass} from '../../const';
 import MovieList from '../../components/movie-list/movie-list';
-import GenreList from '../../components/genre-list/genre-list';
+import {MovieListModeCount, LogoPositionClass} from '../../const';
 import {selectUserBlock} from '../../user-block-selector';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import {useAppSelector} from '../../hooks';
@@ -14,11 +15,14 @@ type MainScreenProps = {
 }
 
 function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
-  const filteredMovies = useAppSelector((state) => state.filteredMovies);
-  const movieCounter = useAppSelector((state) => state.movieCounter);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  // TODO - счётчик реализуем отдельно не через состояние
+  // const movieCounter = useAppSelector((state) => state.movieCounter);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  const isButtonActive = filteredMovies.length > movieCounter;
+  //  TODO - временное решение
+  const isButtonActive = true;
+  // TODO - логика отрисовки кнопки
+  // filteredMovies.length > movieCounter;
 
   return (
     <>

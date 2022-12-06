@@ -1,10 +1,11 @@
+import {ALL_GENRES_LINK} from '../../const';
 import GenreLink from './genre-link';
+import {getMoviesData} from '../../store/movies-data/selectors';
 import {useAppSelector} from '../../hooks';
-import { ALL_GENRES_LINK } from '../../const';
 
 
 function GenreList (): JSX.Element {
-  const movies = useAppSelector((state) => state.sourceMovies);
+  const movies = useAppSelector(getMoviesData);
 
   const genres = new Set([ALL_GENRES_LINK]);
   movies.forEach((movie) => genres.add(movie.genre));

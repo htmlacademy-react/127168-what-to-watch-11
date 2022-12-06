@@ -6,8 +6,6 @@ import axios, {
   AxiosResponse
 } from 'axios';
 import {getToken} from './token';
-import {setError} from '../store/action';
-import {store} from '../store';
 import {StatusCodes} from 'http-status-codes';
 
 const StatusCodeMapping: Record<number, boolean> = {
@@ -39,7 +37,8 @@ export const createAPI = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError<{error: string}>) => {
       if (error.response && shouldDisplayError(error.response)) {
-        store.dispatch(setError(error.response.data.error));
+        // TODO - продумать запись ошибки
+        // store.dispatch(setError(error.response.data.error));
       }
 
       throw error;

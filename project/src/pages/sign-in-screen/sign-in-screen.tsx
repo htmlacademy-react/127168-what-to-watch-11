@@ -1,17 +1,17 @@
 import {AppRoute, AuthorizationStatus, LogoPositionClass} from '../../const';
 import {AuthData} from '../../types/user';
-import {FormEvent, useEffect, useRef} from 'react';
+import {FormEvent, useRef} from 'react';
+import {getAuthErrorMessage, getAuthorizationStatus} from '../../store/user-process/selectors';
 import {Helmet} from 'react-helmet-async';
 import {loginAction} from '../../store/api-actions';
 import Logo from '../../components/logo/logo';
 import {Navigate} from 'react-router-dom';
-import {setError} from '../../store/action';
 import SignInMessage from '../../components/sign-in-message/sign-in-message';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 
 function SignInScreen(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const errorMessage = useAppSelector((state) => state.error);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const errorMessage = useAppSelector(getAuthErrorMessage);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -32,9 +32,10 @@ function SignInScreen(): JSX.Element {
     }
   };
 
-  useEffect(() => {
-    dispatch(setError(null));
-  }, [dispatch]);
+  // useEffect(() => {
+  // TODO - продумать сброс ошибок в начале
+  // dispatch(setError(null));
+  // }, [dispatch]);
 
   const isNoAuthStatus = (status: AuthorizationStatus) => status === AuthorizationStatus.NoAuth;
 

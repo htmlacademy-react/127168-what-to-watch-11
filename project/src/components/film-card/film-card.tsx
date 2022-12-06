@@ -1,9 +1,7 @@
 import {AppRoute, INACTIVE_NUMBER_ID} from '../../const';
 import {Link} from 'react-router-dom';
 import {Movie} from '../../types/movies';
-import {resetMovieCount} from '../../store/action';
 import VideoPreview from '../../components/video-preview/video-preview';
-import {useAppDispatch} from '../../hooks';
 import {useState} from 'react';
 
 type FilmCardProps = {
@@ -13,7 +11,6 @@ type FilmCardProps = {
 }
 
 function FilmCard({movie, onHoverCurrentCard, activeCardId}: FilmCardProps): JSX.Element {
-  const dispatch = useAppDispatch();
   const [isPlayerActive, changePlayerActivity] = useState(false);
   const switchCardImage = () => changePlayerActivity(!isPlayerActive);
 
@@ -44,7 +41,8 @@ function FilmCard({movie, onHoverCurrentCard, activeCardId}: FilmCardProps): JSX
         <Link
           className="small-film-card__link"
           to={`${AppRoute.Film}${id}`}
-          onClick={() => dispatch(resetMovieCount())}
+          // TODO - Обработать сброс счетчика фильмов
+          // onClick={() => dispatch(resetMovieCount())}
         >
           {name}
         </Link>

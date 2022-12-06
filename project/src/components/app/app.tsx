@@ -1,8 +1,9 @@
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import {AppRoute} from '../../const';
 import browserHistory from '../../browser-history';
-import {Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
+import {getMoviesDataLoadingStatus} from '../../store/movies-data/selectors';
+import HistoryRouter from '../history-route/history-route';
 import Loading from '../loading/loaging';
 import MainScreen from '../../pages/main-screen/main-screen';
 import MoviePageScreen from '../../pages/movie-page-screen.tsx/movie-page-screen';
@@ -10,9 +11,9 @@ import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 // import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
+import {Route, Routes} from 'react-router-dom';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
-import { useAppSelector } from '../../hooks';
-import HistoryRouter from '../history-route/history-route';
+import {useAppSelector} from '../../hooks';
 
 type AppScreenProp = {
   title: string;
@@ -21,7 +22,7 @@ type AppScreenProp = {
 }
 
 function App({title, genre, year}: AppScreenProp): JSX.Element {
-  const isDataLoading = useAppSelector((store) => store.isDataLoading);
+  const isDataLoading = useAppSelector(getMoviesDataLoadingStatus);
 
   return (
     <HelmetProvider>

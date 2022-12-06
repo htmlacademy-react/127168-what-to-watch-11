@@ -3,13 +3,14 @@ import {DescriptionTabEnum} from '../../types/description';
 import FilmDetails from '../film-information/film-details';
 import FilmOverview from '../film-information/film-overview';
 import FilmReviews from '../film-information/film-reviews';
+import {getCurrentComments, getCurrentMovie} from '../../store/current-movie-data/selectors';
 import TabLink from './tab-links';
 import {useAppSelector} from '../../hooks';
 import {useState} from 'react';
 
 function FilmTabs (): JSX.Element {
-  const movie = useAppSelector((state) => state.currentMovie);
-  const comments = useAppSelector((state) => state.currentComments);
+  const movie = useAppSelector(getCurrentMovie);
+  const comments = useAppSelector(getCurrentComments);
 
   const [currentTab, setCurrentTab] = useState(DescriptionTab.Overview);
   const onClickCurrentTab = (tabStatus: DescriptionTabEnum): void => setCurrentTab(tabStatus);

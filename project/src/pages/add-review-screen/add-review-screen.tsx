@@ -1,6 +1,14 @@
+import {
+  AppRoute,
+  DEFAULT_RATING,
+  LogoPositionClass,
+  MAX_COMMENT_LENGTH,
+  MIN_COMMENT_LENGTH
+} from '../../const';
 import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
-import {AppRoute, DEFAULT_RATING, LogoPositionClass, MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH} from '../../const';
-import {fetchCurrentMovieAction, sendReviewAction} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getCurrentMovie, getCurrentMovieError404} from '../../store/current-movie-data/selectors';
+import {fetchCurrentMovieDataAction, sendReviewAction} from '../../store/api-actions';
 import {Helmet} from 'react-helmet-async';
 import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
@@ -17,16 +25,16 @@ const defaultUserReviewState = {
 
 function AddReviewScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-  const movie = useAppSelector((state) => state.currentMovie);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isError404 = useAppSelector((state) => state.isError404);
+  const movie = useAppSelector(getCurrentMovie);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isError404 = useAppSelector(getCurrentMovieError404);
   const [userReview, setUserReview] = useState({...defaultUserReviewState});
 
   const {id} = useParams();
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchCurrentMovieAction(id));
+      dispatch(fetchCurrentMovieDataAction(id));
       setUserReview({...defaultUserReviewState, filmId: id});
     }
   }, [dispatch, id]);
