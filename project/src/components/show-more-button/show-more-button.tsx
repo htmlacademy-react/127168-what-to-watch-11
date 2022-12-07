@@ -1,4 +1,4 @@
-import {addMovieCount} from '../../store/action';
+import {addMovieCount} from '../../store/catalog-process/catalog-process';
 import {useAppDispatch} from '../../hooks';
 
 function ShowMoreButton (): JSX.Element {

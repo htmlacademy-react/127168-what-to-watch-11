@@ -6,35 +6,33 @@ import {
   MINIMUM_RECOMMENDED_FILMS,
   MovieListModeCount,
 } from '../../const';
-import {
-  fetchCurrentCommentsAction,
-  fetchCurrentMovieAction,
-  fetchRecomendedMoviesAction
-} from '../../store/api-actions';
+import {fetchCurrentMovieDataAction} from '../../store/api-actions';
 import FilmTabs from '../../components/film-tabs/film-tabs';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getCurrentMovie, getRecommendedMovies} from '../../store/current-movie-data/selectors';
 import {Helmet} from 'react-helmet-async';
 import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import MovieList from '../../components/movie-list/movie-list';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {selectUserBlock} from '../../user-block-selector';
-import {setDefaultCurrentMovieData, setError404} from '../../store/action';
+import {setDefaultCurrentMovieData} from '../../store/current-movie-data/current-movie-data';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { getError404Status } from '../../store/service-state-process/selectors';
+import { setError404 } from '../../store/service-state-process/service-state-process';
 
 function MoviePageScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-  const movie = useAppSelector((state) => state.currentMovie);
-  const recommendedMovies = useAppSelector((state) => state.recommendedMovies);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isError404 = useAppSelector((state) => state.isError404);
+  const movie = useAppSelector(getCurrentMovie);
+  const recommendedMovies = useAppSelector(getRecommendedMovies);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isError404 = useAppSelector(getError404Status);
   const {id} = useParams();
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchCurrentMovieAction(id));
-      dispatch(fetchCurrentCommentsAction(id));
-      dispatch(fetchRecomendedMoviesAction(id));
+      dispatch(fetchCurrentMovieDataAction(id));
     }
 
     return () => {

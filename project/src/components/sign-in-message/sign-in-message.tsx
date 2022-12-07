@@ -1,7 +1,8 @@
+import {getAuthErrorStatus} from '../../store/service-state-process/selectors';
 import {useAppSelector} from '../../hooks';
 
 function SignInMessage(): JSX.Element {
-  const errorMessage = useAppSelector((state) => state.error);
+  const errorMessage = useAppSelector(getAuthErrorStatus);
 
   return (
     <div className="sign-in__message">

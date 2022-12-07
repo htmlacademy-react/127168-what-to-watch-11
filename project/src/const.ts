@@ -40,6 +40,11 @@ enum DescriptionTab {
   Reviews = 'Reviews'
 }
 
+enum LogoPositionClass {
+  Header = 'logo__link',
+  Footer = 'logo__link logo__link--light'
+}
+
 const INACTIVE_NUMBER_ID = '0';
 
 const MAX_COMMENT_LENGTH = 400;
@@ -55,14 +60,16 @@ const MINIMUM_RECOMMENDED_FILMS = 2;
 const MOVIE_STEP = 8;
 
 enum MovieListModeCount {
-  // Временно отрисовываем всё
   Main = MOVIE_STEP,
   Recommended = 4
 }
 
-enum LogoPositionClass {
-  Header = 'logo__link',
-  Footer = 'logo__link logo__link--light'
+export enum NameSpace {
+  User = 'USER',
+  MoviesData = 'MOVIES_DATA',
+  CurrentMovieData = 'CURRENT_MOVIE_DATA',
+  Catalog = 'CATALOG',
+  ServiceStateProcess = 'SERVICE_STATE_PROCESS',
 }
 
 const PREVIEW_START_TIME = 1000;

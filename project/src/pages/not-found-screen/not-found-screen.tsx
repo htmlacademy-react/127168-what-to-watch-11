@@ -1,3 +1,4 @@
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import {LogoPositionClass} from '../../const';
@@ -6,7 +7,7 @@ import {useAppSelector} from '../../hooks';
 import './not-found-screen.css';
 
 function NotFoundScreen(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return (
     <section className="film-card">

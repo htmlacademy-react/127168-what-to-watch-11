@@ -1,19 +1,22 @@
-import {changeGenre, filterMovies, resetMovieCount} from '../../store/action';
 import cn from 'classnames';
+import {changeGenre, filterMovies, resetMovieCount } from '../../store/catalog-process/catalog-process';
 import {Link} from 'react-router-dom';
+import {getCurrentGenre} from '../../store/catalog-process/selectors';
 import {useAppDispatch, useAppSelector} from '../../hooks';
+import { getMoviesData } from '../../store/movies-data/selectors';
 
 type GenreLinkProps = {
   dataValue: string;
 }
 
 function GenreLink ({dataValue}: GenreLinkProps): JSX.Element {
-  const currentGenre = useAppSelector((state) => state.currentGenre);
   const dispatch = useAppDispatch();
+  const movies = useAppSelector(getMoviesData);
+  const currentGenre = useAppSelector(getCurrentGenre);
 
   const onGenreClick = () => {
-    dispatch(changeGenre({selectedGenre: dataValue}));
-    dispatch(filterMovies());
+    dispatch(changeGenre(dataValue));
+    dispatch(filterMovies(movies));
     dispatch(resetMovieCount());
   };
 
