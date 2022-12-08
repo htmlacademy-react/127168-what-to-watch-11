@@ -16,6 +16,7 @@ export type UserProcess = {
 export type MoviesData = {
   sourceMovies: Movies;
   promoMovie: Movie;
+  favoriteMovies: Movies;
 };
 
 export type CurrentMoovieData = {

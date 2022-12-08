@@ -1,11 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {fetchStartAppAction} from '../api-actions';
+import {fetchFavoriteFilmsAction, fetchStartAppAction} from '../api-actions';
 import {MoviesData} from '../../types/state';
 import {emptyMovie, NameSpace} from '../../const';
 
 const initialState: MoviesData = {
   sourceMovies: [],
   promoMovie: emptyMovie,
+  favoriteMovies: [],
 };
 
 export const moviesData = createSlice({
@@ -17,6 +18,9 @@ export const moviesData = createSlice({
       .addCase(fetchStartAppAction.fulfilled, (state, action) => {
         state.sourceMovies = action.payload.movies;
         state.promoMovie = action.payload.promoMovie;
+      })
+      .addCase(fetchFavoriteFilmsAction.fulfilled, (state, action) => {
+        state.favoriteMovies = action.payload;
       });
   }
 });

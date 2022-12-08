@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {fetchCurrentMovieDataAction, fetchStartAppAction, loginAction } from '../api-actions';
+import {fetchCurrentMovieDataAction, fetchFavoriteFilmsAction, fetchStartAppAction, loginAction } from '../api-actions';
 import {NameSpace} from '../../const';
 import {ServiceStateProcess} from '../../types/state';
 
@@ -41,6 +41,12 @@ export const serviceStateProcess = createSlice({
         state.isDataLoading = true;
       })
       .addCase(fetchStartAppAction.fulfilled, (state) => {
+        state.isDataLoading = false;
+      })
+      .addCase(fetchFavoriteFilmsAction.pending, (state) => {
+        state.isDataLoading = true;
+      })
+      .addCase(fetchFavoriteFilmsAction.fulfilled, (state) => {
         state.isDataLoading = false;
       });
   }

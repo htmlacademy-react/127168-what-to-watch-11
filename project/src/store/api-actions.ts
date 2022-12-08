@@ -16,7 +16,7 @@ export const fetchStartAppAction = createAsyncThunk<{
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchMovies',
+  'data/fetchStartApp',
   async (_arg, {extra: api}) => {
     const {data: movies} = await api.get<Movies>(APIRoute.Movies);
     const {data: promoMovie} = await api.get<Movie>(APIRoute.Promo);
@@ -70,7 +70,7 @@ export const fetchCurrentMovieDataAction = createAsyncThunk<{
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchCurrentMovie',
+  'data/fetchCurrentMovieData',
   async (id, {extra: api}) => {
     const routeMovie = `${APIRoute.Movies}/${id}`;
     const routeComments = `${APIRoute.Comments}/${id}`;
@@ -92,5 +92,17 @@ export const sendReviewAction = createAsyncThunk<void, NewReview, {
   async ({comment, rating, filmId}, {dispatch, extra: api}) => {
     await api.post(`${APIRoute.Comments}/${filmId}`, {comment, rating});
     dispatch(redirectToRoute(`${AppRoute.Film}${filmId}`));
+  },
+);
+
+export const fetchFavoriteFilmsAction = createAsyncThunk<Movies, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchFavoriteFilms',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<Movies>(APIRoute.Favorite);
+    return data;
   },
 );
