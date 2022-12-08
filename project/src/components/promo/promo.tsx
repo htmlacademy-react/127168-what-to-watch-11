@@ -5,13 +5,14 @@ import {useAppSelector} from '../../hooks';
 import MyListButton from '../my-list-button/my-list-button';
 
 function Promo (): JSX.Element {
+  const promoMovie = useAppSelector(getPromoData);
   const {
     backgroundImage,
     name,
     posterImage,
     genre,
     released
-  } = useAppSelector(getPromoData);
+  } = promoMovie;
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
@@ -46,7 +47,7 @@ function Promo (): JSX.Element {
                 </svg>
                 <span>Play</span>
               </button>
-              {authorizationStatus === AuthorizationStatus.Auth && <MyListButton />}
+              {authorizationStatus === AuthorizationStatus.Auth && <MyListButton movie={promoMovie}/>}
             </div>
           </div>
         </div>

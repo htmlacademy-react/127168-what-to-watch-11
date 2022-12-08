@@ -78,7 +78,7 @@ function MoviePageScreen(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </Link>
-                {authorizationStatus === AuthorizationStatus.Auth && <MyListButton />}
+                {authorizationStatus === AuthorizationStatus.Auth && <MyListButton movie={movie}/>}
                 {authorizationStatus === AuthorizationStatus.Auth && <AddReviewButton />}
               </div>
             </div>

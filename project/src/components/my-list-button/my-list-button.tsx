@@ -1,15 +1,41 @@
+import cn from 'classnames';
+import {FavoritePost, Movie} from '../../types/movies';
+import {getDataPostingStatus} from '../../store/service-state-process/selectors';
 import {getFavoriteMovies} from '../../store/movies-data/selectors';
-import {useAppSelector} from '../../hooks';
+import {postFavoriteFilm} from '../../store/api-actions';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import './my-list-button.css';
 
-function MyListButton (): JSX.Element {
+type MyListButtonProps = {
+  movie: Movie;
+};
+
+function MyListButton ({movie: {id, isFavorite}}: MyListButtonProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const favoriteFilms = useAppSelector(getFavoriteMovies);
+  const isPosting = useAppSelector(getDataPostingStatus);
+
+  const filmData: FavoritePost = {
+    filmId: id,
+    isFavorite: !isFavorite,
+  };
 
   return (
-    <button className="btn btn--list film-card__button" type="button">
+    <button
+      className={cn(
+        'btn',
+        'btn--list',
+        'film-card__button',
+        {'film-card__button--disabled': isPosting})}
+      type="button"
+      onClick={() => {
+        dispatch(postFavoriteFilm(filmData));
+      }}
+    >
       <svg viewBox="0 0 19 20" width="19" height="20">
-        <use xlinkHref="#add" />
+        <use xlinkHref={isFavorite ? '#in-list' : '#add'} />
       </svg>
-      <span>My list</span>
+      <span>{isPosting ? 'Wait' : 'My list'}</span>
       <span className="film-card__count">{favoriteFilms.length}</span>
     </button>
   );
