@@ -82,7 +82,8 @@ const MOVIE_STEP = 8;
 
 enum MovieListModeCount {
   Main = MOVIE_STEP,
-  Recommended = 4
+  Recommended = 4,
+  MyList = 12,
 }
 
 export enum NameSpace {

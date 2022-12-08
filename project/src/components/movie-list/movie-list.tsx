@@ -26,6 +26,9 @@ function MovieList({mode}: MovieListProps): JSX.Element {
       case MovieListModeCount.Recommended:
         return recommendedMovies.filter((currentMovie) => (currentMovie.id !== movie.id))
           .slice(0, MovieListModeCount.Recommended);
+      case MovieListModeCount.MyList:
+        // TODO - подгрузить фильмы с сервера
+        return filteredMovies;
     }
   };
 
