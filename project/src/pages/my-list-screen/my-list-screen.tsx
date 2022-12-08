@@ -1,4 +1,3 @@
-import {fetchFavoriteFilmsAction} from '../../store/api-actions';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getFavoriteMovies} from '../../store/movies-data/selectors';
 import {Helmet} from 'react-helmet-async';
@@ -6,16 +5,9 @@ import Logo from '../../components/logo/logo';
 import MovieList from '../../components/movie-list/movie-list';
 import {MovieListModeCount, LogoPositionClass} from '../../const';
 import {selectUserBlock} from '../../user-block-selector';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {useEffect} from 'react';
+import {useAppSelector} from '../../hooks';
 
 function MyListScreen(): JSX.Element {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchFavoriteFilmsAction());
-  }, [dispatch]);
-
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const favoriteMovies = useAppSelector(getFavoriteMovies);
 

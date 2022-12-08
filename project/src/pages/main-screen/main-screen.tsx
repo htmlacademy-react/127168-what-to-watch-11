@@ -1,14 +1,26 @@
+import {AuthorizationStatus, LogoPositionClass} from '../../const';
 import Catalog from '../../components/catalog/catalog';
+import {fetchFavoriteFilmsAction} from '../../store/api-actions';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {Helmet} from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
-import {LogoPositionClass} from '../../const';
 import Promo from '../../components/promo/promo';
 import {selectUserBlock} from '../../user-block-selector';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useEffect} from 'react';
+import { getFavoriteDownloadedStatus } from '../../store/service-state-process/selectors';
 
 function MainScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isFavoriteDownloadedStatus = useAppSelector(getFavoriteDownloadedStatus);
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth && !isFavoriteDownloadedStatus) {
+      dispatch(fetchFavoriteFilmsAction());
+    }
+  }, [authorizationStatus, dispatch, isFavoriteDownloadedStatus]);
+
 
   return (
     <>

@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {fetchCurrentMovieDataAction, fetchFavoriteFilmsAction, fetchStartAppAction, loginAction } from '../api-actions';
+import {fetchCurrentMovieDataAction, fetchFavoriteFilmsAction, fetchStartAppAction, loginAction, logoutAction } from '../api-actions';
 import {NameSpace} from '../../const';
 import {ServiceStateProcess} from '../../types/state';
 
@@ -7,6 +7,7 @@ const initialState: ServiceStateProcess = {
   authError: undefined,
   isDataLoading: false,
   isError404: false,
+  isFavoriteDownloaded: false,
 };
 
 export const serviceStateProcess = createSlice({
@@ -43,11 +44,11 @@ export const serviceStateProcess = createSlice({
       .addCase(fetchStartAppAction.fulfilled, (state) => {
         state.isDataLoading = false;
       })
-      .addCase(fetchFavoriteFilmsAction.pending, (state) => {
-        state.isDataLoading = true;
-      })
       .addCase(fetchFavoriteFilmsAction.fulfilled, (state) => {
-        state.isDataLoading = false;
+        state.isFavoriteDownloaded = true;
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.isFavoriteDownloaded = false;
       });
   }
 });

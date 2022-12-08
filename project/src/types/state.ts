@@ -35,4 +35,5 @@ export type ServiceStateProcess = {
   authError: string | undefined;
   isDataLoading: boolean;
   isError404: boolean;
+  isFavoriteDownloaded: boolean;
 }
