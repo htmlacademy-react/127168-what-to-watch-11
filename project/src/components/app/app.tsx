@@ -15,13 +15,7 @@ import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
 import {useAppSelector} from '../../hooks';
 import { getDataLoadingStatus } from '../../store/service-state-process/selectors';
 
-type AppScreenProp = {
-  title: string;
-  genre: string;
-  year: number;
-}
-
-function App({title, genre, year}: AppScreenProp): JSX.Element {
+function App(): JSX.Element {
   const isDataLoading = useAppSelector(getDataLoadingStatus);
 
   return (
@@ -32,11 +26,7 @@ function App({title, genre, year}: AppScreenProp): JSX.Element {
           <Route
             path={AppRoute.Main}
             element={
-              <MainScreen
-                title={title}
-                genre={genre}
-                year={year}
-              />
+              <MainScreen />
             }
           />
           <Route

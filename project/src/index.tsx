@@ -11,22 +11,12 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-const FilmProperty = {
-  Title: 'The Grand Budapest Hotel',
-  Genre: 'Drama',
-  Year: 2014
-} as const;
-
 store.dispatch(fetchStartAppAction());
 
 root.render(
   <React.StrictMode>
     <Provider store = {store}>
-      <App
-        title={FilmProperty.Title}
-        genre={FilmProperty.Genre}
-        year={FilmProperty.Year}
-      />
+      <App />
     </Provider>
   </React.StrictMode>,
 );

@@ -6,13 +6,7 @@ import {LogoPositionClass} from '../../const';
 import {selectUserBlock} from '../../user-block-selector';
 import {useAppSelector} from '../../hooks';
 
-type MainScreenProps = {
-  title: string;
-  genre: string;
-  year: number;
-}
-
-function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
+function MainScreen(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return (
@@ -21,17 +15,17 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
         <Helmet>
           <title>WTW. Main</title>
         </Helmet>
+        <h1 className="visually-hidden">WTW</h1>
+        <header className="page-header film-card__head">
+          <Logo positionClass={LogoPositionClass.Header}/>
+          {selectUserBlock(authorizationStatus)}
+        </header>
         <div className="film-card__bg">
           <img
             src="img/bg-the-grand-budapest-hotel.jpg"
             alt="The Grand Budapest Hotel"
           />
         </div>
-        <h1 className="visually-hidden">WTW</h1>
-        <header className="page-header film-card__head">
-          <Logo positionClass={LogoPositionClass.Header}/>
-          {selectUserBlock(authorizationStatus)}
-        </header>
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
@@ -43,10 +37,10 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
               />
             </div>
             <div className="film-card__desc">
-              <h2 className="film-card__title">{title}</h2>
+              <h2 className="film-card__title">Title</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{year}</span>
+                <span className="film-card__genre">genre</span>
+                <span className="film-card__year">year</span>
               </p>
               <div className="film-card__buttons">
                 <button className="btn btn--play film-card__button" type="button">
