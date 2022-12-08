@@ -1,38 +1,86 @@
+import {fetchCurrentMovieDataAction} from '../../store/api-actions';
+import {getCurrentMovie} from '../../store/current-movie-data/selectors';
+import {getError404Status} from '../../store/service-state-process/selectors';
 import {Helmet} from 'react-helmet-async';
-import {Movie, Movies} from '../../types/movies';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
+import {setDefaultCurrentMovieData} from '../../store/current-movie-data/current-movie-data';
+import {setError404} from '../../store/service-state-process/service-state-process';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useEffect, useRef} from 'react';
 import {useParams} from 'react-router-dom';
 
-type PlayerScreenProps = {
-  movies: Movies;
-}
-
-function PlayerScreen({movies}: PlayerScreenProps): JSX.Element {
+function PlayerScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
   const {id} = useParams();
-  const movie = movies.find((item: Movie) => item.id === id);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  return movie ? (
+
+  const isError404 = useAppSelector(getError404Status);
+  const movie = useAppSelector(getCurrentMovie);
+
+  const {
+    name,
+    backgroundImage,
+    videoLink
+  } = movie;
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchCurrentMovieDataAction(id));
+    }
+
+    return () => {
+      dispatch(setDefaultCurrentMovieData());
+      dispatch(setError404(false));
+    };
+  }, [dispatch, id]);
+
+  if (isError404) {
+    return <NotFoundScreen />;
+  }
+
+  return (
     <div className="player">
       <Helmet>
-        <title>{movie.name} is playing</title>
+        <title>{name} is playing</title>
       </Helmet>
-      <video src={movie.videoLink} className="player__video" poster="img/player-poster.jpg" />
-      <button type="button" className="player__exit">
+      <video
+        src={videoLink}
+        className="player__video"
+        poster={backgroundImage}
+        ref={videoRef}
+        autoPlay
+      />
+      <button
+        type="button"
+        className="player__exit"
+      >
           Exit
       </button>
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value="30" max="100" />
-            <div className="player__toggler" style={{ left: '30%' }}>
+            <progress
+              className="player__progress"
+              value="30"
+              max="100"
+            />
+            <div
+              className="player__toggler"
+              style={{ left: '30%' }}
+            >
                 Toggler
             </div>
           </div>
-          {/* Здесь я так полагаю дальше поменяется вывод времени в следующих задания */}
-          <div className="player__time-value">{movie.runTime}</div>
+          <div className="player__time-value">
+            {movie.runTime}
+          </div>
         </div>
         <div className="player__controls-row">
-          <button type="button" className="player__play">
+          <button
+            type="button"
+            className="player__play"
+          >
             <svg viewBox="0 0 19 19" width="19" height="19">
               <use xlinkHref="#play-s" />
             </svg>
@@ -48,7 +96,7 @@ function PlayerScreen({movies}: PlayerScreenProps): JSX.Element {
         </div>
       </div>
     </div>
-  ) : <NotFoundScreen />;
+  );
 }
 
 

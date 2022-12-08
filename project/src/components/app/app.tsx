@@ -8,7 +8,7 @@ import MainScreen from '../../pages/main-screen/main-screen';
 import MoviePageScreen from '../../pages/movie-page-screen.tsx/movie-page-screen';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-// import PlayerScreen from '../../pages/player-screen/player-screen';
+import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import {Route, Routes} from 'react-router-dom';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
@@ -33,10 +33,10 @@ function App(): JSX.Element {
             path={`${AppRoute.Film}:id`}
             element={<MoviePageScreen />}
           />
-          {/* <Route
+          <Route
             path={`${AppRoute.Player}:id`}
-            element={<PlayerScreen movies={movies}/>}
-          /> */}
+            element={<PlayerScreen />}
+          />
           <Route
             path={AppRoute.Login}
             element={<SignInScreen />}
