@@ -1,5 +1,6 @@
 import {getPromoData} from '../../store/movies-data/selectors';
 import {useAppSelector} from '../../hooks';
+import MyListButton from '../my-list-button/my-list-button';
 
 function Promo (): JSX.Element {
   const {
@@ -41,13 +42,7 @@ function Promo (): JSX.Element {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list film-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add" />
-                </svg>
-                <span>My list</span>
-                <span className="film-card__count">9</span>
-              </button>
+              <MyListButton />
             </div>
           </div>
         </div>
