@@ -34,6 +34,10 @@ export const moviesData = createSlice({
         const indexElementSource = state.sourceMovies.findIndex((movie) => movie.id === action.payload.id);
         state.sourceMovies[indexElementSource].isFavorite = action.payload.isFavorite;
 
+        if (state.promoMovie.id === action.payload.id) {
+          state.promoMovie.isFavorite = action.payload.isFavorite;
+        }
+
         if (action.payload.isFavorite) {
           state.favoriteMovies.push(action.payload);
         } else {

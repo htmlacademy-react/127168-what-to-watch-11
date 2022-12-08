@@ -26,8 +26,10 @@ function MyListButton ({movie: {id, isFavorite}}: MyListButtonProps): JSX.Elemen
         'btn',
         'btn--list',
         'film-card__button',
-        {'film-card__button--disabled': isPosting})}
+        {'film-card__button--disabled': isPosting}
+      )}
       type="button"
+      disabled={isPosting}
       onClick={() => {
         dispatch(postFavoriteFilm(filmData));
       }}

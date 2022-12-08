@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {CurrentMoovieData} from '../../types/state';
-import {fetchCurrentMovieDataAction} from '../api-actions';
+import {fetchCurrentMovieDataAction, postFavoriteFilm} from '../api-actions';
 import {emptyMovie, NameSpace} from '../../const';
 
 const initialState: CurrentMoovieData = {
@@ -23,6 +23,9 @@ export const currentMoviesData = createSlice({
         state.currentMovie = action.payload.movie;
         state.currentComments = action.payload.comments;
         state.recommendedMovies = action.payload.recommendedMovies;
+      })
+      .addCase(postFavoriteFilm.fulfilled, (state, action) => {
+        state.currentMovie.isFavorite = action.payload.isFavorite;
       });
   }
 });
