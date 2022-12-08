@@ -5,18 +5,22 @@ import {AxiosInstance} from 'axios';
 import {Comments, NewReview} from '../types/comments';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {dropToken, saveToken} from '../services/token';
-import {redirectToRoute} from './action';
 import {Movie, Movies} from '../types/movies';
+import {redirectToRoute} from './action';
 
-export const fetchMoviesAction = createAsyncThunk<Movies, undefined, {
+export const fetchStartAppAction = createAsyncThunk<{
+  movies: Movies;
+  promoMovie: Movie;
+}, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchMovies',
   async (_arg, {extra: api}) => {
-    const {data} = await api.get<Movies>(APIRoute.Movies);
-    return data;
+    const {data: movies} = await api.get<Movies>(APIRoute.Movies);
+    const {data: promoMovie} = await api.get<Movie>(APIRoute.Promo);
+    return {movies, promoMovie};
   },
 );
 

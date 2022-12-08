@@ -1,8 +1,8 @@
 import {AuthorizationStatus} from '../const';
+import {Comments} from './comments';
 import {Movie, Movies} from './movies';
 import {store} from '../store/index';
 import {UserData} from './user';
-import { Comments } from './comments';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -15,6 +15,7 @@ export type UserProcess = {
 
 export type MoviesData = {
   sourceMovies: Movies;
+  promoMovie: Movie;
 };
 
 export type CurrentMoovieData = {

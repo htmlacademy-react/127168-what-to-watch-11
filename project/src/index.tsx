@@ -1,5 +1,5 @@
 import App from './components/app/app';
-import {checkAuthAction, fetchMoviesAction} from './store/api-actions';
+import {checkAuthAction, fetchStartAppAction} from './store/api-actions';
 import {Provider} from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -17,7 +17,7 @@ const FilmProperty = {
   Year: 2014
 } as const;
 
-store.dispatch(fetchMoviesAction());
+store.dispatch(fetchStartAppAction());
 
 root.render(
   <React.StrictMode>

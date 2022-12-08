@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ServiceStateProcess} from '../../types/state';
+import {fetchCurrentMovieDataAction, fetchStartAppAction, loginAction } from '../api-actions';
 import {NameSpace} from '../../const';
-import { fetchCurrentMovieDataAction, fetchMoviesAction, loginAction } from '../api-actions';
+import {ServiceStateProcess} from '../../types/state';
 
 const initialState: ServiceStateProcess = {
   authError: undefined,
@@ -37,10 +37,10 @@ export const serviceStateProcess = createSlice({
       .addCase(loginAction.fulfilled, (state) => {
         state.authError = undefined;
       })
-      .addCase(fetchMoviesAction.pending, (state) => {
+      .addCase(fetchStartAppAction.pending, (state) => {
         state.isDataLoading = true;
       })
-      .addCase(fetchMoviesAction.fulfilled, (state) => {
+      .addCase(fetchStartAppAction.fulfilled, (state) => {
         state.isDataLoading = false;
       });
   }

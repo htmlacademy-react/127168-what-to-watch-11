@@ -5,7 +5,8 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
-  Similar = 'similar'
+  Similar = 'similar',
+  Promo = '/promo',
 }
 
 enum AppRoute {
@@ -39,6 +40,26 @@ enum DescriptionTab {
   Details = 'Details',
   Reviews = 'Reviews'
 }
+
+const emptyMovie = {
+  id: '',
+  name: '',
+  posterImage: '',
+  previewImage: '',
+  backgroundImage: '',
+  backgroundColor: '',
+  videoLink: '',
+  previewVideoLink: '',
+  description: '',
+  rating: 0,
+  scoresCount: 0,
+  director: '',
+  starring: [],
+  runTime: 0,
+  genre: '',
+  released: 0,
+  isFavorite: false,
+};
 
 enum LogoPositionClass {
   Header = 'logo__link',
@@ -87,6 +108,7 @@ export {
   ColumnSortType,
   DEFAULT_RATING,
   DescriptionTab,
+  emptyMovie,
   INACTIVE_NUMBER_ID,
   MAX_COMMENT_LENGTH,
   MAX_RATING,
