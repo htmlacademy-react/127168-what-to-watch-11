@@ -3,11 +3,11 @@ import {getCurrentMovie} from '../../store/current-movie-data/selectors';
 import {getError404Status} from '../../store/service-state-process/selectors';
 import {Helmet} from 'react-helmet-async';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import {setDefaultCurrentMovieData} from '../../store/current-movie-data/current-movie-data';
 import {setError404} from '../../store/service-state-process/service-state-process';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect, useRef} from 'react';
 import {useParams} from 'react-router-dom';
+import {store} from '../../store';
 
 function PlayerScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -25,15 +25,17 @@ function PlayerScreen(): JSX.Element {
   } = movie;
 
   useEffect(() => {
-    if (id) {
+    const currentMovieId = store.getState().CURRENT_MOVIE_DATA.currentMovie.id;
+    if (id && Number(id) !== Number(currentMovieId)) {
       dispatch(fetchCurrentMovieDataAction(id));
     }
 
     return () => {
-      dispatch(setDefaultCurrentMovieData());
-      dispatch(setError404(false));
+      if (isError404) {
+        dispatch(setError404(false));
+      }
     };
-  }, [dispatch, id]);
+  }, [dispatch, id, isError404]);
 
   if (isError404) {
     return <NotFoundScreen />;

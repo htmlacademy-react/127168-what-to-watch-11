@@ -18,8 +18,8 @@ import MovieList from '../../components/movie-list/movie-list';
 import MyListButton from '../../components/my-list-button/my-list-button';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {selectUserBlock} from '../../user-block-selector';
-import {setDefaultCurrentMovieData} from '../../store/current-movie-data/current-movie-data';
 import {setError404} from '../../store/service-state-process/service-state-process';
+import {store} from '../../store';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
 
@@ -32,15 +32,18 @@ function MoviePageScreen(): JSX.Element {
   const {id} = useParams();
 
   useEffect(() => {
-    if (id) {
+    const currentMovieId = store.getState().CURRENT_MOVIE_DATA.currentMovie.id;
+
+    if (id && Number(id) !== Number(currentMovieId)) {
       dispatch(fetchCurrentMovieDataAction(id));
     }
 
     return () => {
-      dispatch(setDefaultCurrentMovieData());
-      dispatch(setError404(false));
+      if (isError404) {
+        dispatch(setError404(false));
+      }
     };
-  }, [dispatch, id]);
+  }, [dispatch, id, isError404]);
 
   if (isError404) {
     return <NotFoundScreen />;
