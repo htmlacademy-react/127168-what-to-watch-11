@@ -19,3 +19,8 @@ export type Movie = {
 };
 
 export type Movies = Movie[];
+
+export type FavoritePost = {
+  filmId: string;
+  isFavorite: boolean;
+}

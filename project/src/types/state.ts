@@ -36,4 +36,5 @@ export type ServiceStateProcess = {
   isDataLoading: boolean;
   isError404: boolean;
   isFavoriteDownloaded: boolean;
+  isDataPosting: boolean;
 }

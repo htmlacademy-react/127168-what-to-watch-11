@@ -5,7 +5,7 @@ import {AxiosInstance} from 'axios';
 import {Comments, NewReview} from '../types/comments';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {dropToken, saveToken} from '../services/token';
-import {Movie, Movies} from '../types/movies';
+import {FavoritePost, Movie, Movies} from '../types/movies';
 import {redirectToRoute} from './action';
 
 export const fetchStartAppAction = createAsyncThunk<{
@@ -103,6 +103,18 @@ export const fetchFavoriteFilmsAction = createAsyncThunk<Movies, undefined, {
   'data/fetchFavoriteFilms',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<Movies>(APIRoute.Favorite);
+    return data;
+  },
+);
+
+export const postFavoriteFilm = createAsyncThunk<Movie, FavoritePost, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/postFavoriteFilm',
+  async ({filmId, isFavorite}, {extra: api}) => {
+    const {data} = await api.post<Movie>(`${APIRoute.Favorite}/${filmId}/${Number(isFavorite)}`);
     return data;
   },
 );
