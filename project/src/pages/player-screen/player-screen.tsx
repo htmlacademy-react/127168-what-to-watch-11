@@ -1,25 +1,34 @@
 import ExitButton from '../../components/exit-button/exit-button';
 import {fetchCurrentMovieDataAction} from '../../store/api-actions';
+import FullScreenButton from '../../components/full-screen-button/full-screen-button';
 import {getCurrentMovie} from '../../store/current-movie-data/selectors';
 import {getError404Status} from '../../store/service-state-process/selectors';
 import {Helmet} from 'react-helmet-async';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
+import PlayButton from '../../components/play-button/play-button';
+import {PlayerStatusMessage} from '../../const';
+import {requestFullScreen} from './fullscreen';
 import {setError404} from '../../store/service-state-process/service-state-process';
 import {store} from '../../store';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect, useRef, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import PlayButton from '../../components/play-button/play-button';
-import {PlayerStatusMessage} from '../../const';
+
+type InitialPlayerState = {
+  isPlay: boolean;
+  statusMessage: PlayerStatusMessage;
+}
+
+const initialPlayerState: InitialPlayerState = {
+  isPlay: true,
+  statusMessage: PlayerStatusMessage.GoodStatus,
+};
 
 function PlayerScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const {id} = useParams();
   const playerRef = useRef<HTMLVideoElement | null>(null);
-  const [playerState, setPlayerState] = useState({
-    isPlay: true,
-    statusMessage: PlayerStatusMessage.GoodStatus,
-  });
+  const [playerState, setPlayerState] = useState(initialPlayerState);
 
   const isError404 = useAppSelector(getError404Status);
   const movie = useAppSelector(getCurrentMovie);
@@ -33,13 +42,14 @@ function PlayerScreen(): JSX.Element {
 
   useEffect(() => {
     const currentMovieId = store.getState().CURRENT_MOVIE_DATA.currentMovie.id;
+
     if (id && Number(id) !== Number(currentMovieId)) {
       dispatch(fetchCurrentMovieDataAction(id));
     }
     const promiseAutoplay = playerRef.current?.play();
 
     if (playerState.isPlay) {
-      // Промис нужен, чтобы преотвратить ошибки
+      // Промис нужен, чтобы отловить ошибки
       // принудительного отключения autoplay браузером
       promiseAutoplay?.then(() => {
         playerRef.current?.play();
@@ -64,18 +74,29 @@ function PlayerScreen(): JSX.Element {
         dispatch(setError404(false));
       }
     };
-  }, [dispatch, id, isError404, playerState.isPlay]);
+  }, [
+    dispatch,
+    id,
+    isError404,
+    playerState.isPlay
+  ]);
 
   const onPlayButtonClick = () => {
     setPlayerState((prevState) => ({
       ...prevState,
-      isPlay: !prevState.isPlay
+      isPlay: true
     }));
   };
 
   if (isError404) {
     return <NotFoundScreen />;
   }
+
+  const onFullScreenButtonClick = () => {
+    if (playerRef.current) {
+      requestFullScreen(playerRef.current);
+    }
+  };
 
   return (
     <div className="player">
@@ -114,12 +135,9 @@ function PlayerScreen(): JSX.Element {
             handleButtonClick={onPlayButtonClick}
           />
           <div className="player__name">{playerState.statusMessage}</div>
-          <button type="button" className="player__full-screen">
-            <svg viewBox="0 0 27 27" width="27" height="27">
-              <use xlinkHref="#full-screen" />
-            </svg>
-            <span>Full screen</span>
-          </button>
+          <FullScreenButton
+            handleButtonClick={onFullScreenButtonClick}
+          />
         </div>
       </div>
     </div>
