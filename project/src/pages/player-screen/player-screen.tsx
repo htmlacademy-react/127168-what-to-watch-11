@@ -10,6 +10,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect, useRef, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import PlayButton from '../../components/play-button/play-button';
+import {PlayerStatusMessage} from '../../const';
 
 function PlayerScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -17,6 +18,7 @@ function PlayerScreen(): JSX.Element {
   const playerRef = useRef<HTMLVideoElement | null>(null);
   const [playerState, setPlayerState] = useState({
     isPlay: true,
+    statusMessage: PlayerStatusMessage.GoodStatus,
   });
 
   const isError404 = useAppSelector(getError404Status);
@@ -34,32 +36,46 @@ function PlayerScreen(): JSX.Element {
     if (id && Number(id) !== Number(currentMovieId)) {
       dispatch(fetchCurrentMovieDataAction(id));
     }
+    const promiseAutoplay = playerRef.current?.play();
+
+    if (playerState.isPlay) {
+      // Промис нужен, чтобы преотвратить ошибки
+      // принудительного отключения autoplay браузером
+      promiseAutoplay?.then(() => {
+        playerRef.current?.play();
+
+        setPlayerState((prevState) => ({
+          ...prevState,
+          statusMessage: PlayerStatusMessage.GoodStatus,
+        }));
+      }).catch(() => {
+        setPlayerState((prevState) => ({
+          ...prevState,
+          isPlay: false,
+          statusMessage: PlayerStatusMessage.ErrorAutoplay,
+        }));
+      });
+    } else {
+      playerRef.current?.pause();
+    }
 
     return () => {
       if (isError404) {
         dispatch(setError404(false));
       }
     };
-  }, [dispatch, id, isError404]);
-
-  if (isError404) {
-    return <NotFoundScreen />;
-  }
+  }, [dispatch, id, isError404, playerState.isPlay]);
 
   const onPlayButtonClick = () => {
     setPlayerState((prevState) => ({
       ...prevState,
       isPlay: !prevState.isPlay
     }));
-
-    if (playerRef.current) {
-      if (playerState.isPlay) {
-        playerRef.current.play();
-      } else {
-        playerRef.current.pause();
-      }
-    }
   };
+
+  if (isError404) {
+    return <NotFoundScreen />;
+  }
 
   return (
     <div className="player">
@@ -71,7 +87,6 @@ function PlayerScreen(): JSX.Element {
         className="player__video"
         poster={backgroundImage}
         ref={playerRef}
-        autoPlay
       />
       <ExitButton movieID={movieID}/>
       <div className="player__controls">
@@ -98,7 +113,7 @@ function PlayerScreen(): JSX.Element {
             isPlay={playerState.isPlay}
             handleButtonClick={onPlayButtonClick}
           />
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{playerState.statusMessage}</div>
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen" />

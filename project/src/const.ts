@@ -87,12 +87,18 @@ enum MovieListModeCount {
   MyList = 12,
 }
 
-export enum NameSpace {
+enum NameSpace {
   User = 'USER',
   MoviesData = 'MOVIES_DATA',
   CurrentMovieData = 'CURRENT_MOVIE_DATA',
   Catalog = 'CATALOG',
   ServiceStateProcess = 'SERVICE_STATE_PROCESS',
+}
+
+enum PlayerStatusMessage {
+  GoodStatus = '',
+  Transpotting = 'Transpotting',
+  ErrorAutoplay = 'Autoplay is off'
 }
 
 const PREVIEW_START_TIME = 1000;
@@ -112,14 +118,16 @@ export {
   DescriptionTab,
   emptyMovie,
   INACTIVE_NUMBER_ID,
+  LogoPositionClass,
   MAX_COMMENT_LENGTH,
   MAX_RATING,
   MIN_COMMENT_LENGTH,
   MIN_RATING,
   MINIMUM_RECOMMENDED_FILMS,
   MOVIE_STEP,
+  NameSpace,
   MovieListModeCount,
-  LogoPositionClass,
+  PlayerStatusMessage,
   PREVIEW_START_TIME,
   REQUEST_TIMEOUT,
   REVIEW_PAGE
