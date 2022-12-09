@@ -22,6 +22,7 @@ import {store} from '../../store';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
+import {setDefaultCurrentMovieData} from '../../store/current-movie-data/current-movie-data';
 
 function MoviePageScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -35,6 +36,7 @@ function MoviePageScreen(): JSX.Element {
     const currentMovieId = store.getState().CURRENT_MOVIE_DATA.currentMovie.id;
 
     if (id && Number(id) !== Number(currentMovieId)) {
+      dispatch(setDefaultCurrentMovieData());
       dispatch(fetchCurrentMovieDataAction(id));
     }
 
