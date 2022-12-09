@@ -5,7 +5,7 @@ import {HelmetProvider} from 'react-helmet-async';
 import HistoryRouter from '../history-route/history-route';
 import Loading from '../loading/loaging';
 import MainScreen from '../../pages/main-screen/main-screen';
-import MoviePageScreen from '../../pages/movie-page-screen.tsx/movie-page-screen';
+import MoviePageScreen from '../../pages/movie-page-screen/movie-page-screen';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';

@@ -1,13 +1,14 @@
+import ExitButton from '../../components/exit-button/exit-button';
 import {fetchCurrentMovieDataAction} from '../../store/api-actions';
 import {getCurrentMovie} from '../../store/current-movie-data/selectors';
 import {getError404Status} from '../../store/service-state-process/selectors';
 import {Helmet} from 'react-helmet-async';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import {setError404} from '../../store/service-state-process/service-state-process';
+import {store} from '../../store';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect, useRef} from 'react';
 import {useParams} from 'react-router-dom';
-import {store} from '../../store';
 
 function PlayerScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -21,7 +22,8 @@ function PlayerScreen(): JSX.Element {
   const {
     name,
     backgroundImage,
-    videoLink
+    videoLink,
+    id: movieID
   } = movie;
 
   useEffect(() => {
@@ -53,12 +55,7 @@ function PlayerScreen(): JSX.Element {
         ref={videoRef}
         autoPlay
       />
-      <button
-        type="button"
-        className="player__exit"
-      >
-          Exit
-      </button>
+      <ExitButton movieID={movieID}/>
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">

@@ -1,6 +1,5 @@
 import AddReviewButton from '../../components/add-review-button/add-review-button';
 import {
-  AppRoute,
   AuthorizationStatus,
   LogoPositionClass,
   MINIMUM_RECOMMENDED_FILMS,
@@ -12,16 +11,17 @@ import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getCurrentMovie, getRecommendedMovies} from '../../store/current-movie-data/selectors';
 import {getError404Status} from '../../store/service-state-process/selectors';
 import {Helmet} from 'react-helmet-async';
-import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import MovieList from '../../components/movie-list/movie-list';
 import MyListButton from '../../components/my-list-button/my-list-button';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import PlayerLink from '../../components/player-link/player-link';
 import {selectUserBlock} from '../../user-block-selector';
 import {setError404} from '../../store/service-state-process/service-state-process';
 import {store} from '../../store';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
+import {useParams} from 'react-router-dom';
 
 function MoviePageScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -75,12 +75,7 @@ function MoviePageScreen(): JSX.Element {
                 <span className="film-card__year">{movie.released}</span>
               </p>
               <div className="film-card__buttons">
-                <Link to={`${AppRoute.Player}${movie.id}`} className="btn btn--play film-card__button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s" />
-                  </svg>
-                  <span>Play</span>
-                </Link>
+                <PlayerLink movieID={movie.id}/>
                 {authorizationStatus === AuthorizationStatus.Auth && <MyListButton movie={movie}/>}
                 {authorizationStatus === AuthorizationStatus.Auth && <AddReviewButton />}
               </div>
