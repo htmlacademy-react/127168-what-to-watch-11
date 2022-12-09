@@ -7,14 +7,17 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import {setError404} from '../../store/service-state-process/service-state-process';
 import {store} from '../../store';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useParams} from 'react-router-dom';
+import PlayButton from '../../components/play-button/play-button';
 
 function PlayerScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const {id} = useParams();
   const videoRef = useRef<HTMLVideoElement | null>(null);
-
+  const [videoState, setVideoState] = useState({
+    isPlay: true,
+  });
 
   const isError404 = useAppSelector(getError404Status);
   const movie = useAppSelector(getCurrentMovie);
@@ -43,6 +46,13 @@ function PlayerScreen(): JSX.Element {
     return <NotFoundScreen />;
   }
 
+  const onPlayButtonClick = () => {
+    setVideoState((prevState) => ({
+      ...prevState,
+      isPlay: !prevState.isPlay
+    }));
+  };
+
   return (
     <div className="player">
       <Helmet>
@@ -53,7 +63,7 @@ function PlayerScreen(): JSX.Element {
         className="player__video"
         poster={backgroundImage}
         ref={videoRef}
-        autoPlay
+        // autoPlay
       />
       <ExitButton movieID={movieID}/>
       <div className="player__controls">
@@ -76,15 +86,10 @@ function PlayerScreen(): JSX.Element {
           </div>
         </div>
         <div className="player__controls-row">
-          <button
-            type="button"
-            className="player__play"
-          >
-            <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref="#play-s" />
-            </svg>
-            <span>Play</span>
-          </button>
+          <PlayButton
+            isPlay={videoState.isPlay}
+            handleButtonClick={onPlayButtonClick}
+          />
           <div className="player__name">Transpotting</div>
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
