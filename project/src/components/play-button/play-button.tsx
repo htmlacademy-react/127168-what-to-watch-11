@@ -11,7 +11,7 @@ function PlayButton({isPlay, handleButtonClick}: PlayButtonProps): JSX.Element {
       onClick={handleButtonClick}
     >
       <svg viewBox="0 0 19 19" width="19" height="19">
-        <use xlinkHref={isPlay ? '#pause' : '#play-s'} />
+        <use xlinkHref={isPlay ? '#play-s' : '#pause'} />
       </svg>
       <span>Play</span>
     </button>

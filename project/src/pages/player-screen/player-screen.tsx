@@ -14,8 +14,8 @@ import PlayButton from '../../components/play-button/play-button';
 function PlayerScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const {id} = useParams();
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [videoState, setVideoState] = useState({
+  const playerRef = useRef<HTMLVideoElement | null>(null);
+  const [playerState, setPlayerState] = useState({
     isPlay: true,
   });
 
@@ -47,10 +47,18 @@ function PlayerScreen(): JSX.Element {
   }
 
   const onPlayButtonClick = () => {
-    setVideoState((prevState) => ({
+    setPlayerState((prevState) => ({
       ...prevState,
       isPlay: !prevState.isPlay
     }));
+
+    if (playerRef.current) {
+      if (playerState.isPlay) {
+        playerRef.current.play();
+      } else {
+        playerRef.current.pause();
+      }
+    }
   };
 
   return (
@@ -62,8 +70,8 @@ function PlayerScreen(): JSX.Element {
         src={videoLink}
         className="player__video"
         poster={backgroundImage}
-        ref={videoRef}
-        // autoPlay
+        ref={playerRef}
+        autoPlay
       />
       <ExitButton movieID={movieID}/>
       <div className="player__controls">
@@ -87,7 +95,7 @@ function PlayerScreen(): JSX.Element {
         </div>
         <div className="player__controls-row">
           <PlayButton
-            isPlay={videoState.isPlay}
+            isPlay={playerState.isPlay}
             handleButtonClick={onPlayButtonClick}
           />
           <div className="player__name">Transpotting</div>
