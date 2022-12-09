@@ -84,7 +84,7 @@ function PlayerScreen(): JSX.Element {
   const onPlayButtonClick = () => {
     setPlayerState((prevState) => ({
       ...prevState,
-      isPlay: true
+      isPlay: !prevState.isPlay
     }));
   };
 
