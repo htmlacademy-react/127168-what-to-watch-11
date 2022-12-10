@@ -34,6 +34,10 @@ enum ColumnSortType {
   Even = 2
 }
 
+const DEFAULT_CURRENT_TIME = 0;
+
+const DEFAULT_DURATION = 0;
+
 const DEFAULT_RATING = 0;
 
 enum DescriptionTab {
@@ -107,6 +111,8 @@ const REQUEST_TIMEOUT = 5000;
 
 const REVIEW_PAGE = 'review';
 
+const SECONDS_IN_HOUR = 3600;
+
 export {
   ALL_GENRES_LINK,
   AppRoute,
@@ -114,6 +120,8 @@ export {
   AuthorizationStatus,
   BACKEND_URL,
   ColumnSortType,
+  DEFAULT_CURRENT_TIME,
+  DEFAULT_DURATION,
   DEFAULT_RATING,
   DescriptionTab,
   emptyMovie,
@@ -130,5 +138,6 @@ export {
   PlayerStatusMessage,
   PREVIEW_START_TIME,
   REQUEST_TIMEOUT,
-  REVIEW_PAGE
+  REVIEW_PAGE,
+  SECONDS_IN_HOUR
 };

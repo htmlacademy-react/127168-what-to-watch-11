@@ -1,3 +1,4 @@
+import {DEFAULT_CURRENT_TIME, DEFAULT_DURATION, PlayerStatusMessage} from '../../const';
 import ExitButton from '../../components/exit-button/exit-button';
 import {fetchCurrentMovieDataAction} from '../../store/api-actions';
 import FullScreenButton from '../../components/full-screen-button/full-screen-button';
@@ -6,7 +7,7 @@ import {getError404Status} from '../../store/service-state-process/selectors';
 import {Helmet} from 'react-helmet-async';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PlayButton from '../../components/play-button/play-button';
-import {PlayerStatusMessage} from '../../const';
+import PlayerProgress from '../../components/player-progress/player-progress';
 import {requestFullScreen} from './fullscreen';
 import {setError404} from '../../store/service-state-process/service-state-process';
 import {store} from '../../store';
@@ -17,11 +18,15 @@ import {useParams} from 'react-router-dom';
 type InitialPlayerState = {
   isPlay: boolean;
   statusMessage: PlayerStatusMessage;
+  currentTime: number;
+  duration: number;
 }
 
 const initialPlayerState: InitialPlayerState = {
   isPlay: true,
   statusMessage: PlayerStatusMessage.GoodStatus,
+  currentTime: DEFAULT_CURRENT_TIME,
+  duration: DEFAULT_DURATION,
 };
 
 function PlayerScreen(): JSX.Element {
@@ -46,6 +51,7 @@ function PlayerScreen(): JSX.Element {
     if (id && Number(id) !== Number(currentMovieId)) {
       dispatch(fetchCurrentMovieDataAction(id));
     }
+
     const promiseAutoplay = playerRef.current?.play();
 
     if (playerState.isPlay) {
@@ -108,26 +114,24 @@ function PlayerScreen(): JSX.Element {
         className="player__video"
         poster={backgroundImage}
         ref={playerRef}
+        onTimeUpdate={() => {
+          const currentTime = playerRef.current?.currentTime || DEFAULT_CURRENT_TIME;
+          const duration = playerRef.current?.duration || DEFAULT_DURATION;
+
+          setPlayerState((prevState) => ({
+            ...prevState,
+            currentTime,
+            duration
+          }));
+        }}
       />
       <ExitButton movieID={movieID}/>
       <div className="player__controls">
         <div className="player__controls-row">
-          <div className="player__time">
-            <progress
-              className="player__progress"
-              value="30"
-              max="100"
-            />
-            <div
-              className="player__toggler"
-              style={{ left: '30%' }}
-            >
-                Toggler
-            </div>
-          </div>
-          <div className="player__time-value">
-            {movie.runTime}
-          </div>
+          <PlayerProgress
+            currentTime={playerState.currentTime}
+            filmDuration={playerState.duration}
+          />
         </div>
         <div className="player__controls-row">
           <PlayButton
