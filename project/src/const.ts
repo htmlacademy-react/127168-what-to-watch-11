@@ -5,7 +5,9 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
-  Similar = 'similar'
+  Similar = 'similar',
+  Promo = '/promo',
+  Favorite = '/favorite',
 }
 
 enum AppRoute {
@@ -32,6 +34,10 @@ enum ColumnSortType {
   Even = 2
 }
 
+const DEFAULT_CURRENT_TIME = 0;
+
+const DEFAULT_DURATION = 0;
+
 const DEFAULT_RATING = 0;
 
 enum DescriptionTab {
@@ -39,6 +45,26 @@ enum DescriptionTab {
   Details = 'Details',
   Reviews = 'Reviews'
 }
+
+const emptyMovie = {
+  id: '',
+  name: '',
+  posterImage: '',
+  previewImage: '',
+  backgroundImage: '',
+  backgroundColor: '',
+  videoLink: '',
+  previewVideoLink: '',
+  description: '',
+  rating: 0,
+  scoresCount: 0,
+  director: '',
+  starring: [],
+  runTime: 0,
+  genre: '',
+  released: 0,
+  isFavorite: false,
+};
 
 enum LogoPositionClass {
   Header = 'logo__link',
@@ -61,15 +87,22 @@ const MOVIE_STEP = 8;
 
 enum MovieListModeCount {
   Main = MOVIE_STEP,
-  Recommended = 4
+  Recommended = 4,
+  MyList = 12,
 }
 
-export enum NameSpace {
+enum NameSpace {
   User = 'USER',
   MoviesData = 'MOVIES_DATA',
   CurrentMovieData = 'CURRENT_MOVIE_DATA',
   Catalog = 'CATALOG',
   ServiceStateProcess = 'SERVICE_STATE_PROCESS',
+}
+
+enum PlayerStatusMessage {
+  GoodStatus = '',
+  Transpotting = 'Transpotting',
+  ErrorAutoplay = 'Autoplay is off'
 }
 
 const PREVIEW_START_TIME = 1000;
@@ -78,6 +111,8 @@ const REQUEST_TIMEOUT = 5000;
 
 const REVIEW_PAGE = 'review';
 
+const SECONDS_IN_HOUR = 3600;
+
 export {
   ALL_GENRES_LINK,
   AppRoute,
@@ -85,18 +120,24 @@ export {
   AuthorizationStatus,
   BACKEND_URL,
   ColumnSortType,
+  DEFAULT_CURRENT_TIME,
+  DEFAULT_DURATION,
   DEFAULT_RATING,
   DescriptionTab,
+  emptyMovie,
   INACTIVE_NUMBER_ID,
+  LogoPositionClass,
   MAX_COMMENT_LENGTH,
   MAX_RATING,
   MIN_COMMENT_LENGTH,
   MIN_RATING,
   MINIMUM_RECOMMENDED_FILMS,
   MOVIE_STEP,
+  NameSpace,
   MovieListModeCount,
-  LogoPositionClass,
+  PlayerStatusMessage,
   PREVIEW_START_TIME,
   REQUEST_TIMEOUT,
-  REVIEW_PAGE
+  REVIEW_PAGE,
+  SECONDS_IN_HOUR
 };

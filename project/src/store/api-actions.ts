@@ -5,18 +5,22 @@ import {AxiosInstance} from 'axios';
 import {Comments, NewReview} from '../types/comments';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {dropToken, saveToken} from '../services/token';
+import {FavoritePost, Movie, Movies} from '../types/movies';
 import {redirectToRoute} from './action';
-import {Movie, Movies} from '../types/movies';
 
-export const fetchMoviesAction = createAsyncThunk<Movies, undefined, {
+export const fetchStartAppAction = createAsyncThunk<{
+  movies: Movies;
+  promoMovie: Movie;
+}, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchMovies',
+  'data/fetchStartApp',
   async (_arg, {extra: api}) => {
-    const {data} = await api.get<Movies>(APIRoute.Movies);
-    return data;
+    const {data: movies} = await api.get<Movies>(APIRoute.Movies);
+    const {data: promoMovie} = await api.get<Movie>(APIRoute.Promo);
+    return {movies, promoMovie};
   },
 );
 
@@ -66,7 +70,7 @@ export const fetchCurrentMovieDataAction = createAsyncThunk<{
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchCurrentMovie',
+  'data/fetchCurrentMovieData',
   async (id, {extra: api}) => {
     const routeMovie = `${APIRoute.Movies}/${id}`;
     const routeComments = `${APIRoute.Comments}/${id}`;
@@ -88,5 +92,29 @@ export const sendReviewAction = createAsyncThunk<void, NewReview, {
   async ({comment, rating, filmId}, {dispatch, extra: api}) => {
     await api.post(`${APIRoute.Comments}/${filmId}`, {comment, rating});
     dispatch(redirectToRoute(`${AppRoute.Film}${filmId}`));
+  },
+);
+
+export const fetchFavoriteFilmsAction = createAsyncThunk<Movies, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchFavoriteFilms',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<Movies>(APIRoute.Favorite);
+    return data;
+  },
+);
+
+export const postFavoriteFilm = createAsyncThunk<Movie, FavoritePost, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/postFavoriteFilm',
+  async ({filmId, isFavorite}, {extra: api}) => {
+    const {data} = await api.post<Movie>(`${APIRoute.Favorite}/${filmId}/${Number(isFavorite)}`);
+    return data;
   },
 );

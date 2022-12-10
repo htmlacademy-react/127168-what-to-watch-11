@@ -1,28 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {CurrentMoovieData} from '../../types/state';
-import {fetchCurrentMovieDataAction} from '../api-actions';
-import {Movie} from '../../types/movies';
-import {NameSpace} from '../../const';
-
-const emptyMovie: Movie = {
-  id: '',
-  name: '',
-  posterImage: '',
-  previewImage: '',
-  backgroundImage: '',
-  backgroundColor: '',
-  videoLink: '',
-  previewVideoLink: '',
-  description: '',
-  rating: 0,
-  scoresCount: 0,
-  director: '',
-  starring: [],
-  runTime: 0,
-  genre: '',
-  released: 0,
-  isFavorite: false,
-};
+import {fetchCurrentMovieDataAction, postFavoriteFilm} from '../api-actions';
+import {emptyMovie, NameSpace} from '../../const';
 
 const initialState: CurrentMoovieData = {
   currentMovie: emptyMovie,
@@ -44,6 +23,9 @@ export const currentMoviesData = createSlice({
         state.currentMovie = action.payload.movie;
         state.currentComments = action.payload.comments;
         state.recommendedMovies = action.payload.recommendedMovies;
+      })
+      .addCase(postFavoriteFilm.fulfilled, (state, action) => {
+        state.currentMovie.isFavorite = action.payload.isFavorite;
       });
   }
 });

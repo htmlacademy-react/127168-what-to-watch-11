@@ -1,12 +1,19 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ServiceStateProcess} from '../../types/state';
+import {
+  fetchCurrentMovieDataAction,
+  fetchFavoriteFilmsAction,
+  fetchStartAppAction, loginAction,
+  logoutAction, postFavoriteFilm
+} from '../api-actions';
 import {NameSpace} from '../../const';
-import { fetchCurrentMovieDataAction, fetchMoviesAction, loginAction } from '../api-actions';
+import {ServiceStateProcess} from '../../types/state';
 
 const initialState: ServiceStateProcess = {
   authError: undefined,
   isDataLoading: false,
   isError404: false,
+  isFavoriteDownloaded: false,
+  isDataPosting: false,
 };
 
 export const serviceStateProcess = createSlice({
@@ -37,11 +44,26 @@ export const serviceStateProcess = createSlice({
       .addCase(loginAction.fulfilled, (state) => {
         state.authError = undefined;
       })
-      .addCase(fetchMoviesAction.pending, (state) => {
+      .addCase(fetchStartAppAction.pending, (state) => {
         state.isDataLoading = true;
       })
-      .addCase(fetchMoviesAction.fulfilled, (state) => {
+      .addCase(fetchStartAppAction.fulfilled, (state) => {
         state.isDataLoading = false;
+      })
+      .addCase(fetchFavoriteFilmsAction.fulfilled, (state) => {
+        state.isFavoriteDownloaded = true;
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.isFavoriteDownloaded = false;
+      })
+      .addCase(postFavoriteFilm.pending, (state) => {
+        state.isDataPosting = true;
+      })
+      .addCase(postFavoriteFilm.fulfilled, (state) => {
+        state.isDataPosting = false;
+      })
+      .addCase(postFavoriteFilm.rejected, (state) => {
+        state.isDataPosting = false;
       });
   }
 });
