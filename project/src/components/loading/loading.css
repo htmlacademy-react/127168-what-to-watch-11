@@ -9,6 +9,10 @@
   justify-content: center;
 }
 
+.loading-player-page {
+  background-color: #000000cd;
+}
+
 .figure-class {
   position: absolute;
   margin: auto;

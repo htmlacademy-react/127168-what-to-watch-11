@@ -14,9 +14,12 @@ import {store} from '../../store';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect, useRef, useState} from 'react';
 import {useParams} from 'react-router-dom';
+import Loading from '../../components/loading/loaging';
 
 type InitialPlayerState = {
   isPlay: boolean;
+  isLoading: boolean;
+  isAutoplayError: boolean;
   statusMessage: PlayerStatusMessage;
   currentTime: number;
   duration: number;
@@ -24,7 +27,9 @@ type InitialPlayerState = {
 
 const initialPlayerState: InitialPlayerState = {
   isPlay: true,
-  statusMessage: PlayerStatusMessage.GoodStatus,
+  isLoading: true,
+  isAutoplayError: false,
+  statusMessage: PlayerStatusMessage.Transpotting,
   currentTime: DEFAULT_CURRENT_TIME,
   duration: DEFAULT_DURATION,
 };
@@ -40,7 +45,6 @@ function PlayerScreen(): JSX.Element {
 
   const {
     name,
-    backgroundImage,
     videoLink,
     id: movieID
   } = movie;
@@ -55,20 +59,19 @@ function PlayerScreen(): JSX.Element {
     const promiseAutoplay = playerRef.current?.play();
 
     if (playerState.isPlay) {
-      // Промис нужен, чтобы отловить ошибки
-      // принудительного отключения autoplay браузером
       promiseAutoplay?.then(() => {
         playerRef.current?.play();
 
         setPlayerState((prevState) => ({
           ...prevState,
           statusMessage: PlayerStatusMessage.GoodStatus,
+          isAutoplayError: false
         }));
       }).catch(() => {
         setPlayerState((prevState) => ({
           ...prevState,
           isPlay: false,
-          statusMessage: PlayerStatusMessage.ErrorAutoplay,
+          isAutoplayError: true
         }));
       });
     } else {
@@ -94,25 +97,25 @@ function PlayerScreen(): JSX.Element {
     }));
   };
 
-  if (isError404) {
-    return <NotFoundScreen />;
-  }
-
   const onFullScreenButtonClick = () => {
     if (playerRef.current) {
       requestFullScreen(playerRef.current);
     }
   };
 
+  if (isError404) {
+    return <NotFoundScreen />;
+  }
+
   return (
     <div className="player">
+      {playerState.isLoading && <Loading isPlayer/>}
       <Helmet>
         <title>{name} is playing</title>
       </Helmet>
       <video
         src={videoLink}
         className="player__video"
-        poster={backgroundImage}
         ref={playerRef}
         onTimeUpdate={() => {
           const currentTime = playerRef.current?.currentTime || DEFAULT_CURRENT_TIME;
@@ -123,6 +126,20 @@ function PlayerScreen(): JSX.Element {
             currentTime,
             duration
           }));
+        }}
+        onLoadedData={() => {
+          setPlayerState((prevState) => {
+            const currentStatus =
+              prevState.isAutoplayError ?
+                PlayerStatusMessage.ErrorAutoplay :
+                PlayerStatusMessage.GoodStatus;
+
+            return {
+              ...prevState,
+              isLoading: false,
+              statusMessage: currentStatus
+            };
+          });
         }}
       />
       <ExitButton movieID={movieID}/>
