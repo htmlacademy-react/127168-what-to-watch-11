@@ -75,11 +75,7 @@ const INACTIVE_NUMBER_ID = '0';
 
 const MAX_COMMENT_LENGTH = 400;
 
-const MAX_RATING = 10;
-
 const MIN_COMMENT_LENGTH = 50;
-
-const MIN_RATING = 1;
 
 const MINIMUM_RECOMMENDED_FILMS = 2;
 
@@ -111,6 +107,11 @@ enum PlayerStatusMessage {
 
 const PREVIEW_START_TIME = 1000;
 
+enum RatingNumber {
+  MinRating = 1,
+  MaxRating = 10,
+}
+
 const REQUEST_TIMEOUT = 5000;
 
 const REVIEW_PAGE = 'review';
@@ -132,9 +133,7 @@ export {
   INACTIVE_NUMBER_ID,
   LogoPositionClass,
   MAX_COMMENT_LENGTH,
-  MAX_RATING,
   MIN_COMMENT_LENGTH,
-  MIN_RATING,
   MINIMUM_RECOMMENDED_FILMS,
   MOVIE_STEP,
   NameSpace,
@@ -143,6 +142,7 @@ export {
   PASSWORD_PATTERN,
   PlayerStatusMessage,
   PREVIEW_START_TIME,
+  RatingNumber,
   REQUEST_TIMEOUT,
   REVIEW_PAGE,
   SECONDS_IN_HOUR

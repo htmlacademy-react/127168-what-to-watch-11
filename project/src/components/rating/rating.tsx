@@ -1,5 +1,5 @@
 import {ChangeEvent, Fragment} from 'react';
-import {MAX_RATING, MIN_RATING} from '../../const';
+import {RatingNumber} from '../../const';
 
 type RatingStar = (starValue: number) => void;
 
@@ -11,7 +11,7 @@ type RatingProps = {
 const createStars = (rating: number, onRateStar: RatingStar): JSX.Element[] => {
   const stars: JSX.Element[] = [];
 
-  for (let i = MAX_RATING; i >= MIN_RATING; i--) {
+  for (let i = RatingNumber.MaxRating; i >= RatingNumber.MinRating; i--) {
     stars.push(
       <Fragment key={`star-${i}`}>
         <input
