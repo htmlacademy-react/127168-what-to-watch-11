@@ -43,8 +43,6 @@ const DEFAULT_CURRENT_TIME = 0;
 
 const DEFAULT_DURATION = 0;
 
-const DEFAULT_RATING = 0;
-
 enum DescriptionTab {
   Overview = 'Overview',
   Details = 'Details',
@@ -109,8 +107,9 @@ enum PlayerStatusMessage {
 const PREVIEW_START_TIME = 1000;
 
 enum RatingNumber {
-  MinRating = 1,
-  MaxRating = 10,
+  Default = 0,
+  Min = 1,
+  Max = 10,
 }
 
 const REQUEST_TIMEOUT = 5000;
@@ -129,7 +128,6 @@ export {
   CommentLength,
   DEFAULT_CURRENT_TIME,
   DEFAULT_DURATION,
-  DEFAULT_RATING,
   DescriptionTab,
   emptyMovie,
   INACTIVE_NUMBER_ID,

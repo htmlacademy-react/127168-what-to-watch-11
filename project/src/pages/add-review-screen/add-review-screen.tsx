@@ -1,8 +1,8 @@
 import {
   AppRoute,
   CommentLength,
-  DEFAULT_RATING,
   LogoPositionClass,
+  RatingNumber,
 } from '../../const';
 import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
@@ -19,7 +19,7 @@ import {useAppDispatch, useAppSelector } from '../../hooks';
 
 const defaultUserReviewState = {
   comment: '',
-  rating: DEFAULT_RATING,
+  rating: RatingNumber.Default,
   filmId: '',
 };
 
@@ -110,7 +110,7 @@ function AddReviewScreen(): JSX.Element {
                 className="add-review__btn"
                 type="submit"
                 disabled={
-                  userReview.rating === DEFAULT_RATING ||
+                  userReview.rating === RatingNumber.Default ||
                   userReview.comment.length <= CommentLength.Min ||
                   userReview.comment.length >= CommentLength.Max
                 }

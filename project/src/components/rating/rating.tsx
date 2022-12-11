@@ -11,7 +11,7 @@ type RatingProps = {
 const createStars = (rating: number, onRateStar: RatingStar): JSX.Element[] => {
   const stars: JSX.Element[] = [];
 
-  for (let i = RatingNumber.MaxRating; i >= RatingNumber.MinRating; i--) {
+  for (let i = RatingNumber.Max; i >= RatingNumber.Min; i--) {
     stars.push(
       <Fragment key={`star-${i}`}>
         <input
