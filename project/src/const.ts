@@ -99,6 +99,10 @@ enum NameSpace {
   ServiceStateProcess = 'SERVICE_STATE_PROCESS',
 }
 
+const PASSWORD_ERROR_MESSAGE = 'Password must contain at least one letter and one number';
+
+const PASSWORD_PATTERN = /(?=.*\d)(?=.*[a-z])/i;
+
 enum PlayerStatusMessage {
   GoodStatus = '',
   Transpotting = 'Transpotting',
@@ -135,6 +139,8 @@ export {
   MOVIE_STEP,
   NameSpace,
   MovieListModeCount,
+  PASSWORD_ERROR_MESSAGE,
+  PASSWORD_PATTERN,
   PlayerStatusMessage,
   PREVIEW_START_TIME,
   REQUEST_TIMEOUT,
