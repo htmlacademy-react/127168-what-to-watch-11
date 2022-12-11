@@ -129,6 +129,8 @@ function PlayerScreen(): JSX.Element {
         }}
         onLoadedData={() => {
           setPlayerState((prevState) => {
+            const duration = playerRef.current?.duration || DefaultPlayerTime.Duration;
+
             const currentStatus =
               prevState.isAutoplayError ?
                 PlayerStatusMessage.ErrorAutoplay :
@@ -137,7 +139,8 @@ function PlayerScreen(): JSX.Element {
             return {
               ...prevState,
               isLoading: false,
-              statusMessage: currentStatus
+              statusMessage: currentStatus,
+              duration,
             };
           });
         }}
