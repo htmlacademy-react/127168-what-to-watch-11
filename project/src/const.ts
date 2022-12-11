@@ -76,7 +76,7 @@ enum LogoPositionClass {
 
 const INACTIVE_NUMBER_ID = '0';
 
-const MINIMUM_RECOMMENDED_FILMS = 2;
+const MINIMUM_RECOMMENDED_FILMS = 1;
 
 const MOVIE_STEP = 8;
 
