@@ -83,15 +83,16 @@ export const fetchCurrentMovieDataAction = createAsyncThunk<{
   },
 );
 
-export const sendReviewAction = createAsyncThunk<void, NewReview, {
+export const postReviewAction = createAsyncThunk<Comments, NewReview, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'user/sendReview',
+  'user/postReview',
   async ({comment, rating, filmId}, {dispatch, extra: api}) => {
-    await api.post(`${APIRoute.Comments}/${filmId}`, {comment, rating});
+    const {data} = await api.post<Comments>(`${APIRoute.Comments}/${filmId}`, {comment, rating});
     dispatch(redirectToRoute(`${AppRoute.Film}${filmId}`));
+    return data;
   },
 );
 

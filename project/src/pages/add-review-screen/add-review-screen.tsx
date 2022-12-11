@@ -8,7 +8,7 @@ import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getCurrentMovie} from '../../store/current-movie-data/selectors';
 import {getError404Status} from '../../store/service-state-process/selectors';
-import {fetchCurrentMovieDataAction, sendReviewAction} from '../../store/api-actions';
+import {fetchCurrentMovieDataAction, postReviewAction} from '../../store/api-actions';
 import {Helmet} from 'react-helmet-async';
 import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
@@ -87,7 +87,7 @@ function AddReviewScreen(): JSX.Element {
           className="add-review__form"
           onSubmit={(evt: FormEvent<HTMLFormElement>) => {
             evt.preventDefault();
-            dispatch(sendReviewAction(userReview));
+            dispatch(postReviewAction(userReview));
           }}
         >
           <Rating
