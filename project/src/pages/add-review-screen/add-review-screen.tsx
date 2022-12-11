@@ -1,9 +1,8 @@
 import {
   AppRoute,
+  CommentLength,
   DEFAULT_RATING,
   LogoPositionClass,
-  MAX_COMMENT_LENGTH,
-  MIN_COMMENT_LENGTH
 } from '../../const';
 import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
@@ -112,8 +111,8 @@ function AddReviewScreen(): JSX.Element {
                 type="submit"
                 disabled={
                   userReview.rating === DEFAULT_RATING ||
-                  userReview.comment.length <= MIN_COMMENT_LENGTH ||
-                  userReview.comment.length >= MAX_COMMENT_LENGTH
+                  userReview.comment.length <= CommentLength.Min ||
+                  userReview.comment.length >= CommentLength.Max
                 }
               >
                 Post

@@ -34,6 +34,11 @@ enum ColumnSortType {
   Even = 2
 }
 
+enum CommentLength {
+  Min = 50,
+  Max = 400,
+}
+
 const DEFAULT_CURRENT_TIME = 0;
 
 const DEFAULT_DURATION = 0;
@@ -72,10 +77,6 @@ enum LogoPositionClass {
 }
 
 const INACTIVE_NUMBER_ID = '0';
-
-const MAX_COMMENT_LENGTH = 400;
-
-const MIN_COMMENT_LENGTH = 50;
 
 const MINIMUM_RECOMMENDED_FILMS = 2;
 
@@ -125,6 +126,7 @@ export {
   AuthorizationStatus,
   BACKEND_URL,
   ColumnSortType,
+  CommentLength,
   DEFAULT_CURRENT_TIME,
   DEFAULT_DURATION,
   DEFAULT_RATING,
@@ -132,8 +134,6 @@ export {
   emptyMovie,
   INACTIVE_NUMBER_ID,
   LogoPositionClass,
-  MAX_COMMENT_LENGTH,
-  MIN_COMMENT_LENGTH,
   MINIMUM_RECOMMENDED_FILMS,
   MOVIE_STEP,
   NameSpace,
