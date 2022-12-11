@@ -39,9 +39,10 @@ enum CommentLength {
   Max = 400,
 }
 
-const DEFAULT_CURRENT_TIME = 0;
-
-const DEFAULT_DURATION = 0;
+enum DefaultPlayerTime {
+  CurrentTime = 0,
+  Duration = 10,
+}
 
 enum DescriptionTab {
   Overview = 'Overview',
@@ -126,8 +127,7 @@ export {
   BACKEND_URL,
   ColumnSortType,
   CommentLength,
-  DEFAULT_CURRENT_TIME,
-  DEFAULT_DURATION,
+  DefaultPlayerTime,
   DescriptionTab,
   emptyMovie,
   INACTIVE_NUMBER_ID,
