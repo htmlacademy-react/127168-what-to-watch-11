@@ -2,7 +2,7 @@ import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import {AppRoute} from '../../const';
 import browserHistory from '../../browser-history';
 import {HelmetProvider} from 'react-helmet-async';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import Loading from '../loading/loaging';
 import MainScreen from '../../pages/main-screen/main-screen';
 import MoviePageScreen from '../../pages/movie-page-screen/movie-page-screen';
