@@ -1,7 +1,13 @@
-import {AppRoute, AuthorizationStatus, LogoPositionClass} from '../../const';
+import {
+  AppRoute,
+  AuthorizationStatus,
+  LogoPositionClass,
+  PASSWORD_ERROR_MESSAGE,
+  PASSWORD_PATTERN
+} from '../../const';
 import {AuthData} from '../../types/user';
 import {FormEvent, useEffect, useRef} from 'react';
-import {getAuthErrorStatus} from '../../store/service-state-process/selectors';
+import {getAuthErrorStatus, getDataPostingStatus} from '../../store/service-state-process/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {Helmet} from 'react-helmet-async';
 import {loginAction} from '../../store/api-actions';
@@ -14,6 +20,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 function SignInScreen(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const errorMessage = useAppSelector(getAuthErrorStatus);
+  const isDataPosting = useAppSelector(getDataPostingStatus);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -25,6 +32,11 @@ function SignInScreen(): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+
+    if (passwordRef.current !== null && !PASSWORD_PATTERN.test(passwordRef.current.value)) {
+      dispatch(setAuthError(PASSWORD_ERROR_MESSAGE));
+      return;
+    }
 
     if (loginRef.current !== null && passwordRef.current !== null) {
       onSubmit({
@@ -56,47 +68,52 @@ function SignInScreen(): JSX.Element {
           onSubmit={handleSubmit}
         >
           {errorMessage ? <SignInMessage /> : null}
-          <div className="sign-in__fields">
-            <div className="sign-in__field">
-              <input
-                ref={loginRef}
-                className="sign-in__input"
-                type="email"
-                placeholder="Email address"
-                name="user-email"
-                id="user-email"
-                required
-              />
-              <label
-                className="sign-in__label visually-hidden"
-                htmlFor="user-email"
-              >
-                Email address
-              </label>
+          <fieldset
+            style={{border: 'none', padding: 0, margin: 0}}
+            disabled={isDataPosting}
+          >
+            <div className="sign-in__fields">
+              <div className="sign-in__field">
+                <input
+                  ref={loginRef}
+                  className="sign-in__input"
+                  type="email"
+                  placeholder="Email address"
+                  name="user-email"
+                  id="user-email"
+                  required
+                />
+                <label
+                  className="sign-in__label visually-hidden"
+                  htmlFor="user-email"
+                >
+                  Email address
+                </label>
+              </div>
+              <div className="sign-in__field">
+                <input
+                  ref={passwordRef}
+                  className="sign-in__input"
+                  type="password"
+                  placeholder="Password"
+                  name="user-password"
+                  id="user-password"
+                  required
+                />
+                <label
+                  className="sign-in__label visually-hidden"
+                  htmlFor="user-password"
+                >
+              Password
+                </label>
+              </div>
             </div>
-            <div className="sign-in__field">
-              <input
-                ref={passwordRef}
-                className="sign-in__input"
-                type="password"
-                placeholder="Password"
-                name="user-password"
-                id="user-password"
-                required
-              />
-              <label
-                className="sign-in__label visually-hidden"
-                htmlFor="user-password"
-              >
-            Password
-              </label>
+            <div className="sign-in__submit">
+              <button className="sign-in__btn" type="submit">
+                Sign in
+              </button>
             </div>
-          </div>
-          <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit">
-              Sign in
-            </button>
-          </div>
+          </fieldset>
         </form>
       </div>
       <footer className="page-footer">

@@ -1,4 +1,4 @@
-import {DEFAULT_CURRENT_TIME, DEFAULT_DURATION, PlayerStatusMessage} from '../../const';
+import {DefaultPlayerTime, PlayerStatusMessage} from '../../const';
 import ExitButton from '../../components/exit-button/exit-button';
 import {fetchCurrentMovieDataAction} from '../../store/api-actions';
 import FullScreenButton from '../../components/full-screen-button/full-screen-button';
@@ -30,8 +30,8 @@ const initialPlayerState: InitialPlayerState = {
   isLoading: true,
   isAutoplayError: false,
   statusMessage: PlayerStatusMessage.Transpotting,
-  currentTime: DEFAULT_CURRENT_TIME,
-  duration: DEFAULT_DURATION,
+  currentTime: DefaultPlayerTime.CurrentTime,
+  duration: DefaultPlayerTime.Duration,
 };
 
 function PlayerScreen(): JSX.Element {
@@ -118,8 +118,8 @@ function PlayerScreen(): JSX.Element {
         className="player__video"
         ref={playerRef}
         onTimeUpdate={() => {
-          const currentTime = playerRef.current?.currentTime || DEFAULT_CURRENT_TIME;
-          const duration = playerRef.current?.duration || DEFAULT_DURATION;
+          const currentTime = playerRef.current?.currentTime || DefaultPlayerTime.CurrentTime;
+          const duration = playerRef.current?.duration || DefaultPlayerTime.Duration;
 
           setPlayerState((prevState) => ({
             ...prevState,
@@ -129,6 +129,8 @@ function PlayerScreen(): JSX.Element {
         }}
         onLoadedData={() => {
           setPlayerState((prevState) => {
+            const duration = playerRef.current?.duration || DefaultPlayerTime.Duration;
+
             const currentStatus =
               prevState.isAutoplayError ?
                 PlayerStatusMessage.ErrorAutoplay :
@@ -137,7 +139,8 @@ function PlayerScreen(): JSX.Element {
             return {
               ...prevState,
               isLoading: false,
-              statusMessage: currentStatus
+              statusMessage: currentStatus,
+              duration,
             };
           });
         }}

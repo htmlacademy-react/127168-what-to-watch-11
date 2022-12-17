@@ -1,15 +1,14 @@
 import {
   AppRoute,
-  DEFAULT_RATING,
+  CommentLength,
   LogoPositionClass,
-  MAX_COMMENT_LENGTH,
-  MIN_COMMENT_LENGTH
+  RatingNumber,
 } from '../../const';
 import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getCurrentMovie} from '../../store/current-movie-data/selectors';
 import {getError404Status} from '../../store/service-state-process/selectors';
-import {fetchCurrentMovieDataAction, sendReviewAction} from '../../store/api-actions';
+import {fetchCurrentMovieDataAction, postReviewAction} from '../../store/api-actions';
 import {Helmet} from 'react-helmet-async';
 import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
@@ -20,7 +19,7 @@ import {useAppDispatch, useAppSelector } from '../../hooks';
 
 const defaultUserReviewState = {
   comment: '',
-  rating: DEFAULT_RATING,
+  rating: RatingNumber.Default,
   filmId: '',
 };
 
@@ -88,7 +87,7 @@ function AddReviewScreen(): JSX.Element {
           className="add-review__form"
           onSubmit={(evt: FormEvent<HTMLFormElement>) => {
             evt.preventDefault();
-            dispatch(sendReviewAction(userReview));
+            dispatch(postReviewAction(userReview));
           }}
         >
           <Rating
@@ -111,9 +110,9 @@ function AddReviewScreen(): JSX.Element {
                 className="add-review__btn"
                 type="submit"
                 disabled={
-                  userReview.rating === DEFAULT_RATING ||
-                  userReview.comment.length <= MIN_COMMENT_LENGTH ||
-                  userReview.comment.length >= MAX_COMMENT_LENGTH
+                  userReview.rating === RatingNumber.Default ||
+                  userReview.comment.length <= CommentLength.Min ||
+                  userReview.comment.length >= CommentLength.Max
                 }
               >
                 Post

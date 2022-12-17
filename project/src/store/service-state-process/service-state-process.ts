@@ -2,8 +2,10 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {
   fetchCurrentMovieDataAction,
   fetchFavoriteFilmsAction,
-  fetchStartAppAction, loginAction,
-  logoutAction, postFavoriteFilm
+  fetchStartAppAction,
+  loginAction,
+  logoutAction,
+  postFavoriteFilm
 } from '../api-actions';
 import {NameSpace} from '../../const';
 import {ServiceStateProcess} from '../../types/state';
@@ -41,8 +43,15 @@ export const serviceStateProcess = createSlice({
       .addCase(fetchCurrentMovieDataAction.rejected, (state) => {
         state.isError404 = true;
       })
+      .addCase(loginAction.pending, (state) => {
+        state.isDataPosting = true;
+      })
       .addCase(loginAction.fulfilled, (state) => {
         state.authError = undefined;
+        state.isDataPosting = false;
+      })
+      .addCase(loginAction.rejected, (state) => {
+        state.isDataPosting = false;
       })
       .addCase(fetchStartAppAction.pending, (state) => {
         state.isDataLoading = true;

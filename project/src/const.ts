@@ -34,11 +34,15 @@ enum ColumnSortType {
   Even = 2
 }
 
-const DEFAULT_CURRENT_TIME = 0;
+enum CommentLength {
+  Min = 50,
+  Max = 400,
+}
 
-const DEFAULT_DURATION = 0;
-
-const DEFAULT_RATING = 0;
+enum DefaultPlayerTime {
+  CurrentTime = 0,
+  Duration = 10,
+}
 
 enum DescriptionTab {
   Overview = 'Overview',
@@ -73,15 +77,7 @@ enum LogoPositionClass {
 
 const INACTIVE_NUMBER_ID = '0';
 
-const MAX_COMMENT_LENGTH = 400;
-
-const MAX_RATING = 10;
-
-const MIN_COMMENT_LENGTH = 50;
-
-const MIN_RATING = 1;
-
-const MINIMUM_RECOMMENDED_FILMS = 2;
+const MINIMUM_RECOMMENDED_FILMS = 1;
 
 const MOVIE_STEP = 8;
 
@@ -99,6 +95,10 @@ enum NameSpace {
   ServiceStateProcess = 'SERVICE_STATE_PROCESS',
 }
 
+const PASSWORD_ERROR_MESSAGE = 'Password must contain at least one letter and one number';
+
+const PASSWORD_PATTERN = /(?=.*\d)(?=.*[a-z])/i;
+
 enum PlayerStatusMessage {
   GoodStatus = '',
   Transpotting = 'Transpotting',
@@ -106,6 +106,12 @@ enum PlayerStatusMessage {
 }
 
 const PREVIEW_START_TIME = 1000;
+
+enum RatingNumber {
+  Default = 0,
+  Min = 1,
+  Max = 10,
+}
 
 const REQUEST_TIMEOUT = 5000;
 
@@ -120,23 +126,21 @@ export {
   AuthorizationStatus,
   BACKEND_URL,
   ColumnSortType,
-  DEFAULT_CURRENT_TIME,
-  DEFAULT_DURATION,
-  DEFAULT_RATING,
+  CommentLength,
+  DefaultPlayerTime,
   DescriptionTab,
   emptyMovie,
   INACTIVE_NUMBER_ID,
   LogoPositionClass,
-  MAX_COMMENT_LENGTH,
-  MAX_RATING,
-  MIN_COMMENT_LENGTH,
-  MIN_RATING,
   MINIMUM_RECOMMENDED_FILMS,
   MOVIE_STEP,
   NameSpace,
   MovieListModeCount,
+  PASSWORD_ERROR_MESSAGE,
+  PASSWORD_PATTERN,
   PlayerStatusMessage,
   PREVIEW_START_TIME,
+  RatingNumber,
   REQUEST_TIMEOUT,
   REVIEW_PAGE,
   SECONDS_IN_HOUR
