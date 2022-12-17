@@ -4,6 +4,8 @@ import {Provider} from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {store} from './store';
+import HistoryRouter from './components/history-router/history-router';
+import browserHistory from './browser-history';
 
 store.dispatch(checkAuthAction());
 
@@ -16,7 +18,9 @@ store.dispatch(fetchStartAppAction());
 root.render(
   <React.StrictMode>
     <Provider store = {store}>
-      <App />
+      <HistoryRouter history={browserHistory}>
+        <App />
+      </ HistoryRouter>
     </Provider>
   </React.StrictMode>,
 );
